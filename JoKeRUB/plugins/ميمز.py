@@ -650,7 +650,7 @@ async def Aljoker(username, bot_name, event):
         await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
 @l313l.ar_cmd(
-    pattern="فاذر ?(?:([^;]+) ?; )?([\s\S]*)"",
+    pattern="فاذر ?(?:([^;]+) ?; )?([\s\S]*)",
     command=("فاذر", plugin_category),
     info={
         "header": "your text as sticker.",
