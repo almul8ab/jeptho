@@ -664,7 +664,10 @@ async def Aljoker(username, bot_name, event):
 async def Hussein(event):
     username = event.pattern_match.group(1)
     bot_name = event.pattern_match.group(2)
-    if "bot" in username:
-        await Aljoker(username, bot_name, event)
+    if username:
+        if "bot" in username:
+            await Aljoker(username, bot_name, event)
+        else:
+            await event.respond("يجب أن يحتوي اسم المستخدم على كلمة 'bot'")
     else:
-        await event.respond("يجب أن يحتوي اسم المستخدم على كلمة 'bot'")
+        await event.respond("يجب تقديم اسم مستخدم صالح")
