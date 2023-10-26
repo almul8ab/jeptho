@@ -635,6 +635,7 @@ async def delete_all_aljoker(event):
     except BaseException:
         pass
 client = l313l
+
 async def Aljoker(username, bot_name, event):
     await client.send_message('@BotFather', '/newbot')
     await asyncio.sleep(2)
@@ -650,18 +651,20 @@ async def Aljoker(username, bot_name, event):
         await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
 @l313l.ar_cmd(
-    pattern="فاذر ([\s\S]*)",
+    pattern="فاذر (.*)",
     command=("فاذر", plugin_category),
     info={
         "header": "your text as sticker.",
         "usage": [
-            "{tr}stcr <text>",
-            "{tr}stcr <font file name> ; <text>",
+            "{tr}فاذر <اسم المستخدم> <اسم البوت>",
         ],
-        "examples": "{tr}stcr hello",
+        "examples": "{tr}فاذر myusername mybotname",
     },
 )
 async def Hussein(event):
-    username = event.pattern_match.group(2)
-    bot_name = event.pattern_match.group(1)
+    input_str = event.pattern_match.group(1)
+    if len(input_str.split()) != 2:
+        await event.respond("الرجاء تقديم اسم المستخدم واسم البوت مفصولين بمسافة. مثال: {tr}فاذر myusername mybotname")
+        return
+    username, bot_name = map(str.strip, input_str.split())
     await Aljoker(username, bot_name, event)
