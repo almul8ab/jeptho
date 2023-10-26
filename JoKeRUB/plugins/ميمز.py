@@ -647,8 +647,17 @@ async def Aljoker(username, bot_name, event):
     if "Sorry, this username is already taken." in response_text:
         await event.respond(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
     else:
-        http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
-        await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
+        token_start = response_text.find('Use this token to access the HTTP API: ')
+        if token_start != -1:
+            token_start += len('Use this token to access the HTTP API: ')
+            token_end = response_text.find('\n', token_start)
+            if token_end != -1:
+                http_api_token = response_text[token_start:token_end]
+                await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
+            else:
+                await event.respond("لم يتم العثور على رمز الـ HTTP API في الرسالة.")
+        else:
+            await event.respond("لم يتم العثور على رمز الـ HTTP API في الرسالة.")
 
 @l313l.ar_cmd(
     pattern="فاذر (.*)",
