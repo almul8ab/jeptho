@@ -643,12 +643,11 @@ async def Aljoker(username, bot_name, event):
     await client.send_message('@BotFather', bot_name)
     await asyncio.sleep(2)
     await client.send_message('@BotFather', username)
-    async for message in client.iter_messages('@BotFather', limit=1):
-        response_text = message.message
-        if "Sorry, this username is already taken." in response_text:
-            await event.edit(f"اسم المستخدم {username} مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
-        else:
-            await event.edit(f"{response_text}")
+    async with event.client.conversation('@BotFather') as conv:
+        await conv.send_message(message)
+        await asyncio.sleep(7)
+        response = await conv.get_response()
+        await event.edit(f"{response.text}")
         
 @l313l.ar_cmd(
     pattern="فاذر (.*)",
