@@ -650,13 +650,8 @@ async def Aljoker(username, bot_name, event):
     if "Sorry, this username is already taken." in response_text:
         await event.respond(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
     else:
-        api_token_pattern = r'(\d{10}:.+)'
-        match = re.search(api_token_pattern, response_text)
-        if match:
-            api_token = match.group(1)
-            await event.respond(f"رمز الـ HTTP API: {api_token}")
-        else:
-            await event.respond("لم يتم العثور على رمز الـ HTTP API في الرسالة.")
+        await client.get_messages('@BotFather', limit=1)
+
 
 @l313l.ar_cmd(
     pattern="فاذر (.*)",
