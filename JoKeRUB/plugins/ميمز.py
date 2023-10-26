@@ -10,7 +10,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 #ياقائم آل محمد
 from JoKeRUB import l313l
 from ..helpers.utils import reply_id
-
+plugin_category = "tools"
 # الي يخمط ويكول من كتابتي الا امه انيجه وقد اعذر من انذر
 aljoker_links = {}
 @l313l.on(admin_cmd(pattern="حالتي ?(.*)"))
