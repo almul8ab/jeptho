@@ -649,7 +649,18 @@ async def Aljoker(username, bot_name, event):
         http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
         await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
-@l313l.on(admin_cmd(pattern=r"فاذر (.+)"))
+@Qrh9.ar_cmd(
+    pattern="فاذر ?(?:(.*?) ?; )?([\s\S]*)",
+    command=("فاذر", plugin_category),
+    info={
+        "header": "your text as sticker.",
+        "usage": [
+            "{tr}stcr <text>",
+            "{tr}stcr <font file name> ; <text>",
+        ],
+        "examples": "{tr}stcr hello",
+    },
+)
 async def Hussein(event):
     username = event.pattern_match.group(1)
     bot_name = event.pattern_match.group(2)
