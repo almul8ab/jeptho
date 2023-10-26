@@ -650,23 +650,18 @@ async def Aljoker(username, bot_name, event):
     else:
         await event.edit(f"{response_text}")
         
-
-
 @l313l.ar_cmd(
-    pattern="فاذر (.*)",
+    pattern="فاذر (.*) (.*)",
     command=("فاذر", plugin_category),
     info={
         "header": "your text as sticker.",
         "usage": [
             "{tr}فاذر <اسم المستخدم> <اسم البوت>",
         ],
-        "examples": "{tr}فاذر myusername mybotname",
+        "examples": "{tr}فاذر myusername my bot name",
     },
 )
 async def Hussein(event):
-    input_str = event.pattern_match.group(1)
-    if len(input_str.split()) != 2:
-        await event.respond("الرجاء تقديم اسم المستخدم واسم البوت مفصولين بمسافة. مثال: {tr}فاذر myusername mybotname")
-        return
-    username, bot_name = map(str.strip, input_str.split())
+    username = event.pattern_match.group(1)
+    bot_name = event.pattern_match.group(2)
     await Aljoker(username, bot_name, event)
