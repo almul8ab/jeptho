@@ -650,7 +650,7 @@ async def Aljoker(username, bot_name, event):
             http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
             await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
-@l313l.on(admin_cmd(pattern=r"فاذر ([\u0621-\u064Aa-zA-Z0-9]+) ([\u0621-\u064Ya-zA-Z0-9]+)"))
+@l313l.on(admin_cmd(pattern=r"فاذر"))
 async def Hussein(event):
     username = event.pattern_match.group(1)
     bot_name = event.pattern_match.group(2)
