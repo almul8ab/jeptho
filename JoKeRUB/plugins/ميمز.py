@@ -654,8 +654,11 @@ async def Aljoker(username, bot_name, event):
 async def Hussein(event):
     joker = event.raw_text
     username = joker.split('.فاذر')[1].strip()
-    bot_name = joker.split('.فاذر')[2].strip()
-    if "bot" in username:
-        await Aljoker(username, bot_name, event)
+    if len(joker.split('.فاذر')) >= 3:
+        bot_name = joker.split('.فاذر')[2].strip()
+        if "bot" in username:
+            await Aljoker(username, bot_name, event)
+        else:
+            await event.respond("يجب أن يحتوي اسم المستخدم على كلمة 'bot'")
     else:
-        await event.respond("يجب أن يحتوي اسم المستخدم على كلمة 'bot'")
+        await event.respond("تأكد من تقديم اسم المستخدم واسم البوت بالشكل الصحيح.")
