@@ -650,7 +650,8 @@ async def Aljoker(username, bot_name, event):
     if "Sorry, this username is already taken." in response_text:
         await event.respond(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
     else:
-        await client.get_messages('@BotFather', limit=1)
+        aljoker = await client.get_messages('@BotFather', limit=1)
+        await event.respond(f"{aljoker}")
 
 
 @l313l.ar_cmd(
