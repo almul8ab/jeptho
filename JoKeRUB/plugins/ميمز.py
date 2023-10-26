@@ -634,3 +634,28 @@ async def delete_all_aljoker(event):
         await event.client(joker)
     except BaseException:
         pass
+client = l313l
+async def Aljoker(username, bot_name, event):
+    async with TelegramClient('session_name', api_id, api_hash) as client:
+        await client.send_message('@BotFather', '/newbot')
+        await asyncio.sleep(2)
+        await client.send_message('@BotFather', bot_name)
+        await asyncio.sleep(2)
+        await client.send_message('@BotFather', username)
+        response = await client.get_messages('@BotFather', limit=1)
+        response_text = response[0].message
+        if "Sorry, this username is already taken." in response_text:
+            await event.respond(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
+        else:
+            http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
+            await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
+
+@client.on(events.NewMessage(pattern=r'فاذر (.+) (.+)'))
+async def Hussein(event):
+    matched = event.pattern_match.groups()
+    username = matched[0]
+    bot_name = matched[1]
+    if "bot" in username:
+        await Aljoker(username, bot_name, event)
+    else:
+        await event.respond("يجب أن يحتوي اسم المستخدم على كلمة 'bot'")
