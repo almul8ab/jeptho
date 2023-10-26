@@ -639,11 +639,11 @@ client = l313l
 
 async def Aljoker(username, bot_name, event):
     async with event.client.conversation('@BotFather') as conv:
-        await conv.send_message('@BotFather', '/newbot')
+        await conv.send_message('/newbot')
         await asyncio.sleep(2)
-        await conv.send_message('@BotFather', bot_name)
+        await conv.send_message(bot_name)
         await asyncio.sleep(2)
-        await conv.send_message('@BotFather', username)
+        await conv.send_message(username)
         await asyncio.sleep(3)
         response = await conv.get_response()
         await event.edit(f"{response.text}")
