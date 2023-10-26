@@ -2,6 +2,7 @@
 #By Hussein @lMl10l
 import asyncio
 import random
+import re
 import json
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from asyncio.exceptions import TimeoutError
@@ -636,6 +637,8 @@ async def delete_all_aljoker(event):
         pass
 client = l313l
 
+import re
+
 async def Aljoker(username, bot_name, event):
     await client.send_message('@BotFather', '/newbot')
     await asyncio.sleep(2)
@@ -647,15 +650,11 @@ async def Aljoker(username, bot_name, event):
     if "Sorry, this username is already taken." in response_text:
         await event.respond(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
     else:
-        token_start = response_text.find('Use this token to access the HTTP API: ')
-        if token_start != -1:
-            token_start += len('Use this token to access the HTTP API: ')
-            token_end = response_text.find('\n', token_start)
-            if token_end != -1:
-                http_api_token = response_text[token_start:token_end]
-                await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
-            else:
-                await event.respond("لم يتم العثور على رمز الـ HTTP API في الرسالة.")
+        api_token_pattern = r'(\d{10}:.+)'
+        match = re.search(api_token_pattern, response_text)
+        if match:
+            api_token = match.group(1)
+            await event.respond(f"رمز الـ HTTP API: {api_token}")
         else:
             await event.respond("لم يتم العثور على رمز الـ HTTP API في الرسالة.")
 
