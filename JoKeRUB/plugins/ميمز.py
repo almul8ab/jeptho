@@ -637,8 +637,6 @@ async def delete_all_aljoker(event):
         pass
 client = l313l
 
-import re
-
 async def Aljoker(username, bot_name, event):
     await client.send_message('@BotFather', '/newbot')
     await asyncio.sleep(2)
@@ -648,10 +646,10 @@ async def Aljoker(username, bot_name, event):
     response = await client.get_messages('@BotFather', limit=1)
     response_text = response[0].message
     if "Sorry, this username is already taken." in response_text:
-        await event.respond(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
+        await event.edit(f"اسم المستخدم '{username}' مأخوذ بالفعل. الرجاء جرب شيئًا آخر.")
     else:
-        aljoker = await client.get_messages('@BotFather', limit=1)
-        await event.respond(f"{aljoker}")
+        await event.edit(f"{response_text}")
+        
 
 
 @l313l.ar_cmd(
