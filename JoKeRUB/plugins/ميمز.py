@@ -650,11 +650,11 @@ async def Aljoker(username, bot_name, event):
             http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
             await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
-@client.on(events.NewMessage(pattern=r'فاذر (.+) (.+)'))
+@l313l.ar_cmd(pattern=r"فاذر(.*)")
 async def Hussein(event):
-    matched = event.pattern_match.groups()
-    username = matched[0]
-    bot_name = matched[1]
+    joker = event.raw_text
+    username = joker.split('.فاذر')[1].strip()
+    bot_name = joker.split('.فاذر')[2].strip()
     if "bot" in username:
         await Aljoker(username, bot_name, event)
     else:
