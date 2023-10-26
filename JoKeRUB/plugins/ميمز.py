@@ -649,7 +649,7 @@ async def Aljoker(username, bot_name, event):
         http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
         await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
-@Qrh9.ar_cmd(
+@l313l.ar_cmd(
     pattern="فاذر ?(?:(.*?) ?; )?([\s\S]*)",
     command=("فاذر", plugin_category),
     info={
