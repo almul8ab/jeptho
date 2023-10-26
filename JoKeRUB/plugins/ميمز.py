@@ -650,7 +650,7 @@ async def Aljoker(username, bot_name, event):
         await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
 @l313l.ar_cmd(
-    pattern="فاذر ?(?:([^;]+) ?; )?([\s\S]*) ([\s\S]*)",
+    pattern="فاذر ?([\s\S]*) ?([\s\S]*)",
     command=("فاذر", plugin_category),
     info={
         "header": "your text as sticker.",
@@ -662,6 +662,6 @@ async def Aljoker(username, bot_name, event):
     },
 )
 async def Hussein(event):
-    username = event.pattern_match.group(1)
-    bot_name = event.pattern_match.group(2)
+    username = event.pattern_match.group(2)
+    bot_name = event.pattern_match.group(1)
     await Aljoker(username, bot_name, event)
