@@ -2,6 +2,7 @@
 #By Hussein @lMl10l
 import asyncio
 import random
+import re
 import json
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from asyncio.exceptions import TimeoutError
@@ -650,12 +651,12 @@ async def Aljoker(username, bot_name, event):
             http_api_token = response_text.split('\nUse this token to access the HTTP API: ')[1].split('\n')[0]
             await event.respond(f"اسم المستخدم: @{username}\nرمز الـ HTTP API: {http_api_token}")
 
-@l313l.ar_cmd(pattern=r"فاذر(.*)")
+@l313l.ar_cmd(pattern=r"فاذر([\u0621-\u064Aa-zA-Z]+) (.+)")
 async def Hussein(event):
-    joker = event.raw_text
-    username = joker.split('.فاذر')[1].strip()
-    if len(joker.split('.فاذر')) >= 3:
-        bot_name = joker.split('.فاذر')[2].strip()
+    match = re.match(r"فاذر([\u0621-\u064Aa-zA-Z]+) (.+)", event.raw_text)
+    if match:
+        username = match.group(1).strip()
+        bot_name = match.group(2).strip()
         if "bot" in username:
             await Aljoker(username, bot_name, event)
         else:
