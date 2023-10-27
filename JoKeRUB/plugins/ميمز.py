@@ -14,6 +14,10 @@ from ..helpers.utils import reply_id
 plugin_category = "tools"
 # الي يخمط ويكول من كتابتي الا امه انيجه وقد اعذر من انذر
 aljoker_links = {}
+
+with open('aljoker_links.json', 'w') as file:
+    json.dump(aljoker_links, file)
+    
 @l313l.on(admin_cmd(pattern="حالتي ?(.*)"))
 async def _(event):
     await event.edit("**- يتم التاكد من حالتك اذا كنت محظور او لا**")
