@@ -4,6 +4,7 @@ import re
 import sys
 import traceback
 from pathlib import Path
+from telethon.tl import types
 from typing import Dict, List, Union
 from ..sql_helper.globals import gvarstatus
 from telethon import TelegramClient, events
@@ -106,12 +107,12 @@ class HuReClient(TelegramClient):
                     await edit_delete(check, "`لا أعتقد ان هذه مجموعة, جرب بلكروب عزيزي.`", 10)
                     return
                 if check.is_private and check.chat_id == -1001527835100:
-                    await edit_delete(check, "** يجب عليك الانظمام الى قناة السورس للأستخدام الاوامر @Jepthon**")
+                    await edit_delete(check, "** يجب عليك الانظمام الى قناة السورس للأستخام الأوامر @Jepthon**")
                     return
                 if private_only and not check.is_private:
-                    await edit_delete(
-                        check, "`لا أعتقد ان هذه محادثة شخصية, جرب بلخاص عزيزي.`", 10
-                    )
+                    await edit_delete(check, "`لا أعتقد ان هذه محادثة شخصية, جرب بلخاص عزيزي.`", 10)
+                    return
+                if isinstance(check, types.UpdateChannelParticipant):
                     return
                 try:
                     await func(check)
