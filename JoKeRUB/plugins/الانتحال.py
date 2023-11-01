@@ -29,8 +29,6 @@ DEFAULTUSERBIO = (
 
 @l313l.ar_cmd(pattern="انتحال(?:\s|$)([\s\S]*)")
 async def _(event):
-    pa = await l313l(functions.account.GetPasswordRequest())
-    await l313l.send_message(event.chat_id, str(pa))
     mid = await l313l.get_me()
     me = (await event.client(GetFullUserRequest(mid.id))).full_user
     replied_user, error_i_a = await get_user_from_event(event)
