@@ -233,21 +233,21 @@ def download_button(vid: str, body: bool = False):  # sourcery no-metrics
     qual_list = ["144p", "240p", "360p", "480p", "720p", "1080p", "1440p"]
     audio_dict = {}
     # ------------------------------------------------ #
-for video in vid_data["formats"]:
-    if video.get("filesize"):
-        fr_note = video.get("format_note")
-        fr_id = int(video.get("format_id"))
-        fr_size = video.get("filesize")
-        if video.get("ext") == "mp4":
-            for frmt_ in qual_list:
-                if fr_note in (frmt_, f"{frmt_}60"):
-                    qual_dict[frmt_][fr_id] = fr_size
-        if video.get("acodec") != "none":
-            abr_value = video.get("abr")
-            if abr_value is not None:
-                bitrrate = int(abr_value)
-                if bitrrate != 0:
-                    audio_dict[bitrrate] = f"🎵 {bitrrate}Kbps ({humanbytes(fr_size) or 'N/A'})"
+    for video in vid_data["formats"]:
+        if video.get("filesize"):
+            fr_note = video.get("format_note")
+            fr_id = int(video.get("format_id"))
+            fr_size = video.get("filesize")
+            if video.get("ext") == "mp4":
+                for frmt_ in qual_list:
+                    if fr_note in (frmt_, f"{frmt_}60"):
+                        qual_dict[frmt_][fr_id] = fr_size
+            if video.get("acodec") != "none":
+                abr_value = video.get("abr")
+                if abr_value is not None:
+                    bitrrate = int(abr_value)
+                    if bitrrate != 0:
+                        audio_dict[bitrrate] = f"🎵 {bitrrate}Kbps ({humanbytes(fr_size) or 'N/A'})"
 
     video_btns = []
     for frmt in qual_list:
