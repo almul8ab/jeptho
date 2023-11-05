@@ -121,7 +121,8 @@ async def get_ytthumb(videoid: str):
 
 
 def get_yt_video_id(url: str):
-    if match := YOUTUBE_REGEX.search(url):
+    match = YOUTUBE_REGEX.search(url)
+    if match:
         return match.group(1)
 
 
@@ -243,11 +244,11 @@ def download_button(vid: str, body: bool = False):  # sourcery no-metrics
                     if fr_note in (frmt_, f"{frmt_}60"):
                         qual_dict[frmt_][fr_id] = fr_size
             if video.get("acodec") != "none":
-                abr_value = video.get("abr")
-                if abr_value is not None:
-                    bitrrate = int(abr_value)
-                    if bitrrate != 0:
-                        audio_dict[bitrrate] = f"🎵 {bitrrate}Kbps ({humanbytes(fr_size) or 'N/A'})"
+                bitrrate = int(video.get("abr", 0))
+                if bitrrate != 0:
+                    audio_dict[
+                        bitrrate
+                    ] = f"🎵 {bitrrate}Kbps ({humanbytes(fr_size) or 'N/A'})"
 
     video_btns = []
     for frmt in qual_list:
