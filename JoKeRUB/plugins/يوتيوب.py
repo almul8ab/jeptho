@@ -433,7 +433,4 @@ async def _(event):
             await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @msaver_bot")
             return
         await bot.send_file(event.chat_id, video)
-        await event.client.delete_messages(
-            conv.chat_id, [msg_start.id, j.id, msg.id, details.id, video.id]
-        )
         await event.delete()
