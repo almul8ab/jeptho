@@ -431,5 +431,5 @@ async def _(event):
         except YouBlockedUserError:
             await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @msaver_bot")
             return
-        await bot.send_file(event.chat_id, video)
+        await bot.send_file(event.chat_id, video, caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
         await event.delete()
