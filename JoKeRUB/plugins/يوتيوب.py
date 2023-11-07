@@ -410,7 +410,7 @@ async def _(event):
             conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id]
         )
         await event.delete()
-@l313l.on(admin_cmd(pattern="ستوري (?: |$)(.*)"))
+@l313l.on(admin_cmd(pattern="ستوري(?: |$)(.*)"))
 async def _(event):
     if event.fwd_from:
         return
