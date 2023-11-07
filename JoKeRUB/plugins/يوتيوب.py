@@ -410,3 +410,30 @@ async def _(event):
             conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id]
         )
         await event.delete()
+@l313l.on(admin_cmd(pattern="ستوري (?: |$)(.*)"))
+async def _(event):
+    if event.fwd_from:
+        return
+    j_link = event.pattern_match.group(1)
+    if ".me" not in j_link:
+        await event.edit("**▾∮ يجب وضع رابط الستوري مع الامر اولا **")
+    else:
+        await event.edit("**▾∮ تتم المعالجة انتظر قليلا**")
+    chat = "@msaver_bot"
+    async with bot.conversation(chat) as conv:
+        try:
+            msg_start = await conv.send_message("/start")
+            r = await conv.get_response()
+            msg = await conv.send_message(j_link)
+            details = await conv.get_response()
+            video = await conv.get_response()
+            """ تم تحميل الستوري بنجاح من قبل @jepthon """
+            await bot.send_read_acknowledge(conv.chat_id)
+        except YouBlockedUserError:
+            await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @msaver_bot")
+            return
+        await bot.send_file(event.chat_id, video)
+        await event.client.delete_messages(
+            conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id]
+        )
+        await event.delete()
