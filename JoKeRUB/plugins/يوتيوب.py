@@ -425,7 +425,6 @@ async def _(event):
             msg_start = await conv.send_message("/start")
             j = await conv.get_response()
             msg = await conv.send_message(j_link)
-            details = await conv.get_response()
             video = await conv.get_response()
             """ تم تحميل الستوري بنجاح من قبل @jepthon """
             await bot.send_read_acknowledge(conv.chat_id)
