@@ -423,6 +423,7 @@ async def _(event):
     async with bot.conversation(chat) as conv:
         try:
             msg_start = await conv.send_message("/start")
+            j = await conv.get_response()
             msg = await conv.send_message(j_link)
             video = await conv.get_response()
             """ تم تحميل الستوري بنجاح من قبل @jepthon """
