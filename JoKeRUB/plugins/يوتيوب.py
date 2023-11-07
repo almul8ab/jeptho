@@ -423,7 +423,7 @@ async def _(event):
     async with bot.conversation(chat) as conv:
         try:
             msg_start = await conv.send_message("/start")
-            r = await conv.get_response()
+            j = await conv.get_response()
             msg = await conv.send_message(j_link)
             details = await conv.get_response()
             video = await conv.get_response()
@@ -434,6 +434,6 @@ async def _(event):
             return
         await bot.send_file(event.chat_id, video)
         await event.client.delete_messages(
-            conv.chat_id, [msg_start.id, r.id, msg.id, details.id, video.id]
+            conv.chat_id, [msg_start.id, j.id, msg.id, details.id, video.id]
         )
         await event.delete()
