@@ -418,7 +418,7 @@ async def _(event):
     if ".me" not in j_link:
         await event.edit("**▾∮ يجب وضع رابط الستوري مع الامر اولا **")
     else:
-        await event.edit("**▾∮ تتم المعالجة انتظر قليلا**")
+        await event.edit("**▾∮ يتم الان تنزيل الستوري انتظر قليلا**")
     chat = "@msaver_bot"
     async with bot.conversation(chat) as conv:
         try:
