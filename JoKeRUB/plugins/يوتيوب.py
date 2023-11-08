@@ -7,6 +7,7 @@ import os
 import pathlib
 import re
 import time
+import base64
 from datetime import datetime
 
 from JoKeRUB.utils import sudo_cmd
