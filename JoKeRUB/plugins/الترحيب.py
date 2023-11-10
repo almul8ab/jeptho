@@ -20,7 +20,6 @@ from . import BOTLOG_CHATID
 plugin_category = "utils"
 LOGS = logging.getLogger(__name__)
 
-
 @l313l.on(events.ChatAction)
 async def _(event):
     cws = get_current_welcome_settings(event.chat_id)
@@ -35,11 +34,6 @@ async def _(event):
         title = get_display_name(await event.get_chat()) or "this chat"
         participants = await event.client.get_participants(chat)
         count = len(participants)
-        if hasattr(event, 'message') and hasattr(event.message, 'date'):
-            joined_date = event.message.date
-            joined_date_formatted = joined_date.strftime("%Y-%m-%d %H:%M:%S UTC")
-        else:
-            joined_date_formatted = "تاريخ غير متوفر"
         mention = f"<a href='tg://user?id={a_user.id}'>{a_user.first_name}</a>"
         my_mention = f"<a href='tg://user?id={me.id}'>{me.first_name}</a>"
         first = a_user.first_name
@@ -64,23 +58,30 @@ async def _(event):
             elif cws.reply:
                 current_saved_welcome_message = cws.reply
                 link_preview = False
+        joined_date_formatted = "تاريخ غير متوفر"
+        if event.message.date:
+            joined_date = event.message.date
+            joined_date_formatted = joined_date.strftime("%Y-%m-%d %H:%M:%S UTC")
+
+        welcome_message = current_saved_welcome_message.format(
+            mention=mention,
+            title=title,
+            count=count,
+            first=first,
+            last=last,
+            fullname=fullname,
+            username=username,
+            userid=userid,
+            my_first=my_first,
+            my_last=my_last,
+            my_fullname=my_fullname,
+            my_username=my_username,
+            my_mention=my_mention,
+            joined_date=joined_date_formatted  # تاريخ الانضمام
+        )
+
         current_message = await event.reply(
-            current_saved_welcome_message.format(
-                mention=mention,
-                title=title,
-                count=count,
-                first=first,
-                last=last,
-                fullname=fullname,
-                username=username,
-                userid=userid,
-                my_first=my_first,
-                my_last=my_last,
-                my_fullname=my_fullname,
-                my_username=my_username,
-                my_mention=my_mention,
-                joined_date=joined_date_formatted,
-            ),
+            welcome_message,
             file=file_media,
             parse_mode="html",
             link_preview=link_preview,
