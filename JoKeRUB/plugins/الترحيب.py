@@ -47,6 +47,8 @@ async def _(event):
         my_username = f"@{me.username}" if me.username else my_mention
         file_media = None
         current_saved_welcome_message = None
+        joined_date_formatted = "تاريخ غير متوفر"
+        
         if cws:
             if cws.f_mesg_id:
                 msg_o = await event.client.get_messages(
@@ -55,13 +57,12 @@ async def _(event):
                 file_media = msg_o.media
                 current_saved_welcome_message = msg_o.message
                 link_preview = True
+                if hasattr(event, 'action') and hasattr(event.action, 'date'):
+                    joined_date = event.action.date
+                    joined_date_formatted = joined_date.strftime("%Y-%m-%d %H:%M:%S UTC")
             elif cws.reply:
                 current_saved_welcome_message = cws.reply
                 link_preview = False
-        joined_date_formatted = "تاريخ غير متوفر"
-        if hasattr(event, 'action') and hasattr(event.action, 'date'):
-            joined_date = event.action.date
-            joined_date_formatted = joined_date.strftime("%Y-%m-%d %H:%M:%S UTC")
 
         welcome_message = current_saved_welcome_message.format(
             mention=mention,
@@ -87,8 +88,6 @@ async def _(event):
             link_preview=link_preview,
         )
         update_previous_welcome(event.chat_id, current_message.id)
-
-
 @l313l.ar_cmd(
     pattern="ترحيب(?:\s|$)([\s\S]*)",
     command=("ترحيب", plugin_category),
