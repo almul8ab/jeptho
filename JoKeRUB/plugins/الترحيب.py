@@ -72,7 +72,7 @@ async def _(event):
             my_fullname=my_fullname,
             my_username=my_username,
             my_mention=my_mention,
-            التاريخ=datetime.datetime.now().strftime("%Y-%m-%d"),
+            التاريخ=datetime.datetime.now().strftime("%d-%m-%Y"),
             الوقت=datetime.datetime.now().strftime("%I:%M %p").replace("AM", "صباحًا").replace("PM", "مساءً"),
         )
         current_message = await event.reply(
