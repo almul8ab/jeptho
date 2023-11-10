@@ -59,21 +59,21 @@ async def _(event):
                 current_saved_welcome_message = cws.reply
                 link_preview = False
         current_saved_welcome_message = current_saved_welcome_message.format(
-            mention=mention,
+            منشن=mention,
             title=title,
             count=count,
             first=first,
             last=last,
-            fullname=fullname,
-            username=username,
-            userid=userid,
-            my_first=my_first,
-            my_last=my_last,
+            الاسم الكامل=fullname,
+            اليوزر=username,
+            الايدي=userid,
+            الاسم الاول=my_first,
+            الاسم الثاني=my_last,
             my_fullname=my_fullname,
             my_username=my_username,
             my_mention=my_mention,
             التاريخ=datetime.datetime.now().strftime("%Y-%m-%d"),
-            الوقت=datetime.datetime.now().strftime("%I:%M %p"),
+            الوقت=datetime.datetime.now().strftime("%I:%M %p").replace("AM", "صباحًا").replace("PM", "مساءً"),
         )
         current_message = await event.reply(
             current_saved_welcome_message,
