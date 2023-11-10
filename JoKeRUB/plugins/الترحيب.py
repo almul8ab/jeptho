@@ -72,7 +72,8 @@ async def _(event):
             my_fullname=my_fullname,
             my_username=my_username,
             my_mention=my_mention,
-            datauser=datetime.datetime.now().strftime("تاريخ الانظمام : %Y-%m-%d \n وقت الانظمام : %H:%M"),
+            التاريخ=datetime.datetime.now().strftime("%Y-%m-%d"),
+            الوقت=datetime.datetime.now().strftime("%H:%M"),
         )
         current_message = await event.reply(
             current_saved_welcome_message,
