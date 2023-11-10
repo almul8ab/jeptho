@@ -59,8 +59,8 @@ async def _(event):
                 current_saved_welcome_message = cws.reply
                 link_preview = False
         joined_date_formatted = "تاريخ غير متوفر"
-        if hasattr(event, 'message') and hasattr(event.message, 'date'):
-            joined_date = event.message.date
+        if hasattr(event, 'action') and hasattr(event.action, 'date'):
+            joined_date = event.action.date
             joined_date_formatted = joined_date.strftime("%Y-%m-%d %H:%M:%S UTC")
 
         welcome_message = current_saved_welcome_message.format(
