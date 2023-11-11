@@ -189,7 +189,7 @@ async def _(event):
         reply = await l313l.get_messages(
             entity=event.input_chat,
             from_user=event.sender_id,
-            limit=1,
+            limit=2,
             wait_time=60,
             reverse=True,
         )
