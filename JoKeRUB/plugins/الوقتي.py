@@ -172,7 +172,40 @@ async def group_loop():
         AUTONAMESTAR = get_auto_g() != None
 
 
-async def autoname_loop(name_type):
+@l313l.on(admin_cmd(pattern=r"اسم وقتي(?:\s|$)([\s\S]*)"))
+async def _(event):
+    "To set your display name along with time"
+    if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
+        return await edit_delete(event, "**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
+
+    addgvar("autoname", True)
+    message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
+    response = await edit_or_reply(event, message)
+
+    try:
+        async def check_response(reply):
+            return reply.sender_id == event.sender_id
+
+        reply = await l313l.iter_messages(
+            event.chat_id,
+            from_user=event.sender_id,
+            check=check_response,
+            timeout=60
+        ).get_response()
+
+        if reply.text == "1":
+            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
+            await autoname_loop(event, "first_name")
+        elif reply.text == "2":
+            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
+            await autoname_loop(event, "last_name")
+        else:
+            await edit_delete(response, "**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
+
+    except asyncio.TimeoutError:
+        await edit_delete(response, "**انتهى الوقت. الرجاء إعادة المحاولة.**")
+
+async def autoname_loop(event, name_type):
     AUTONAMESTART = gvarstatus("autoname") == "true"
     while AUTONAMESTART:
         time.strftime("%d-%m-%y")
@@ -195,34 +228,6 @@ async def autoname_loop(name_type):
             await asyncio.sleep(120)
         await asyncio.sleep(Config.CHANGE_TIME)
         AUTONAMESTART = gvarstatus("autoname") == "true"
-
-@l313l.on(admin_cmd(pattern=r"اسم وقتي(?:\s|$)([\s\S]*)"))
-async def _(event):
-    "To set your display name along with time"
-    if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
-        return await edit_delete(event, "**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
-    
-    addgvar("autoname", True)
-    message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
-    response = await edit_or_reply(event, message)
-
-    try:
-        reply = await l313l.wait_for_event(
-            events.NewMessage(incoming=True, from_users=event.sender_id),
-            timeout=60
-        )
-
-        if reply.text == "1":
-            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
-            await autoname_loop("first_name")
-        elif reply.text == "2":
-            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
-            await autoname_loop("last_name")
-        else:
-            await edit_delete(response, "**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
-
-    except asyncio.TimeoutError:
-        await edit_delete(response, "**انتهى الوقت. الرجاء إعادة المحاولة.**")
 async def autobio_loop():
     AUTOBIOSTART = gvarstatus("autobio") == "true"
     while AUTOBIOSTART:
