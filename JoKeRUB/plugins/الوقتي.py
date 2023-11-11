@@ -186,12 +186,14 @@ async def _(event):
         async def check_response(reply):
             return reply.sender_id == event.sender_id
 
-        reply = await l313l.iter_messages(
-            event.chat_id,
+        reply = await l313l.get_messages(
+            entity=event.input_chat,
             from_user=event.sender_id,
-            check=check_response,
-            timeout=60
-        ).get_response()
+            limit=1,
+            wait_time=60,
+            reverse=True,
+            check=check_response
+        )
 
         if reply.text == "1":
             await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
