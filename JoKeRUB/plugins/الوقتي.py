@@ -354,6 +354,5 @@ async def _(event):  # sourcery no-metrics
 
 l313l.loop.create_task(digitalpicloop())
 l313l.loop.create_task(digitalgrouppicloop())
-l313l.loop.create_task(autoname_loop(name_type))
 l313l.loop.create_task(autobio_loop())
 l313l.loop.create_task(group_loop())
