@@ -176,11 +176,11 @@ async def group_loop():
 async def _(event):
     "To set your display name along with time"
     if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
-        return await edit_delete(event, "**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
+        return await event.respond("**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
 
     addgvar("autoname", True)
     message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
-    response = await edit_or_reply(event, message)
+    response = await event.respond(message)
 
     try:
         async def check_response(reply):
@@ -192,20 +192,19 @@ async def _(event):
             limit=1,
             wait_time=60,
             reverse=True,
-            check=check_response
         )
 
         if reply.text == "1":
-            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
+            await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
             await autoname_loop(event, "first_name")
         elif reply.text == "2":
-            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
+            await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
             await autoname_loop(event, "last_name")
         else:
-            await edit_delete(response, "**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
+            await event.respond("**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
 
     except asyncio.TimeoutError:
-        await edit_delete(response, "**انتهى الوقت. الرجاء إعادة المحاولة.**")
+        await event.respond("**انتهى الوقت. الرجاء إعادة المحاولة.**")
 
 async def autoname_loop(event, name_type):
     AUTONAMESTART = gvarstatus("autoname") == "true"
@@ -230,6 +229,7 @@ async def autoname_loop(event, name_type):
             await asyncio.sleep(120)
         await asyncio.sleep(Config.CHANGE_TIME)
         AUTONAMESTART = gvarstatus("autoname") == "true"
+
 async def autobio_loop():
     AUTOBIOSTART = gvarstatus("autobio") == "true"
     while AUTOBIOSTART:
