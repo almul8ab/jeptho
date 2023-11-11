@@ -198,9 +198,6 @@ async def _(event):
         elif len(reply) == 2 and reply[1].text == "2":
             await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
             await autoname_loop(event, "last_name")
-        else:
-            await response.edit("**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
-
     except asyncio.TimeoutError:
         await response.edit("**انتهى الوقت. الرجاء إعادة المحاولة.**")
 
