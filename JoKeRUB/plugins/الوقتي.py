@@ -194,10 +194,10 @@ async def _(event):
             reverse=True,
         )
 
-        if reply.text == "1":
+        if reply[0].text == "1":
             await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
             await autoname_loop(event, "first_name")
-        elif reply.text == "2":
+        elif reply[0].text == "2":
             await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
             await autoname_loop(event, "last_name")
         else:
