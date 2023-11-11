@@ -189,15 +189,15 @@ async def _(event):
         reply = await l313l.get_messages(
             entity=event.input_chat,
             from_user=event.sender_id,
-            limit=2,
+            limit=3,
             wait_time=60,
             reverse=True,
         )
 
-        if reply[1].text == "1":
+        if reply[2].text == "1":
             await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
             await autoname_loop(event, "first_name")
-        elif reply[1].text == "2":
+        elif reply[2].text == "2":
             await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
             await autoname_loop(event, "last_name")
         else:
