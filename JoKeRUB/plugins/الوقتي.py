@@ -177,9 +177,14 @@ async def _(event):
     "To set your display name along with time"
     if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
         return await event.respond("**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
+
     addgvar("autoname", True)
-    message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
+
+    message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2 بعد ثلاث ثوان.**"
     response = await event.respond(message)
+
+    await asyncio.sleep(3)  # انتظر ثلاث ثوان قبل قبول الرد
+
     try:
         async def check_response(reply):
             return reply.sender_id == event.sender_id
@@ -187,20 +192,24 @@ async def _(event):
         reply = await l313l.get_messages(
             entity=event.input_chat,
             from_user=event.sender_id,
-            limit=2,
+            limit=1,
             wait_time=60,
             reverse=True,
         )
 
-        if len(reply) == 2 and reply[1].text == "1":
-            await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
-            await autoname_loop(event, "first_name")
-        elif len(reply) == 2 and reply[1].text == "2":
-            await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
-            await autoname_loop(event, "last_name")
+        if len(reply) == 1 and reply[0].text in ("1", "2"):
+            choice = reply[0].text
+            if choice == "1":
+                await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
+                await autoname_loop(event, "first_name")
+            elif choice == "2":
+                await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
+                await autoname_loop(event, "last_name")
+        else:
+            await response.edit("**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
+
     except asyncio.TimeoutError:
         await response.edit("**انتهى الوقت. الرجاء إعادة المحاولة.**")
-
 async def autoname_loop(event, name_type):
     AUTONAMESTART = gvarstatus("autoname") == "true"
     while AUTONAMESTART:
