@@ -177,11 +177,9 @@ async def _(event):
     "To set your display name along with time"
     if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
         return await event.respond("**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
-
     addgvar("autoname", True)
     message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
-    response = await event.edit(message)
-
+    response = await event.respond(message)
     try:
         async def check_response(reply):
             return reply.sender_id == event.sender_id
@@ -189,22 +187,22 @@ async def _(event):
         reply = await l313l.get_messages(
             entity=event.input_chat,
             from_user=event.sender_id,
-            limit=3,
+            limit=2,
             wait_time=60,
             reverse=True,
         )
 
-        if reply[2].text == "1":
-            await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
+        if len(reply) == 2 and reply[1].text == "1":
+            await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
             await autoname_loop(event, "first_name")
-        elif reply[2].text == "2":
-            await event.respond("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
+        elif len(reply) == 2 and reply[1].text == "2":
+            await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
             await autoname_loop(event, "last_name")
         else:
-            await event.respond("**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
+            await response.edit("**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
 
     except asyncio.TimeoutError:
-        await event.respond("**انتهى الوقت. الرجاء إعادة المحاولة.**")
+        await response.edit("**انتهى الوقت. الرجاء إعادة المحاولة.**")
 
 async def autoname_loop(event, name_type):
     AUTONAMESTART = gvarstatus("autoname") == "true"
