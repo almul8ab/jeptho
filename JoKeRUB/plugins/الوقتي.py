@@ -180,7 +180,7 @@ async def _(event):
 
     addgvar("autoname", True)
     message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
-    response = await event.respond(message)
+    response = await event.edit(message)
 
     try:
         async def check_response(reply):
