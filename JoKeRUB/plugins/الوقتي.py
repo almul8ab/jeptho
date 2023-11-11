@@ -177,9 +177,13 @@ async def _(event):
     "To set your display name along with time"
     if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
         return await event.respond("**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
+
     addgvar("autoname", True)
+
     message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2 بعد ثلاث ثوان.**"
     response = await event.respond(message)
+
+    received_response = False  # متغير للتحقق من استلام الرد
 
     try:
         async def check_response(reply):
@@ -196,6 +200,7 @@ async def _(event):
         )
 
         if reply and reply[0].text in ("1", "2"):
+            received_response = True  # تحديث المتغير عند استلام الرد
             choice = reply[0].text
             if choice == "1":
                 await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
@@ -203,13 +208,12 @@ async def _(event):
             elif choice == "2":
                 await response.edit("**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
                 await autoname_loop(event, "last_name")
-        else:
-            if not reply:
-                await response.delete()
-                return
-            await response.edit("**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
+
     except asyncio.TimeoutError:
         await response.edit("**انتهى الوقت. الرجاء إعادة المحاولة.**")
+
+    if not received_response:
+        await response.delete()
 async def autoname_loop(event, name_type):
     AUTONAMESTART = gvarstatus("autoname") == "true"
     while AUTONAMESTART:
