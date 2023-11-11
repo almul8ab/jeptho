@@ -201,6 +201,7 @@ async def _(event):
     "To set your display name along with time"
     if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
         return await edit_delete(event, "**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
+    
     addgvar("autoname", True)
     message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
     response = await edit_or_reply(event, message)
@@ -222,7 +223,6 @@ async def _(event):
 
     except asyncio.TimeoutError:
         await edit_delete(response, "**انتهى الوقت. الرجاء إعادة المحاولة.**")
-
 async def autobio_loop():
     AUTOBIOSTART = gvarstatus("autobio") == "true"
     while AUTOBIOSTART:
