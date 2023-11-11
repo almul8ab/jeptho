@@ -172,7 +172,7 @@ async def group_loop():
         AUTONAMESTAR = get_auto_g() != None
 
 
-async def autoname_loop():
+async def autoname_loop(name_type):
     AUTONAMESTART = gvarstatus("autoname") == "true"
     while AUTONAMESTART:
         time.strftime("%d-%m-%y")
@@ -186,13 +186,42 @@ async def autoname_loop():
         name = f"{lMl10l} {HM}"
         LOGS.info(name)
         try:
-            await l313l(functions.account.UpdateProfileRequest(first_name=name))
+            if name_type == "first_name":
+                await l313l(functions.account.UpdateProfileRequest(first_name=name))
+            elif name_type == "last_name":
+                await l313l(functions.account.UpdateProfileRequest(last_name=name))
         except FloodWaitError as ex:
             LOGS.warning(str(ex))
             await asyncio.sleep(120)
         await asyncio.sleep(Config.CHANGE_TIME)
         AUTONAMESTART = gvarstatus("autoname") == "true"
 
+@l313l.on(admin_cmd(pattern=r"اسم وقتي(?:\s|$)([\s\S]*)"))
+async def _(event):
+    "To set your display name along with time"
+    if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
+        return await edit_delete(event, "**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
+    addgvar("autoname", True)
+    message = "**هل تريد وضع الوقت في المربع الأول أم الثاني؟ ارسل 1 أو 2.**"
+    response = await edit_or_reply(event, message)
+
+    try:
+        reply = await l313l.wait_for_event(
+            events.NewMessage(incoming=True, from_users=event.sender_id),
+            timeout=60
+        )
+
+        if reply.text == "1":
+            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الأول ✓**")
+            await autoname_loop("first_name")
+        elif reply.text == "2":
+            await edit_delete(response, "**تم تفـعيل اسـم الـوقتي بنجـاح في المربع الثاني ✓**")
+            await autoname_loop("last_name")
+        else:
+            await edit_delete(response, "**تم إلغاء الأمر. الرجاء اختيار 1 أو 2 فقط.**")
+
+    except asyncio.TimeoutError:
+        await edit_delete(response, "**انتهى الوقت. الرجاء إعادة المحاولة.**")
 
 async def autobio_loop():
     AUTOBIOSTART = gvarstatus("autobio") == "true"
@@ -253,15 +282,6 @@ async def _(event):
         await digitalgrouppicloop()
     else:
         return await edit_delete(event, "**يمكنك استعمال الصورة الوقتية في كروب او قناة**")
-
-@l313l.on(admin_cmd(pattern=f"{namew8t}(?:\s|$)([\s\S]*)"))
-async def _(event):
-    "To set your display name along with time"
-    if gvarstatus("autoname") is not None and gvarstatus("autoname") == "true":
-        return await edit_delete(event, "**الاسـم الـوقتي شغـال بالأصـل 🧸♥**")
-    addgvar("autoname", True)
-    await edit_delete(event, "**تم تفـعيل اسـم الـوقتي بنجـاح ✓**")
-    await autoname_loop()
 
 
 @l313l.on(admin_cmd(pattern=f"{biow8t}(?:\s|$)([\s\S]*)"))
