@@ -416,8 +416,8 @@ async def activate_command(event):
             await asyncio.sleep(10)
             async for user in client.iter_participants(group_name):
                 user_info = await client.get_entity(user)
-                user_status = await client.get_user(user_info.id)
-                if user_status.status and user_status.status.online:
+                user_entity = await client.get_entity(user_info.id)
+                if user_entity.status and user_entity.status.online:
                     user_name = user_info.first_name
                     user_id = user_info.id
                     message = f'{user_name} ({user_id}) متصل الآن.'
