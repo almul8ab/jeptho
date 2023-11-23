@@ -405,26 +405,13 @@ activated = False
 client = l313l
 group_name = ''
 online_users = {}
-@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))
-async def activate_command(event):
-    global activated, group_name
+@client.on(events.UserUpdate)
+async def handler(event):
     if event.is_group:
-        activated = True
-        group_name = await client.get_entity(event.chat_id)
-        await client.send_message(event.chat_id, 'تم تفعيل كشف المتصلين.')
-        while activated:
-            await asyncio.sleep(10)
-            async for user in client.iter_participants(group_name):
-                user_info = await client.get_entity(user)
-                user_entity = await client.get_entity(user_info.id)
-                user_online = False
-                if hasattr(user_entity.status, 'online'):
-                    user_online = user_entity.status.online
-                if user_online:
-                    user_name = user_info.first_name
-                    user_id = user_info.id
-                    message = f'{user_name} ({user_id}) متصل الآن.'
-                    await client.send_message('me', message)
+        if event.user_id not in online_users and event.online:
+            online_users[event.user_id] = event.user.first_name
+        elif not event.online and event.user_id in online_users:
+            del online_users[event.user_id]
 
 @client.on(events.NewMessage(pattern=r'\.قائمة المتصلين'))
 async def list_online_users(event):
