@@ -415,15 +415,17 @@ async def activate_command(event):
 async def user_online(event):
     global activated
     if activated and event.is_group:
-        user = await event.client.get_entity(event.user_id)
+        user = await event.get_user()
+        if user.is_self:  # لا داعي للتحقق من الحالة الخاصة بالبوت
+            return
         try:
-            user_status = await event.client(functions.users.GetFullUserRequest(user))
-            if user_status.user.status.online:
+            user_status = await client.get_entity(user.id)
+            if user_status.status.online:
                 user_name = user.first_name
                 user_id = user.id
                 message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
                 await client.send_message(event.chat_id, message)
-        except AttributeError:
+        except ValueError:
             pass
 
 
@@ -433,11 +435,11 @@ async def handle_messages(event):
     if activated and event.is_group:
         user = await event.get_sender()
         try:
-            user_status = await event.client(functions.users.GetFullUserRequest(user))
-            if user_status.user.status.online:
+            user_status = await client.get_entity(user.id)
+            if user_status.status.online:
                 user_name = user.first_name
                 user_id = user.id
                 message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
                 await client.send_message(event.chat_id, message)
-        except AttributeError:
+        except ValueError:
             pass
