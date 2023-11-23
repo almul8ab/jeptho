@@ -416,10 +416,10 @@ async def user_online(event):
     global activated
     if activated and event.is_group:
         user = await event.get_user()
-        if user.is_self:  # تجنب الرد على التحديثات الخاصة بالبوت نفسه
+        if user.is_self:
             return
         try:
-            if isinstance(event.online, bool) and event.online:
+            if event.online:
                 user_name = user.first_name
                 user_id = user.id
                 message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
@@ -434,7 +434,7 @@ async def handle_messages(event):
     if activated and event.is_group:
         user = await event.get_sender()
         try:
-            if isinstance(user.online, bool) and user.online:
+            if user.status.online:
                 user_name = user.first_name
                 user_id = user.id
                 message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
