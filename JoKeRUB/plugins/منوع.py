@@ -404,7 +404,7 @@ async def Hussein(event):
 activated = False
 client = l313l
 
-@client.on(events.NewMessage(pattern=r'\.المتصلين'))
+@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))  
 async def activate_command(event):
     global activated
     if event.is_group:
@@ -421,3 +421,14 @@ async def user_online(event):
         user_id = user.id
         message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
         await client.send_message(event.chat_id, message)
+
+
+@client.on(events.NewMessage)   
+async def handle_messages(event):
+    if event.is_group:
+        user = await event.get_sender()
+        if user.status.online:
+            user_name = user.first_name
+            user_id = user.id
+            message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
+            await client.send_message(event.chat_id, message)
