@@ -423,7 +423,7 @@ async def user_online(event):
                 user_name = user.first_name
                 user_id = user.id
                 message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
-                await client.send_message(event.chat_id, message)
+                await client.send_message('me', message)
         except AttributeError:
             pass
 
@@ -438,6 +438,6 @@ async def handle_messages(event):
                 user_name = user.first_name
                 user_id = user.id
                 message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
-                await client.send_message(event.chat_id, message)
+                await client.send_message('me', message)
         except AttributeError:
             pass
