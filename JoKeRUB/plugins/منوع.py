@@ -404,40 +404,33 @@ async def Hussein(event):
 activated = False
 client = l313l
 
-@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))  
+@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))  # يستجيب على الأمر .تفعيل المتصلين
 async def activate_command(event):
     global activated
     if event.is_group:
         activated = True
         await client.send_message(event.chat_id, 'تم تفعيل كشف المتصلين.')
+        await start_tracking(event.chat_id)
+
+
+async def start_tracking(chat_id):
+    while activated:
+        await client.send_message(chat_id, 'متابعة تتبع المتصلين...')
+        await events.UserUpdate()
+
 
 @client.on(events.UserUpdate)
 async def user_online(event):
     global activated
     if activated and event.is_group:
-        user = await event.get_user()
-        if user.is_self:
-            return
-        try:
-            if event.online:
-                user_name = user.first_name
-                user_id = user.id
-                message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
-                await client.send_message('me', message)
-        except AttributeError:
-            pass
-
-
-@client.on(events.NewMessage)  # يستجيب عندما يتم إرسال رسالة في المجموعة
-async def handle_messages(event):
-    global activated
-    if activated and event.is_group:
-        user = await event.get_sender()
-        try:
-            if user.status.online:
-                user_name = user.first_name
-                user_id = user.id
-                message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
-                await client.send_message('me', message)
-        except AttributeError:
-            pass
+        if event.online:
+            try:
+                user = await event.client.get_entity(event.user_id)
+                user_status = await event.client(functions.users.GetFullUserRequest(user))
+                if user_status.user.status.online:
+                    user_name = user_status.user.first_name
+                    user_id = user_status.user.id
+                    message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
+                    await client.send_message(event.chat_id, message)
+            except Exception as e:
+                print(f"Error: {str(e)}")
