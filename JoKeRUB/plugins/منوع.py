@@ -401,3 +401,23 @@ async def Hussein(event):
         if edited_response.id == response.id and edited_response.message != response.message:
             response = edited_response
     await event.edit(f'**ها هيَ البطاقة تم فحصها من قبل سورس الجوكر** \n@jepthon\n {response.text}')
+activated = False
+client = l313l
+
+@client.on(events.NewMessage(pattern=r'\.المتصلين'))
+async def activate_command(event):
+    global activated
+    if event.is_group:
+        activated = True
+        await client.send_message(event.chat_id, 'تم تفعيل كشف المتصلين.')
+
+
+@client.on(events.UserUpdate)
+async def user_online(event):
+    global activated
+    if activated and event.online and event.is_group:
+        user = await event.get_user()
+        user_name = user.first_name
+        user_id = user.id
+        message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
+        await client.send_message(event.chat_id, message)
