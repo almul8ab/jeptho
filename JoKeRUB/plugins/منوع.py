@@ -403,34 +403,24 @@ async def Hussein(event):
     await event.edit(f'**ها هيَ البطاقة تم فحصها من قبل سورس الجوكر** \n@jepthon\n {response.text}')
 activated = False
 client = l313l
+group_name = ''
 
-@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))  # يستجيب على الأمر .تفعيل المتصلين
+@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))
 async def activate_command(event):
-    global activated
+    global activated, group_name
     if event.is_group:
         activated = True
+        group_name = await client.get_entity(event.chat_id)
         await client.send_message(event.chat_id, 'تم تفعيل كشف المتصلين.')
-        await start_tracking(event.chat_id)
-
-
-async def start_tracking(chat_id):
-    while activated:
-        await client.send_message(chat_id, 'متابعة تتبع المتصلين...')
-        await events.UserUpdate()
-
+        while activated:
+            await asyncio.sleep(10)
+            async for user in client.iter_participants(group_name):
+                if user.status.online:
+                    user_name = user.first_name
+                    user_id = user.id
+                    message = f'{user_name} ({user_id}) متصل الآن.'
+                    await client.send_message('me', message)
 
 @client.on(events.UserUpdate)
-async def user_online(event):
-    global activated
-    if activated and event.is_group:
-        if event.online:
-            try:
-                user = await event.client.get_entity(event.user_id)
-                user_status = await event.client(functions.users.GetFullUserRequest(user))
-                if user_status.user.status.online:
-                    user_name = user_status.user.first_name
-                    user_id = user_status.user.id
-                    message = f'{user_name} ({user_id}) أصبح متصلاً الآن في المجموعة.'
-                    await client.send_message(event.chat_id, message)
-            except Exception as e:
-                print(f"Error: {str(e)}")
+async def handler(event):
+    pass
