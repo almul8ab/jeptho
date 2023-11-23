@@ -404,9 +404,7 @@ async def Hussein(event):
 @client.on(events.NewMessage(pattern='.المتصلين'))
 async def list_online_users(event):
     chat_id = event.chat_id
-    online_users = []
-    async for user in client.iter_participants(chat_id):
-        if user.status.online:
-            online_users.append(user)
+    participants = await client.get_participants(chat_id)
+    online_users = [participant for participant in participants if isinstance(participant.status, UserStatusOnline)]
     users_list = '\n'.join([f'- {user.first_name}' for user in online_users])
     await event.respond(f'قائمة المستخدمين المتصلين الآن في المجموعة:\n{users_list}')
