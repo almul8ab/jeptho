@@ -404,7 +404,7 @@ async def Hussein(event):
 activated = False
 client = l313l
 group_name = ''
-
+online_users = {}
 @client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))
 async def activate_command(event):
     global activated, group_name
