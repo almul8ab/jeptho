@@ -401,31 +401,9 @@ async def Hussein(event):
         if edited_response.id == response.id and edited_response.message != response.message:
             response = edited_response
     await event.edit(f'**ها هيَ البطاقة تم فحصها من قبل سورس الجوكر** \n@jepthon\n {response.text}')
-activated = False
-client = l313l
-group_name = ''
-online_users = {}
-@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))
-async def activate_command(event):
-    global activated
-    if event.is_group:
-        activated = True
-        await client.send_message(event.chat_id, 'تم تفعيل كشف المتصلين.')
-
-@client.on(events.UserUpdate)
-async def handler(event):
-    if activated and event.is_group:
-        if event.user_id not in online_users and event.online:
-            online_users[event.user_id] = event.user.first_name
-        elif not event.online and event.user_id in online_users:
-            del online_users[event.user_id]
-
-@client.on(events.NewMessage(pattern=r'\.قائمة المتصلين'))
+@client.on(events.NewMessage(pattern='.المتصلين'))
 async def list_online_users(event):
-    if event.is_group and activated:
-        if online_users:
-            users_list = '\n'.join([f'{name} ({user_id})' for user_id, name in online_users.items()])
-            message = 'قائمة الأشخاص المتصلين:\n' + users_list
-        else:
-            message = 'لا يوجد أحد متصل حالياً.'
-        await client.send_message(event.chat_id, message)
+    chat_id = event.chat_id
+    online_users = await client.get_online_users(chat_id)
+    users_list = '\n'.join([f'- {user.first_name}' for user in online_users])
+    await event.respond(f'قائمة المستخدمين المتصلين الآن في المجموعة:\n{users_list}')
