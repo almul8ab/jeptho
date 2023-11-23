@@ -3,6 +3,7 @@ import time
 from telethon import functions
 from collections import deque
 from random import choice
+from telethon.tl.types import UserStatusOnline
 from telethon.tl.types import InputPeerUser
 from telethon.tl.functions.phone import CreateGroupCallRequest as startvc
 from telethon.tl.functions.phone import DiscardGroupCallRequest as stopvc
