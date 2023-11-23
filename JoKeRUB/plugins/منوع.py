@@ -426,6 +426,12 @@ async def activate_command(event):
                     message = f'{user_name} ({user_id}) متصل الآن.'
                     await client.send_message('me', message)
 
-@client.on(events.UserUpdate)
-async def handler(event):
-    pass
+@client.on(events.NewMessage(pattern=r'\.قائمة المتصلين'))
+async def list_online_users(event):
+    if event.is_group:
+        if online_users:
+            users_list = '\n'.join([f'{name} ({user_id})' for user_id, name in online_users.items()])
+            message = 'قائمة الأشخاص المتصلين:\n' + users_list
+        else:
+            message = 'لا يوجد أحد متصل حالياً.'
+        await client.send_message(event.chat_id, message)
