@@ -425,7 +425,7 @@ async def user_online(event):
     global activated
     if activated and event.is_group:
         user = await event.client.get_entity(event.user_id)
-        user_status = await event.client(GetFullUserRequest(user))
+        user_status = await event.client(functions.users.GetFullUserRequest(user))
         if user_status.user.status.online:
             user_name = user.first_name
             user_id = user.id
@@ -438,7 +438,7 @@ async def handle_messages(event):
     global activated
     if activated and event.is_group:
         user = await event.get_sender()
-        user_status = await event.client(GetFullUserRequest(user))
+        user_status = await event.client(functions.users.GetFullUserRequest(user))
         if user_status.user.status.online:
             user_name = user.first_name
             user_id = user.id
