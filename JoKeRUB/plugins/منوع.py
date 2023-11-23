@@ -405,9 +405,16 @@ activated = False
 client = l313l
 group_name = ''
 online_users = {}
+@client.on(events.NewMessage(pattern=r'\.تفعيل المتصلين'))
+async def activate_command(event):
+    global activated
+    if event.is_group:
+        activated = True
+        await client.send_message(event.chat_id, 'تم تفعيل كشف المتصلين.')
+
 @client.on(events.UserUpdate)
 async def handler(event):
-    if event.is_group:
+    if activated and event.is_group:
         if event.user_id not in online_users and event.online:
             online_users[event.user_id] = event.user.first_name
         elif not event.online and event.user_id in online_users:
@@ -415,7 +422,7 @@ async def handler(event):
 
 @client.on(events.NewMessage(pattern=r'\.قائمة المتصلين'))
 async def list_online_users(event):
-    if event.is_group:
+    if event.is_group and activated:
         if online_users:
             users_list = '\n'.join([f'{name} ({user_id})' for user_id, name in online_users.items()])
             message = 'قائمة الأشخاص المتصلين:\n' + users_list
