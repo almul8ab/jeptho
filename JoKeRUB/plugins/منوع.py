@@ -403,9 +403,13 @@ async def Hussein(event):
             response = edited_response
     await event.edit(f'**ها هيَ البطاقة تم فحصها من قبل سورس الجوكر** \n@jepthon\n {response.text}')
 @client.on(events.NewMessage(pattern='.المتصلين'))
-async def list_online_users(event):
-    chat_id = event.chat_id
-    participants = await client.get_participants(chat_id)
-    online_users = [participant for participant in participants if isinstance(participant.status, UserStatusOnline)]
-    users_list = '\n'.join([f'- {user.first_name}' for user in online_users])
-    await event.respond(f'قائمة المستخدمين المتصلين الآن في المجموعة:\n{users_list}')
+async def check_online(event):
+    chat = await event.get_chat()
+    messages = await event.client.get_messages(chat, limit=10)
+    for message in messages:
+        if message.from_id and message.from_id != event.client.uid:
+            user_id = message.from_id
+            user = await event.client.get_entity(user_id)
+            if isinstance(user.status, UserStatusOnline):
+                await event.client.send_message('me', f"{user.first_name} متصل على الإنترنت")
+                break
