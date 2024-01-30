@@ -81,7 +81,7 @@ async def filter_incoming_handler(handler):  # sourcery no-metrics
                         first=a_user.first_name,
                         last=a_user.last_name,
                         fullname=f"{a_user.first_name} {a_user.last_name}" if a_user.last_name else a_user.first_name,
-                        username=f"@{a_user.username}" if_a_user.username else f"[{a_user.first_name}](tg://user?id={a_user.id})",
+                        username=f"@{a_user.username}" if a_user.username else f"[{a_user.first_name}](tg://user?id={a_user.id})",
                         userid=a_user.id,
                         my_first=me.first_name,
                         my_last=me.last_name,
