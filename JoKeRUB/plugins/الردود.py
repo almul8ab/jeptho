@@ -45,6 +45,7 @@ async def filter_incoming_handler(handler):  # sourcery no-metrics
         my_username = f"@{me.username}" if me.username else my_mention
     else:
         title = "Private Chat"
+        me = await handler.client.get_me()
         for trigger in filters:
             pattern = r"( |^|[^\w])" + re.escape(trigger.keyword) + r"( |$|[^\w])"
             if re.search(pattern, name, flags=re.IGNORECASE):
