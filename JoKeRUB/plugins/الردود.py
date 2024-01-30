@@ -156,7 +156,72 @@ async def add_new_filter(new_handler):
         return await edit_or_reply(new_handler, success.format(keyword, "Updated"))
     await edit_or_reply(new_handler, f"Error while setting filter for {keyword}")
 
-
+@l313l.ar_cmd(
+    pattern="ردد ([\s\S]*)",
+    command=("ردد", plugin_category),
+    info={
+        "header": "To save filter for the given keyword in private chats.",
+        "description": "If any user sends that filter in private chats then your bot will reply.",
+        "option": {
+            "{mention}": "To mention the user",
+            "{title}": "To get chat name in message",
+            "{count}": "To get group members",
+            "{first}": "To use user first name",
+            "{last}": "To use user last name",
+            "{fullname}": "To use user full name",
+            "{userid}": "To use userid",
+            "{username}": "To use user username",
+            "{my_first}": "To use my first name",
+            "{my_fullname}": "To use my full name",
+            "{my_last}": "To use my last name",
+            "{my_mention}": "To mention myself",
+            "{my_username}": "To use my username.",
+        },
+        "note": "For saving media/stickers as filters you need to set PRIVATE_GROUP_BOT_API_ID.",
+        "usage": "{tr}filter private <keyword>",
+    },
+)
+async def add_private_filter(new_handler):
+    "To save the private chat filter"
+    keyword = new_handler.pattern_match.group(1)
+    string = new_handler.text.partition(keyword)[2]
+    msg = await new_handler.get_reply_message()
+    msg_id = None
+    if msg and msg.media and not string:
+        if BOTLOG:
+            await new_handler.client.send_message(
+                BOTLOG_CHATID,
+                f"#الــرد\
+            \nايدي الدردشه: {new_handler.chat_id}\
+            \nالـكيبورد: {keyword}\
+            \n\nالرسالة التالية حفظت كرد ارسل معلومات الرد لرؤية الرد  ،  لاتقم بحذف ارسالة !!",
+            )
+            msg_o = await new_handler.client.forward_messages(
+                entity=BOTLOG_CHATID,
+                messages=msg,
+                from_peer=new_handler.chat_id,
+                silent=True,
+            )
+            msg_id = msg_o.id
+        else:
+            await edit_or_reply(
+                new_handler,
+                "⌯︙يتطلب حفظ الوسائط كرد  تعيين PRIVATE_GROUP_BOT_API_ID\n قـم بعمل مجموعه وقم باخذ ايدي المجموعه عبر اي بوت بعدها ارسل\n .set var PRIVATE_GROUP_BOT_API_ID + ايدي المجموعة ",
+            )
+            return
+    elif new_handler.reply_to_msg_id and not string:
+        rep_msg = await new_handler.get_reply_message()
+        string = rep_msg.text
+    if new_handler.is_private:
+        add_filter(str(new_handler.chat_id), keyword, string, msg_id)
+        success = "**᯽︙ الـرد {} تـم اضـافتة بنـجـاح ✓**"
+        await edit_or_reply(new_handler, success.format(keyword))
+    else:
+        await edit_or_reply(
+            new_handler,
+            "⌯︙ لا يمكنك استخدام هذا الأمر في المجموعات. يرجى استخدام أمر آخر لإضافة ردود في المجموعات.",
+        )
+        
 @l313l.ar_cmd(
     pattern="الردود$",
     command=("الردود", plugin_category),
