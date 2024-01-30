@@ -212,15 +212,18 @@ async def add_private_filter(new_handler):
     elif new_handler.reply_to_msg_id and not string:
         rep_msg = await new_handler.get_reply_message()
         string = rep_msg.text
-    if new_handler.is_private:
-        add_filter(str(new_handler.chat_id), keyword, string, msg_id)
-        success = "**᯽︙ الـرد {} تـم اضـافتة بنـجـاح ✓**"
-        await edit_or_reply(new_handler, success.format(keyword))
-    else:
-        await edit_or_reply(
-            new_handler,
-            "⌯︙ لا يمكنك استخدام هذا الأمر في المجموعات. يرجى استخدام أمر آخر لإضافة ردود في المجموعات.",
-        )
+    filters = get_filters(new_handler.chat_id)
+    for filter in filters:
+        if filter.keyword == keyword:
+            add_filter(str(new_handler.chat_id), keyword, string, msg_id)
+            success = "**᯽︙ الـرد {} تـم اضـافتة بنـجـاح ✓**"
+            await edit_or_reply(new_handler, success.format(keyword))
+            return
+
+    await edit_or_reply(
+        new_handler,
+        "⌯︙ لا يمكنك استخدام هذا الأمر في المجموعات. يرجى استخدام أمر آخر لإضافة ردود في المجموعات.",
+    )
         
 @l313l.ar_cmd(
     pattern="الردود$",
