@@ -46,49 +46,50 @@ async def filter_incoming_handler(handler):  # sourcery no-metrics
     else:
         title = "Private Chat"
         me = await handler.client.get_me()
-        for trigger in filters:
-            pattern = r"( |^|[^\w])" + re.escape(trigger.keyword) + r"( |$|[^\w])"
-            if re.search(pattern, name, flags=re.IGNORECASE):
-                if trigger.f_mesg_id:
-                    msg_o = await handler.client.get_messages(
-                        entity=BOTLOG_CHATID, ids=int(trigger.f_mesg_id)
-                    )
-                    await handler.reply(
-                        msg_o.message.format(
-                            mention=f"[{a_user.first_name}](tg://user?id={a_user.id})",
-                            title=title,
-                            count="",
-                            first=a_user.first_name,
-                            last=a_user.last_name,
-                            fullname=f"{a_user.first_name} {a_user.last_name}" if a_user.last_name else a_user.first_name,
-                            username=f"@{a_user.username}" if a_user.username else f"[{a_user.first_name}](tg://user?id={a_user.id})",
-                            userid=a_user.id,
-                            my_first=me.first_name,
-                            my_last=me.last_name,
-                            my_fullname=f"{me.first_name} {me.last_name}" if me.last_name else me.first_name,
-                            my_username=f"@{me.username}" if me.username else f"[{me.first_name}](tg://user?id={me.id})",
-                            my_mention=f"[{me.first_name}](tg://user?id={me.id})",
-                        ),
-                        file=msg_o.media,
-                    )
-                elif trigger.reply:
-                    await handler.reply(
-                        trigger.reply.format(
-                            mention=f"[{a_user.first_name}](tg://user?id={a_user.id})",
-                            title=title,
-                            count="",
-                            first=a_user.first_name,
-                            last=a_user.last_name,
-                            fullname=f"{a_user.first_name} {a_user.last_name}" if a_user.last_name else a_user.first_name,
-                            username=f"@{a_user.username}" if a_user.username else f"[{a_user.first_name}](tg://user?id={a_user.id})",
-                            userid=a_user.id,
-                            my_first=me.first_name,
-                            my_last=me.last_name,
-                            my_fullname=f"{me.first_name} {me.last_name}" if me.last_name else me.first_name,
-                            my_username=f"@{me.username}" if me.username else f"[{me.first_name}](tg://user?id={me.id})",
-                            my_mention=f"[{me.first_name}](tg://user?id={me.id})",
-                        ),
-                    )
+
+    for trigger in filters:
+        pattern = r"( |^|[^\w])" + re.escape(trigger.keyword) + r"( |$|[^\w])"
+        if re.search(pattern, name, flags=re.IGNORECASE):
+            if trigger.f_mesg_id:
+                msg_o = await handler.client.get_messages(
+                    entity=BOTLOG_CHATID, ids=int(trigger.f_mesg_id)
+                )
+                await handler.reply(
+                    msg_o.message.format(
+                        mention=f"[{a_user.first_name}](tg://user?id={a_user.id})",
+                        title=title,
+                        count="",
+                        first=a_user.first_name,
+                        last=a_user.last_name,
+                        fullname=f"{a_user.first_name} {a_user.last_name}" if a_user.last_name else a_user.first_name,
+                        username=f"@{a_user.username}" if a_user.username else f"[{a_user.first_name}](tg://user?id={a_user.id})",
+                        userid=a_user.id,
+                        my_first=me.first_name,
+                        my_last=me.last_name,
+                        my_fullname=f"{me.first_name} {me.last_name}" if me.last_name else me.first_name,
+                        my_username=f"@{me.username}" if me.username else f"[{me.first_name}](tg://user?id={me.id})",
+                        my_mention=f"[{me.first_name}](tg://user?id={me.id})",
+                    ),
+                    file=msg_o.media,
+                )
+            elif trigger.reply:
+                await handler.reply(
+                    trigger.reply.format(
+                        mention=f"[{a_user.first_name}](tg://user?id={a_user.id})",
+                        title=title,
+                        count="",
+                        first=a_user.first_name,
+                        last=a_user.last_name,
+                        fullname=f"{a_user.first_name} {a_user.last_name}" if a_user.last_name else a_user.first_name,
+                        username=f"@{a_user.username}" if_a_user.username else f"[{a_user.first_name}](tg://user?id={a_user.id})",
+                        userid=a_user.id,
+                        my_first=me.first_name,
+                        my_last=me.last_name,
+                        my_fullname=f"{me.first_name} {me.last_name}" if me.last_name else me.first_name,
+                        my_username=f"@{me.username}" if me.username else f"[{me.first_name}](tg://user?id={me.id})",
+                        my_mention=f"[{me.first_name}](tg://user?id={me.id})",
+                    ),
+                )
 
 
 @l313l.ar_cmd(
