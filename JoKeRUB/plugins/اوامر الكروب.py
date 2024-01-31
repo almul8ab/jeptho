@@ -827,7 +827,7 @@ async def handle_new_message(event):
             await event.reply(explanation_message)
 delete_enabled = False
 aljoker_Menu = set()
-@client.on(events.NewMessage)
+@l313l.on(events.NewMessage)
 async def handle_messages(event):
     global delete_enabled, disable_notification_sent_to
     
