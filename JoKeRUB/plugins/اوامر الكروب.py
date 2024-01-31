@@ -834,7 +834,7 @@ async def Hussein(event):
     current_user_id = await l313l.get_me()
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
-        if sender_id not in disable_notification_sent_to:
+        if sender_id not in aljoker_Menu:
             await client.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
