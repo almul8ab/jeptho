@@ -7,6 +7,7 @@ from telethon.tl import types
 from telethon.tl.types import Channel, Chat, User, ChannelParticipantsAdmins
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.errors.rpcerrorlist import ChannelPrivateError
+from telethon.tl.custom import Message
 from ..Config import Config
 from telethon.errors import (
     ChatAdminRequiredError,
@@ -824,3 +825,20 @@ async def handle_new_message(event):
         except ChatAdminRequiredError:
             explanation_message = "عذرًا، ليس لدينا الصلاحيات الكافية لتنفيذ هذا الأمر. يرجى من مشرفي المجموعة منحنا صلاحيات مشرف المجموعة."
             await event.reply(explanation_message)
+delete_enabled = False
+@l313l.on(events.NewMessage)
+async def Hussein(event):
+    global delete_enabled
+    if event.is_private and delete_enabled:
+        await event.delete()
+@l313l.ar_cmd(pattern="الخاص تعطيل")
+async def joker5a9(event: Message):
+    global delete_enabled
+    delete_enabled = True
+    await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
+
+@l313l.ar_cmd(pattern="الخاص تفعيل")
+async def joker5a9(event: Message):
+    global delete_enabled
+    delete_enabled = False
+    await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
