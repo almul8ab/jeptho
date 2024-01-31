@@ -836,10 +836,10 @@ async def handle_messages(event):
     
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
-        
-        if sender_id not in aljoker_Menu:
-            await l313l.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
-            aljoker_Menu.add(sender_id)
+        return
+    if sender_id not in aljoker_Menu:
+        await l313l.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
+        aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
     global delete_enabled, aljoker_Menu
