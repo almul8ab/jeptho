@@ -832,7 +832,7 @@ async def handle_messages(event):
     global delete_enabled, disable_notification_sent_to
     
     sender_id = event.sender_id
-    current_user_id = await client.get_me()
+    current_user_id = await l313l.get_me()
     
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
