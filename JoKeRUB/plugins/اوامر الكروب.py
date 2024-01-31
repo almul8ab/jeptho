@@ -829,17 +829,19 @@ delete_enabled = False
 aljoker_Menu = set()
 @l313l.on(events.NewMessage)
 async def Hussein(event):
-    global delete_enabled
+    global delete_enabled, aljoker_Menu
     sender_id = event.sender_id
     current_user_id = await l313l.get_me()
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
         if sender_id not in aljoker_Menu:
             await l313l.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
+aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
-    global delete_enabled
+    global delete_enabled, aljoker_Menu
     delete_enabled = True
+aljoker_Menu.clear()
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
 
 @l313l.ar_cmd(pattern="الخاص تفعيل")
