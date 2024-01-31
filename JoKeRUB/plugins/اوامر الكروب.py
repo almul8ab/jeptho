@@ -826,6 +826,7 @@ async def handle_new_message(event):
             explanation_message = "عذرًا، ليس لدينا الصلاحيات الكافية لتنفيذ هذا الأمر. يرجى من مشرفي المجموعة منحنا صلاحيات مشرف المجموعة."
             await event.reply(explanation_message)
 delete_enabled = False
+aljoker_Menu = set()
 @l313l.on(events.NewMessage)
 async def Hussein(event):
     global delete_enabled
@@ -833,7 +834,8 @@ async def Hussein(event):
     current_user_id = await l313l.get_me()
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
-
+        if sender_id not in disable_notification_sent_to:
+            await client.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
     global delete_enabled
