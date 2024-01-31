@@ -827,16 +827,19 @@ async def handle_new_message(event):
             await event.reply(explanation_message)
 delete_enabled = False
 aljoker_Menu = set()
-@l313l.on(events.NewMessage)
-async def Hussein(event):
-    global delete_enabled, aljoker_Menu
+@client.on(events.NewMessage)
+async def handle_messages(event):
+    global delete_enabled, disable_notification_sent_to
+    
     sender_id = event.sender_id
-    current_user_id = await l313l.get_me()
+    current_user_id = await client.get_me()
+    
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
+        
         if sender_id not in aljoker_Menu:
             await l313l.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
-aljoker_Menu.add(sender_id)
+            aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
     global delete_enabled, aljoker_Menu
