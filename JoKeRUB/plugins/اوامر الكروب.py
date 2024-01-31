@@ -842,7 +842,6 @@ async def joker5a9(event: Message):
     global delete_enabled, aljoker_Menu
     delete_enabled = True
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
-aljoker_Menu.clear()
 @l313l.ar_cmd(pattern="الخاص تفعيل")
 async def joker5a9(event: Message):
     global delete_enabled
