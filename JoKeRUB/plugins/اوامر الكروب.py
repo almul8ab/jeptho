@@ -842,11 +842,12 @@ async def handle_messages(event):
         aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
-    global delete_enabled, aljoker_Menu
+    global delete_enabled
     delete_enabled = True
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
 @l313l.ar_cmd(pattern="الخاص تفعيل")
 async def joker5a9(event: Message):
-    global delete_enabled
+    global delete_enabled, aljoker_Menu
     delete_enabled = False
+    aljoker_Menu.clear()
     await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
