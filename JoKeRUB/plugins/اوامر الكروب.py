@@ -831,9 +831,9 @@ async def Hussein(event):
     global delete_enabled
     sender_id = event.sender_id
     current_user_id = await l313l.get_me()
-    
-    if event.is_private and delete_enabled and sender_id == current_user_id.id:
+    if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
+
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
     global delete_enabled
