@@ -830,7 +830,7 @@ delete_enabled = False
 async def Hussein(event):
     global delete_enabled
     sender_id = event.sender_id
-    current_user_id = await client.get_me()
+    current_user_id = await l313l.get_me()
     
     if event.is_private and delete_enabled and sender_id == current_user_id.id:
         await event.delete()
