@@ -50,6 +50,7 @@ from . import BOTLOG, BOTLOG_CHATID
 LOGS = logging.getLogger(__name__)
 plugin_category = "admin"
 spam_chats = []
+aljoker_time = None
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
     view_messages=True,
