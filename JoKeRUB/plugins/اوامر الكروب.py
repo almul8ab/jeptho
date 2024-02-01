@@ -837,10 +837,25 @@ async def handle_messages(event):
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
         if sender_id not in aljoker_Menu:
-            aljoker_time = time.time()
-            joker_time = round(time.time() - aljoker_time)
+            aljoker_time = datetime.now()
+            total_afk_time = datetime.now() - aljoker_time
+            time_seconds = total_afk_time.seconds
+            d = time_seconds // (24 * 3600)
+            time_seconds %= 24 * 3600
+            h = time_seconds // 3600
+            time_seconds %= 3600
+            m = time_seconds // 60
+            time_seconds %= 60
+            s = time_seconds
+            endtime = ""
+            if d > 0:
+                endtime += f"{d} الايام {h} الساعات {m} الدقائق {s} الثواني"
+            elif h > 0:
+                endtime += f"{h} الساعات {m} الدقائق {s} الثواني"
+            else:
+                endtime += f"{m} الدقائق {s} الثواني" if m > 0 else f"{s} الثواني"
             aljoker_url = "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
-            aljoker_message = f"**صاحب الحساب قافل خاصة قبل {joker_time} يلا دعبل**"
+            aljoker_message = f"**صاحب الحساب قافل خاصة قبل {endtime} يلا دعبل**"
             await l313l.send_file(sender_id, aljoker_url, caption=f'{aljoker_message}')
             aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
