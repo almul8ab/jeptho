@@ -49,6 +49,8 @@ from . import BOTLOG, BOTLOG_CHATID
 LOGS = logging.getLogger(__name__)
 plugin_category = "admin"
 spam_chats = []
+aljoker_url = "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
+aljoker_message = "**صاحب الحساب قافل خاصة يلا دعبل**"
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
     view_messages=True,
@@ -837,7 +839,7 @@ async def handle_messages(event):
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
         if sender_id not in aljoker_Menu:
-            await l313l.send_message(sender_id, 'الشخص قام بتعطيل الخاص عذراً 🥲')
+            await l313l.send_file(sender_id, aljoker_url, caption=f'{aljoker_message}')
             aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
