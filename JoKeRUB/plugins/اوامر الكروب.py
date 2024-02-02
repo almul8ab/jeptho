@@ -862,7 +862,7 @@ def aljoker_waqt():
     global afk_start_time
     if afk_start_time:
         current_time = datetime.now()
-        duration = current_time - afk_start_time
+        duration = current_time - datetime.now()
         days, seconds = duration.days, duration.seconds
         hours, remainder = divmod(seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
