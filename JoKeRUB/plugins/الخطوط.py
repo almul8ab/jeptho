@@ -69,7 +69,7 @@ async def reda(event):
         istshwesh = gvarstatus("tshwesh")
         istw8et = gvarstatus("tw8et")
         time_zone = pytz.timezone('Asia/Baghdad')
-        current_time = datetime.now(time_zone).strftime('%H:%M')
+        current_time = datetime.now(time_zone).strftime('%I:%M')
         if isbold:
             try:
                 await event.edit(f"**{event.message.text}**")
@@ -87,6 +87,6 @@ async def reda(event):
                 pass
         if istw8et:
             try:
-                await event.edit(f"{event.message.text}\n{current_time}")
+                await event.edit(f"{event.message.text}\n\n- **{current_time}**")
             except MessageIdInvalidError:
                 pass
