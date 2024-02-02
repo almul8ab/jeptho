@@ -842,9 +842,9 @@ async def handle_messages(event):
         await event.delete()
         if sender_id not in aljoker_Menu:
             aljoker_time = aljoker_waqt()
-            aljoker_message = gvarstatus("aljoker_message") or f"**صاحب الحساب قافل خاصة قبل يلا دعبل**\n**مدة الغياب: {aljoker_time}**"
+            aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
             aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
-            await l313l.send_file(sender_id, aljoker_url, caption=f'{aljoker_message}')
+            await l313l.send_file(sender_id, aljoker_url, caption=f'**{aljoker_message}**\n**مدة الغياب: {aljoker_time}')
             aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
@@ -855,7 +855,7 @@ async def joker5a9(event: Message):
 async def joker5a9(event: Message):
     global delete_enabled, aljoker_Menu
     delete_enabled = False
-    afk_start_time = None
+    aljoker_time = None
     aljoker_Menu.clear()
     await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
 def aljoker_waqt():
