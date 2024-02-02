@@ -829,7 +829,7 @@ async def handle_new_message(event):
             await event.reply(explanation_message)
 delete_enabled = False
 aljoker_Menu = set()
-afk_start_time = None
+afk_start_time = datetime.now()
 
 @l313l.on(events.NewMessage)
 async def handle_messages(event):
@@ -862,7 +862,7 @@ def aljoker_waqt():
     global afk_start_time
     if afk_start_time:
         current_time = datetime.now()
-        duration = current_time - datetime.now()
+        duration = current_time - afk_start_time
         days, seconds = duration.days, duration.seconds
         hours, remainder = divmod(seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
