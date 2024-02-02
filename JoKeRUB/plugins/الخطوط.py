@@ -1,6 +1,7 @@
 # Reda - Hussein
 # © JoKeRUB Team 2023
-# ها شعدك داخل ع الملف تريد تخمط ؟ ابو زربة لهل درجة فاشل  
+# ها شعدك داخل ع الملف تريد تخمط ؟ ابو زربة لهل درجة فاشل
+import pytz
 from telethon import events
 from JoKeRUB import l313l
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
@@ -45,13 +46,29 @@ async def btext(event):
         delgvar("ramz")
         await edit_delete(event, "**᯽︙ تم اطفاء خط الرمز بنجاح ✓ **")
         return
+        
+@l313l.on(admin_cmd(pattern="(رسالة وقتية|رساله وقتية|رسالة وقتية|رساله وقتيه)"))
+async def btext(event):
+    istw8et = gvarstatus("tw8et")
+    if not istw8et:
+        addgvar ("tw8et", "on")
+        await edit_delete(event, "**᯽︙ تم تفعيل الرسالة الوقتية بنجاح ✓**")
+        return
 
+    if istw8et:
+        delgvar("tw8et")
+        await edit_delete(event, "**᯽︙ تم اطفاء الرسالة الوقتية بنجاح ✓ **")
+        return
+        
 @l313l.on(events.NewMessage(outgoing=True))
 async def reda(event):
     if event.message.text and not event.message.media and "." not in event.message.text:
         isbold = gvarstatus("bold")
         isramz = gvarstatus("ramz")
         istshwesh = gvarstatus("tshwesh")
+        istw8et = gvarstatus("tw8et")
+        time_zone = pytz.timezone('Asia/Baghdad')
+        current_time = datetime.now(time_zone).strftime('%H:%M')
         if isbold:
             try:
                 await event.edit(f"**{event.message.text}**")
@@ -65,5 +82,10 @@ async def reda(event):
         if istshwesh:
             try:
                 await event.edit(f"~~{event.message.text}~~")
+            except MessageIdInvalidError:
+                pass
+        if istw8et:
+            try:
+                await event.edit(f"{event.message.text}\n{current_time}")
             except MessageIdInvalidError:
                 pass
