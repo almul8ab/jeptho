@@ -833,7 +833,7 @@ afk_start_time = datetime.now()
 
 @l313l.on(events.NewMessage)
 async def handle_messages(event):
-    global delete_enabled, disable_notification_sent_to
+    global delete_enabled, afk_start_time
     
     sender_id = event.sender_id
     current_user_id = await l313l.get_me()
@@ -853,7 +853,7 @@ async def joker5a9(event: Message):
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
 @l313l.ar_cmd(pattern="الخاص تفعيل")
 async def joker5a9(event: Message):
-    global delete_enabled, aljoker_Menu
+    global delete_enabled, aljoker_Menu, afk_start_time
     delete_enabled = False
     afk_start_time = None
     aljoker_Menu.clear()
