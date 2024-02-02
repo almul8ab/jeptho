@@ -103,6 +103,12 @@ async def custom_HuRe(event):
     if input_str == "التخزين" or input_str == "تخزين":
         addgvar("PM_LOGGER_GROUP_ID", text)
         var = "PM_LOGGER_GROUP_ID"
+    if input_str == "صوره الخاص" or input_str == "صورة الخاص":
+        addgvar("aljoker_url", text)
+        var = "aljoker_url"
+    if input_str == "كليشة الخاص" or input_str == "كليشه الخاص":
+        addgvar("aljoker_message", text)
+        var = "aljoker_message"
     if input_str == "اشعارات" or input_str == "الاشعارات":
         addgvar("PRIVATE_GROUP_BOT_API_ID", text)
         var = "PRIVATE_GROUP_BOT_API_ID"
