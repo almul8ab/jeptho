@@ -845,7 +845,6 @@ async def handle_messages(event):
             afk_duration = calculate_afk_duration()
             aljoker_message = f"**صاحب الحساب قافل خاصة قبل يلا دعبل**\n**مدة الغياب: {afk_duration}**"
             aljoker_url = "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
-            aljoker_message = f"**صاحب الحساب قافل خاصة قبل {endtime} يلا دعبل**"
             await l313l.send_file(sender_id, aljoker_url, caption=f'{aljoker_message}')
             aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
