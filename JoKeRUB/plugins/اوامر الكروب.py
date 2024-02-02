@@ -866,9 +866,9 @@ def aljoker_waqt():
         minutes, seconds = divmod(remainder, 60)
         
         if days > 0:
-            return f"{days} الايام {hours} الساعات {minutes} الدقائق {seconds} الثواني"
+            return f"{days} يوم {hours} ساعة {minutes} دقيقة {seconds} ثانية"
         elif hours > 0:
-            return f"{hours} الساعات {minutes} الدقائق {seconds} الثواني"
+            return f"{hours} ساعة {minutes} دقيقة {seconds} ثانية"
         else:
-            return f"{minutes} الدقائق {seconds} الثواني" if minutes > 0 else f"{seconds} الثواني"
+            return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
