@@ -829,7 +829,7 @@ async def handle_new_message(event):
             await event.reply(explanation_message)
 delete_enabled = False
 aljoker_Menu = set()
-afk_start_time = datetime.now()
+afk_start_time = None
 
 @l313l.on(events.NewMessage)
 async def handle_messages(event):
@@ -855,10 +855,11 @@ async def joker5a9(event: Message):
 async def joker5a9(event: Message):
     global delete_enabled, aljoker_Menu
     delete_enabled = False
-    aljoker_time = None
+    afk_start_time = None
     aljoker_Menu.clear()
     await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
 def aljoker_waqt():
+    global afk_start_time
     if afk_start_time:
         current_time = datetime.now()
         duration = current_time - afk_start_time
