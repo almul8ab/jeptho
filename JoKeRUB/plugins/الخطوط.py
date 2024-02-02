@@ -87,6 +87,6 @@ async def reda(event):
                 pass
         if istw8et:
             try:
-                await event.edit(f"{event.message.text}\n\n- **{current_time}**")
+                await event.edit(f"{event.message.text}\n- **{current_time}**")
             except MessageIdInvalidError:
                 pass
