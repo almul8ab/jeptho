@@ -829,6 +829,8 @@ async def handle_new_message(event):
             await event.reply(explanation_message)
 delete_enabled = False
 aljoker_Menu = set()
+afk_start_time = datetime.now()
+
 @l313l.on(events.NewMessage)
 async def handle_messages(event):
     global delete_enabled, disable_notification_sent_to
@@ -840,22 +842,8 @@ async def handle_messages(event):
         await event.delete()
         if sender_id not in aljoker_Menu:
             aljoker_time = datetime.now()
-            total_afk_time = datetime.now() - aljoker_time
-            time_seconds = total_afk_time.seconds
-            d = time_seconds // (24 * 3600)
-            time_seconds %= 24 * 3600
-            h = time_seconds // 3600
-            time_seconds %= 3600
-            m = time_seconds // 60
-            time_seconds %= 60
-            s = time_seconds
-            endtime = ""
-            if d > 0:
-                endtime += f"{d} الايام {h} الساعات {m} الدقائق {s} الثواني"
-            elif h > 0:
-                endtime += f"{h} الساعات {m} الدقائق {s} الثواني"
-            else:
-                endtime += f"{m} الدقائق {s} الثواني" if m > 0 else f"{s} الثواني"
+            afk_duration = calculate_afk_duration()
+            aljoker_message = f"**صاحب الحساب قافل خاصة قبل يلا دعبل**\n**مدة الغياب: {afk_duration}**"
             aljoker_url = "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
             aljoker_message = f"**صاحب الحساب قافل خاصة قبل {endtime} يلا دعبل**"
             await l313l.send_file(sender_id, aljoker_url, caption=f'{aljoker_message}')
@@ -871,3 +859,11 @@ async def joker5a9(event: Message):
     delete_enabled = False
     aljoker_Menu.clear()
     await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
+def calculate_afk_duration():
+    if afk_start_time:
+        current_time = datetime.now()
+        duration = current_time - afk_start_time
+        hours, remainder = divmod(duration.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        return "{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
+    return "N/A"
