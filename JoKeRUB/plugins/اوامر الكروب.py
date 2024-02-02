@@ -841,9 +841,8 @@ async def handle_messages(event):
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
         await event.delete()
         if sender_id not in aljoker_Menu:
-            aljoker_time = datetime.now()
-            afk_duration = calculate_afk_duration()
-            aljoker_message = f"**صاحب الحساب قافل خاصة قبل يلا دعبل**\n**مدة الغياب: {afk_duration}**"
+            aljoker_time = aljoker_waqt()
+            aljoker_message = f"**صاحب الحساب قافل خاصة قبل يلا دعبل**\n**مدة الغياب: {aljoker_time}**"
             aljoker_url = "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
             await l313l.send_file(sender_id, aljoker_url, caption=f'{aljoker_message}')
             aljoker_Menu.add(sender_id)
@@ -858,11 +857,18 @@ async def joker5a9(event: Message):
     delete_enabled = False
     aljoker_Menu.clear()
     await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
-def calculate_afk_duration():
+def aljoker_waqt():
     if afk_start_time:
         current_time = datetime.now()
         duration = current_time - afk_start_time
-        hours, remainder = divmod(duration.seconds, 3600)
+        days, seconds = duration.days, duration.seconds
+        hours, remainder = divmod(seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        return "{:02}:{:02}:{:02}".format(int(hours), int(minutes), int(seconds))
+        
+        if days > 0:
+            return f"{days} الايام {hours} الساعات {minutes} الدقائق {seconds} الثواني"
+        elif hours > 0:
+            return f"{hours} الساعات {minutes} الدقائق {seconds} الثواني"
+        else:
+            return f"{minutes} الدقائق {seconds} الثواني" if minutes > 0 else f"{seconds} الثواني"
     return "N/A"
