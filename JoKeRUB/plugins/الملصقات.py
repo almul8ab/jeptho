@@ -505,7 +505,7 @@ async def HuRepkg(_):
         _packname = f"{_.sender_id}"
     _id = Jep.media.document.id
     _hash = Jep.media.document.attributes[1].stickerset.access_hash
-    _get_stiks = await _.client(functions.messages.GetStickerSetRequest(types.InputDocumentFileLocation(id=_id, access_hash=_hash), hash=0))
+    _get_stiks = await _.client(functions.messages.GetStickerSetRequest(types.InputStickerSetID(id=_id, access_hash=_hash), hash=0))
     stiks = []
     for i in _get_stiks.documents:
         mul = get_input_document(i)
