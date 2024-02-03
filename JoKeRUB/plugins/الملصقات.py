@@ -453,7 +453,7 @@ async def kang(args):  # sourcery no-metrics
                 )
 
 
-@l313l.on(admin_cmd(pattern="حزمة"))
+@l313l.on(admin_cmd(pattern="حزمه"))
 async def HuRepkg(_):
     Jep = await _.get_reply_message()
     if not Jep:
@@ -492,7 +492,7 @@ async def HuRepkg(_):
     await edit_or_reply(
         _, f"**- تم اخذ الحزمة بنجاح ✓ \nالحزمة  → [اضغط هنا](https://t.me/addstickers/{HuRe_Jep.set.short_name})**")
 
-@l313l.on(admin_cmd(pattern="حزمه"))
+@l313l.on(admin_cmd(pattern="حزمة"))
 async def HuRepkg(_):
     Jep = await _.get_reply_message()
     if not Jep or not isinstance(Jep.media, types.MessageMediaDocument) or not isinstance(Jep.media.document.attributes[1], types.DocumentAttributeSticker):
@@ -501,6 +501,7 @@ async def HuRepkg(_):
     stickerset_id = Jep.media.document.attributes[1].stickerset.id
     stickerset_access_hash = Jep.media.document.attributes[1].stickerset.access_hash
     stiks = []
+
     try:
         _get_stiks = await _.client(functions.messages.GetStickerSetRequest(types.InputStickerSetID(id=stickerset_id, access_hash=stickerset_access_hash), hash=0))
         for i in _get_stiks.documents:
