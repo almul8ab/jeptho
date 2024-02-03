@@ -683,8 +683,8 @@ async def hussein(event):
     await event.edit("**᯽︙ جارِ الجواب على سؤالك انتظر قليلاً ...**")
     text = event.pattern_match.group(1).strip()
     if text:
-        response = Ai(query=text).chat()
-        await event.edit(response)
+        response = Ai(query=text)
+        await event.edit(response.chat())
     else:
         await event.edit("يُرجى كتابة رسالة مع الأمر للحصول على إجابة.")
 is_Reham = False
