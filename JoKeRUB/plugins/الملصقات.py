@@ -495,32 +495,31 @@ async def HuRepkg(_):
 @l313l.on(admin_cmd(pattern="حزمه"))
 async def HuRepkg(_):
     Jep = await _.get_reply_message()
-    if not Jep:
-        return await edit_or_reply(_, "**- يجب عليك الرد على حزمة.**")
-    if len(_.text) <= 9:
-        return await edit_or_reply(_, "**- يجب عليك وضع اسم الحزمة مع الأمر.**")
-    if len(_.text) > 9:
-        _packname = _.text.split(" ", maxsplit=1)[1]
-    else:
-        _packname = f"{_.sender_id}"
-    _id = Jep.media.document.id
-    _hash = Jep.media.document.attributes[1].stickerset.access_hash
-    _get_stiks = await _.client(functions.messages.GetStickerSetRequest(types.InputStickerSetID(id=_id, access_hash=_hash), hash=0))
+    if not Jep or not isinstance(Jep.media, types.MessageMediaDocument) or not isinstance(Jep.media.document.attributes[1], types.DocumentAttributeSticker):
+        return await edit_or_reply(_, "**- يجب عليك الرد على ملصق.**")
+
+    stickerset_id = Jep.media.document.attributes[1].stickerset.id
+    stickerset_access_hash = Jep.media.document.attributes[1].stickerset.access_hash
     stiks = []
-    for i in _get_stiks.documents:
-        mul = get_input_document(i)
-        stiks.append(
-            types.InputStickerSetItem(
-                document=mul,
-                emoji=(i.attributes[1]).alt,
-            )
-        )
     try:
-        short_name = (await _.client(SuggestShortNameRequest(_packname))).short_name
-        HuRe_Jep = await bot(
+        _get_stiks = await _.client(functions.messages.GetStickerSetRequest(types.InputStickerSetID(id=stickerset_id, access_hash=stickerset_access_hash), hash=0))
+        for i in _get_stiks.documents:
+            mul = get_input_document(i)
+            stiks.append(
+                types.InputStickerSetItem(
+                    document=mul,
+                    emoji=(i.attributes[1]).alt,
+                )
+            )
+    except BaseException as e:
+        return await edit_or_reply(_, f"**- خطأ في جلب حزمة الملصقات: {e}**")
+
+    try:
+        short_name = (await _.client(functions.messages.GetStickerSetRequest(types.InputStickerSetID(id=stickerset_id, access_hash=stickerset_access_hash), hash=0))).set.short_name
+        HuRe_Jep = await _.client(
             functions.stickers.CreateStickerSetRequest(
                 user_id=_.sender_id,
-                title=_packname,
+                title=short_name,
                 short_name=f"u{short_name}_by_{bot.me.username}",
                 stickers=stiks,
             )
@@ -529,7 +528,7 @@ async def HuRepkg(_):
         LOGS.exception(er)
         return await edit_or_reply(_, str(er))
     await edit_or_reply(
-        _, f"**- تم اخذ الحزمة بنجاح ✓ \nالحزمة  → [اضغط هنا](https://t.me/addstickers/{HuRe_Jep.set.short_name})**")
+        _, f"**- تم اخذ حزمة الملصقات بنجاح ✓ \nالحزمة  → [اضغط هنا](https://t.me/addstickers/{HuRe_Jep.set.short_name})**")
         
 @l313l.ar_cmd(
     pattern="معلومات_الملصق$",
