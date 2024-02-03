@@ -36,7 +36,14 @@ from ..helpers.functions import animator, crop_and_divide
 from ..helpers.tools import media_type
 from ..helpers.utils import _cattools
 from ..sql_helper.globals import gvarstatus
+from PIL import Image
 
+input_file_path = 'input.webm'
+output_file_path = 'output.png'
+
+img = Image.open(input_file_path)
+
+img.save(output_file_path, 'PNG')
 plugin_category = "fun"
 
 # modified and developed by @mrconfused , @jisan7509
