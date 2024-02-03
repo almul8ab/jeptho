@@ -5,6 +5,7 @@ import requests
 from datetime import datetime
 import time
 from telethon.tl import types
+from OpsAi import Ai
 from telethon.tl.types import Channel, Chat, User, ChannelParticipantsAdmins
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.errors.rpcerrorlist import ChannelPrivateError
@@ -682,7 +683,7 @@ async def hussein(event):
     await event.edit("**᯽︙ جارِ الجواب على سؤالك انتظر قليلاً ...**")
     text = event.pattern_match.group(1).strip()
     if text:
-        response = requests.get(f'https://gptzaid.zaidbot.repl.co/1/text={text}').text
+        response = Ai(query=text).chat()
         await event.edit(response)
     else:
         await event.edit("يُرجى كتابة رسالة مع الأمر للحصول على إجابة.")
