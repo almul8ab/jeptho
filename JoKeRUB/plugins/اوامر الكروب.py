@@ -876,3 +876,20 @@ def aljoker_waqt():
         else:
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
+async def handle_reaction_command(event):
+    message = event.message
+    if event.reply_to_msg_id and event.text.startswith('.تفاعل'):
+        command_parts = event.text.split(' ')
+        if len(command_parts) >= 2:
+            emoji = command_parts[1]
+            await user.client(SendReactionRequest(
+                peer=message.peer_id,
+                msg_id=message.reply_to_msg_id,
+                big=True,
+                add_to_recent=True,
+                reaction=[ReactionEmoji(
+                    emoticon=emoji
+                )]
+            ))
+
+user.add_event_handler(handle_reaction_command, events.NewMessage(incoming=True))
