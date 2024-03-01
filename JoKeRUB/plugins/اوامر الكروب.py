@@ -881,8 +881,7 @@ is_game_started = False
 is_word_sent = False
 word = ''
 async def get_bot_entity():
-    global client
-    return await client.get_entity('me')
+    return await l313l.get_entity('me')
 
 @l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
 async def handle_start(event):
