@@ -876,13 +876,10 @@ def aljoker_waqt():
         else:
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
-    
-winner_id = None
 
 @l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
 async def handle(event):
-    global winner_id
-    if event.pattern_match.group(1).strip().lower() == 'حسين' and not winner_id:
+    if event.pattern_match.group(1).strip().lower() == 'حسين':
         winner_id = event.sender_id
         sender = await event.get_sender()
         sender_first_name = sender.first_name if sender else 'مجهول'
