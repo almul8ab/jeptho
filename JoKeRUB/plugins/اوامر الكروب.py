@@ -877,10 +877,18 @@ def aljoker_waqt():
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
 
-@l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
+is_game_started = False
+winner_id = None
+
+@l313l.on(events.NewMessage(pattern=r'\.اسرع'))
 async def handle(event):
-    if event.pattern_match.group(1).strip().lower() == 'حسين':
+    global is_game_started
+    is_game_started = True
+@l313l.on(events.NewMessage)
+async def handle(event):
+    global is_game_started, winner_id
+    if is_game_started and 'حسين' in event.raw_text:
         winner_id = event.sender_id
         sender = await event.get_sender()
         sender_first_name = sender.first_name if sender else 'مجهول'
-        await l313l.send_message(event.chat_id, f'اللاعب {sender.first_name} فاز!')
+        await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز!')
