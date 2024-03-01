@@ -893,3 +893,18 @@ async def handle_reaction_command(event):
             ))
 
 user.add_event_handler(handle_reaction_command, events.NewMessage(incoming=True))
+winners = {}
+current_word = None
+
+@l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
+async def handle(event):
+    global current_word, winners
+    if event.pattern_match.group(1):
+        current_word = event.pattern_match.group(1)
+        await event.edit(f"اول من يكتب {current_word} سيفوز")
+        winners = {}
+    elif current_word and event.raw_text.lower() == current_word.lower():
+        winner_id = event.sender_id
+        if winner_id not in winners:
+            winners[winner_id] = event.sender.first_name
+            await client.send_message(event.chat_id, f'اللاعب {event.sender.first_name} فاز! الكلمة السريعة كانت: {current_word}')
