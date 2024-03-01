@@ -887,8 +887,9 @@ async def handle(event):
         current_word = event.pattern_match.group(1)
         await event.edit(f"اول من يكتب {current_word} سيفوز")
         winners = {}
-    elif current_word and event.raw_text.lower() == current_word.lower():
-        winner_id = event.sender_id
-        if winner_id not in winners:
-            winners[winner_id] = event.sender.first_name
-            await client.send_message(event.chat_id, f'اللاعب {event.sender.first_name} فاز! الكلمة السريعة كانت: {current_word}')
+    else:
+        if current_word and current_word.lower() in event.raw_text.lower():
+            winner_id = event.sender_id
+            if winner_id not in winners:
+                winners[winner_id] = event.sender.first_name
+                await client.send_message(event.chat_id, f'اللاعب {event.sender.first_name} فاز! الكلمة السريعة كانت: {current_word}')
