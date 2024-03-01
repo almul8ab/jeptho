@@ -888,14 +888,12 @@ async def handle_start(event):
     is_word_sent = False
     word = event.pattern_match.group(1)
     await event.edit(f"اول من يكتب {word} سيفوز")
-
-@client.on(events.NewMessage)
+@l313l.on(events.NewMessage(from_users=lambda user: user.is_self == False))
 async def handle_winner(event):
     global is_game_started, is_word_sent, winner_id, word
     if is_game_started and not is_word_sent and word.lower() in event.raw_text.lower():
         is_word_sent = True
         winner_id = event.sender_id
-        if event.sender_id != client.get_me().id:
-            sender = await event.get_sender()
-            sender_first_name = sender.first_name if sender else 'مجهول'
-            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز!')
+        sender = await event.get_sender()
+        sender_first_name = sender.first_name if sender else 'مجهول'
+        await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز!')
