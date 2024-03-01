@@ -881,7 +881,7 @@ is_game_started = False
 is_word_sent = False
 word = ''
 
-@l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
+@l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)', from_users=lambda user: user.is_self))
 async def handle_start(event):
     global is_game_started, is_word_sent, word
     is_game_started = True
