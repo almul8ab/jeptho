@@ -888,7 +888,7 @@ async def handle(event):
         await event.edit(f"اول من يكتب {current_word} سيفوز")
         winners = {}
     else:
-        if current_word and current_word.lower() in event.raw_text.lower():
+        if current_word and current_word.lower() in event.raw_text.lower().split():
             winner_id = event.sender_id
             if winner_id not in winners:
                 winners[winner_id] = event.sender.first_name
