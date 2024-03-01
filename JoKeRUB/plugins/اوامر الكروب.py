@@ -884,4 +884,6 @@ async def handle(event):
     global winner_id
     if event.pattern_match.group(1).strip().lower() == 'حسين' and not winner_id:
         winner_id = event.sender_id
-        await l313l.send_message(event.chat_id, f'اللاعب {event.sender.first_name} فاز!')
+        sender = await event.get_sender()
+        sender_first_name = sender.first_name if sender else 'مجهول'
+        await l313l.send_message(event.chat_id, f'اللاعب {sender.first_name} فاز!')
