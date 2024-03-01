@@ -878,15 +878,19 @@ def aljoker_waqt():
     return "N/A"
 
 is_game_started = False
+is_hussein_sent = False
 
 @l313l.on(events.NewMessage(pattern=r'\.اسرع'))
-async def handle(event):
-    global is_game_started
+async def handle_start(event):
+    global is_game_started, is_hussein_sent
     is_game_started = True
+    is_hussein_sent = False
+
 @l313l.on(events.NewMessage)
-async def handle(event):
-    global is_game_started, winner_id
-    if is_game_started and 'حسين' in event.raw_text:
+async def handle_winner(event):
+    global is_game_started, is_hussein_sent
+    if is_game_started and not is_hussein_sent and 'حسين' in event.raw_text:
+        is_hussein_sent = True
         winner_id = event.sender_id
         sender = await event.get_sender()
         sender_first_name = sender.first_name if sender else 'مجهول'
