@@ -879,7 +879,7 @@ def aljoker_waqt():
     
 winner_id = None
 
-@l313•.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
+@l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
 async def handle(event):
     global winner_id
     if event.pattern_match.group(1).strip().lower() == 'حسين' and not winner_id:
