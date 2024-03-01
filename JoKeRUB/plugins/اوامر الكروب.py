@@ -880,7 +880,9 @@ def aljoker_waqt():
 is_game_started = False
 is_word_sent = False
 word = ''
-bot_entity = None
+async def get_bot_entity():
+    global client
+    return await client.get_entity('me')
 
 @l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
 async def handle_start(event):
@@ -894,9 +896,11 @@ async def handle_start(event):
 @l313l.on(events.NewMessage)
 async def handle_winner(event):
     global is_game_started, is_word_sent, word
-    if is_game_started and not is_word_sent and word.lower() in event.raw_text.lower() and event.sender_id != bot_entity.id:
-        is_word_sent = True
-        winner_id = event.sender_id
-        sender = await event.get_sender()
-        sender_first_name = sender.first_name if sender else 'مجهول'
-        await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز!')
+    if is_game_started and not is_word_sent and word.lower() in event.raw_text.lower():
+        bot_entity = await get_bot_entity()
+        if bot_entity and event.sender_id != bot_entity.id:
+            is_word_sent = True
+            winner_id = event.sender_id
+            sender = await event.get_sender()
+            sender_first_name = sender.first_name if sender else 'مجهول'
+            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز!')
