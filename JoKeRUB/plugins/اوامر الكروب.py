@@ -877,19 +877,11 @@ def aljoker_waqt():
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
     
-winners = {}
-current_word = None
+winner_id = None
 
-@l313l.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
+@l313•.on(events.NewMessage(pattern=r'\.اسرع (.*)'))
 async def handle(event):
-    global current_word, winners
-    if event.pattern_match.group(1):
-        current_word = event.pattern_match.group(1)
-        await event.edit(f"اول من يكتب {current_word} سيفوز")
-        winners = {}
-    else:
-        if current_word and current_word.lower() in event.raw_text.lower().split():
-            winner_id = event.sender_id
-            if winner_id not in winners:
-                winners[winner_id] = event.sender.first_name
-                await client.send_message(event.chat_id, f'اللاعب {event.sender.first_name} فاز! الكلمة السريعة كانت: {current_word}')
+    global winner_id
+    if event.pattern_match.group(1).strip().lower() == 'حسين' and not winner_id:
+        winner_id = event.sender_id
+        await client.send_message(chat_id, f'اللاعب {event.sender.first_name} فاز!')
