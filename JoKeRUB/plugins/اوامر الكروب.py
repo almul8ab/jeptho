@@ -878,7 +878,6 @@ def aljoker_waqt():
     return "N/A"
 
 is_game_started = False
-winner_id = None
 
 @l313l.on(events.NewMessage(pattern=r'\.اسرع'))
 async def handle(event):
