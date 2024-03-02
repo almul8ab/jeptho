@@ -876,7 +876,7 @@ def aljoker_waqt():
         else:
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
-
+points = {}
 is_game_started = False
 is_word_sent = False
 word = ''
@@ -893,12 +893,16 @@ async def handle_start(event):
 
 @l313l.on(events.NewMessage)
 async def handle_winner(event):
-    global is_game_started, is_word_sent, word
+    global is_game_started, is_word_sent, winner_id, word, points
     if is_game_started and not is_word_sent and word.lower() in event.raw_text.lower():
         bot_entity = await get_bot_entity()
         if bot_entity and event.sender_id != bot_entity.id:
             is_word_sent = True
             winner_id = event.sender_id
+            if winner_id not in points:
+                points[winner_id] = 0
+            points[winner_id] += 1
             sender = await event.get_sender()
             sender_first_name = sender.first_name if sender else 'مجهول'
-            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز!')
+            points_text = '\n'.join([f'{client.get_entity(participant_id).first_name}: {participant_points}' for participant_id, participant_points in points.items()])
+            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز! النقاط: {points[winner_id]}\n\nنقاط المشاركين:\n{points_text}')
