@@ -889,7 +889,6 @@ async def handle_start(event):
     is_game_started = True
     is_word_sent = False
     word = event.pattern_match.group(1)
-    bot_entity = await client.get_entity('me')
     await event.edit(f"اول من يكتب {word} سيفوز")
 
 @l313l.on(events.NewMessage)
