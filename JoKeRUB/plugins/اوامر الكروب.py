@@ -883,7 +883,7 @@ word = ''
 async def get_bot_entity():
     return await l313l.get_entity('me')
 
-@l313l.ar_cmd(pattern="اسرع")
+@l313l.on(events.NewMessage(outgoing=True, pattern=r'^\.اسرع $'))
 async def handle_start(event):
     global is_game_started, is_word_sent, word, bot_entity
     is_game_started = True
