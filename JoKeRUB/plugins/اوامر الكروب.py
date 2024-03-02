@@ -889,7 +889,7 @@ async def handle_start(event):
     is_game_started = True
     is_word_sent = False
     word = event.pattern_match.group(1)
-    await event.edit(f"اول من يكتب {word} سيفوز")
+    await event.edit(f"**اول من يكتب ( {word} ) سيفوز**")
 
 @l313l.on(events.NewMessage)
 async def handle_winner(event):
@@ -905,4 +905,4 @@ async def handle_winner(event):
             sender = await event.get_sender()
             sender_first_name = sender.first_name if sender else 'مجهول'
             points_text = '\n'.join([f'{(await l313l.get_entity(participant_id)).first_name}: {participant_points}' for participant_id, participant_points in points.items()])
-            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز! النقاط: {points[winner_id]}\n\nنقاط المشاركين:\n{points_text}')
+            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز! \n نقاطة: {points[winner_id]}\n\nنقاط المشاركين:\n{points_text}')
