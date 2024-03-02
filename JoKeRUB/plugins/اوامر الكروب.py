@@ -904,5 +904,11 @@ async def handle_winner(event):
             points[winner_id] += 1
             sender = await event.get_sender()
             sender_first_name = sender.first_name if sender else 'مجهول'
-            points_text = '\n'.join([f'{(await l313l.get_entity(participant_id)).first_name}: {participant_points}' for participant_id, participant_points in points.items()])
-            await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز! \n نقاطة: {points[winner_id]}\n\nنقاط المشاركين:\n{points_text}')
+            sorted_points = sorted(points.items(), key=lambda x: x[1], reverse=True)
+            points_text = '\n'.join([f'{(await client.get_entity(participant_id)).first_name}: {participant_points}' for participant_id, participant_points in sorted_points])
+            await l313l.send_message(event.chat_id, f'الف مبرووووك 🎉 الاعب ( {sender_first_name} ) فاز! \n اصبحت نقاطة: {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
+@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.تصفير (.*)'))
+async def Husssein(event):
+    global points
+    points = {}
+    await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
