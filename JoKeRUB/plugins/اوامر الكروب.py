@@ -818,7 +818,7 @@ async def handle_new_message(event):
         message_counts[user_id]['count'] = 1
     if message_counts[user_id]['count'] >= 3:
         try:
-            await l313l.edit_permissions(chat_id, user_id, send_messages=False)
+            await l313l.edit_permissions(event.chat_id, user_id, send_messages=False)
             sender = await event.get_sender()
             aljoker_entity = await l313l.get_entity(sender.id)
             aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
