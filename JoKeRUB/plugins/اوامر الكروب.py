@@ -891,7 +891,7 @@ async def handle_start(event):
     word = event.pattern_match.group(1)
     await event.edit(f"**اول من يكتب ( {word} ) سيفوز**")
 
-@l313l.on(events.NewMessage(outgoing=True))
+@l313l.on(events.NewMessage(incoming=True))
 async def handle_winner(event):
     global is_game_started, is_word_sent, winner_id, word, points
     if is_game_started and not is_word_sent and word.lower() in event.raw_text.lower():
