@@ -904,5 +904,5 @@ async def handle_winner(event):
             points[winner_id] += 1
             sender = await event.get_sender()
             sender_first_name = sender.first_name if sender else 'مجهول'
-            points_text = '\n'.join([f'{client.get_entity(participant_id).first_name}: {participant_points}' for participant_id, participant_points in points.items()])
+            points_text = '\n'.join([f'{l313l.get_entity(participant_id).first_name}: {participant_points}' for participant_id, participant_points in points.items()])
             await l313l.send_message(event.chat_id, f'اللاعب {sender_first_name} فاز! النقاط: {points[winner_id]}\n\nنقاط المشاركين:\n{points_text}')
