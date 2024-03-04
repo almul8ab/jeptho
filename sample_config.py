@@ -14,6 +14,7 @@ class Config(object):
     # MUST NEEDED VARS
     # Get the values for following 2 from my.telegram.org
     APP_ID = int(os.environ.get("APP_ID"))
+    MAX_FLOOD_IN_PMS = int(os.environ.get("MAX_FLOOD_IN_PMS", 6))
     API_HASH = os.environ.get("API_HASH",) or None
     # Datbase url heroku sets it automatically else get this from elephantsql
     DB_URI = os.environ.get("DATABASE_URL", None)
