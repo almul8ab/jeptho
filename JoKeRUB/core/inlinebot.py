@@ -49,7 +49,7 @@ def ibuild_keyboard(buttons):
 
 
 
-@zedub.tgbot.on(InlineQuery)
+@l313l.tgbot.on(InlineQuery)
 async def inline_handler(event):  # sourcery no-metrics
     builder = event.builder
     result = None
