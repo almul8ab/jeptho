@@ -3,6 +3,7 @@ from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 import os
 import datetime
 from telethon import events
+from telethon import types
 from JoKeRUB import *
 #ها يالفاشل شعدك داخل هنا 🫣 اعتمد ع نفسك لتخلي سورس الجوكر مصدر طشت سورسك
 Aljoker_Asbo3 = {
