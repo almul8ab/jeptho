@@ -15,7 +15,7 @@ Aljoker_Asbo3 = {
     'Sunday': 'الأحد'
 }
 
-@l313l.on(admin_cmd(pattern="(جلب الصورة|جلب الصوره|ذاتيه|ذاتية)"))
+@l313l.on(admin_cmd(pattern="(جلب الصورة|جلب الصوره|جلب الصوت|ذاتيه|ذاتية)"))
 async def dato(event):
     if not event.is_reply:
         return await event.edit("..")
@@ -25,13 +25,16 @@ async def dato(event):
     if not lMl10l.media:
         return await event.edit("لا يمكن العثور على ملف قابل للتنزيل.")
     
-    pic = await lMl10l.download_media()
+    if not isinstance(lMl10l.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
+        return await event.edit("يجب أن تكون الرسالة التي ترد عليها صورة أو صوت.")
+    
+    file = await lMl10l.download_media()
     
     await bot.send_file(
         "me",
-        pic,
+        file=file,
         caption=f"""
-- تـم حفظ الصـورة بنجـاح ✓ 
+- تـم حفظ الملف بنجـاح ✓ 
 - غير مبري الذمه اذا استخدمت الامر للابتزاز
 - CH: @Jepthon
 - Dev: @lMl10l
