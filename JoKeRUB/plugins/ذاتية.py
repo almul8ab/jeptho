@@ -19,8 +19,14 @@ Aljoker_Asbo3 = {
 async def dato(event):
     if not event.is_reply:
         return await event.edit("..")
+    
     lMl10l = await event.get_reply_message()
+    
+    if not lMl10l.media:
+        return await event.edit("لا يمكن العثور على ملف قابل للتنزيل.")
+    
     pic = await lMl10l.download_media()
+    
     await bot.send_file(
         "me",
         pic,
