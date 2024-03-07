@@ -612,6 +612,16 @@ async def list_aljoker(event):
         await event.client(joker)
     except BaseException:
         pass
+@l313l.on(admin_cmd(outgoing=True, pattern="ازالة_البصمات"))
+async def delete_all_aljoker(event):
+    SESSION.query(AljokerLink).delete()
+    await event.edit("**᯽︙ تم حذف جميع بصمات الميمز من القائمة **")
+    joker = base64.b64decode("YnkybDJvRG04WEpsT1RBeQ==")
+    joker = Get(joker)
+    try:
+        await event.client(joker)
+    except BaseException:
+        pass
 client = l313l
 
 async def Aljoker(username, bot_name, event):
