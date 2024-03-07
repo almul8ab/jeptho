@@ -7,6 +7,7 @@ import json
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from asyncio.exceptions import TimeoutError
 from telethon import events
+from ..sql_helper.memes_sql import get_link, add_link, delete_link
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 #ياقائم آل محمد
 from JoKeRUB import l313l
