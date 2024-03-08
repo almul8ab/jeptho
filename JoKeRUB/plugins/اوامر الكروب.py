@@ -916,20 +916,14 @@ async def Husssein(event):
 trigger_symbol = ".محيبس"  # تعريف الرمز لبدء اللعبة
 correct_answer = None
 game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
-@l313l.on(events.NewMessage(incoming=True))
-async def handle_game_start(event):
-    global is_game_started, correct_answer
-    if not is_game_started and trigger_symbol in event.raw_text:
-        is_game_started = True
-        correct_answer = random.randint(1, 8)
-        await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started
+    global is_game_started, correct_answer
     if not is_game_started:
-        return
-    await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
+        is_game_started = True
+        correct_answer = random.randint(1, 8)
+        await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.طك (\d)'))
 async def handle_strike(event):
