@@ -926,6 +926,13 @@ async def handle_clue(event):
         correct_answer = random.randint(1, 8)
         await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
 @l313l.on(events.NewMessage(pattern=r'\طك (\d)'))
+async def handle_clue(event):
+    global is_game_started
+    if not is_game_started:
+        return
+    await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
+
+@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.طك (\d)'))
 async def handle_strike(event):
     global is_game_started, correct_answer, game_board
     if is_game_started:
@@ -943,8 +950,8 @@ async def handle_strike(event):
                 position_index = (strike_position - 1) * 2
                 if '🖐🏻' not in game_board[position_index:position_index + 2]:
                     game_board = game_board[:position_index] + '🖐🏻' + game_board[position_index + 2:]
-                await event.respond(f"❌ للأسف، هذا ليس المحبس الصحيح.\n{game_board}")
-                                    
+                    await event.respond(f"❌ للأسف، هذا ليس المحبس الصحيح.\n{game_board}")
+     
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_guess(event):
     global is_game_started, correct_answer
