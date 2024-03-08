@@ -1,4 +1,4 @@
-#aljokrr
+#aljokr
 from asyncio import sleep
 import asyncio
 import requests
