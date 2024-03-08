@@ -915,8 +915,9 @@ async def Husssein(event):
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
 
 correct_answer = None
-game_board = "👊👊 👊👊 👊👊 👊👊\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
-original_game_board = "👊👊 👊👊 👊👊 👊👊\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
+game_board = ["👊👊", "👊👊", "👊👊", "👊👊"]
+numbers_board = ["1️⃣2️⃣", "3️⃣4️⃣", "5️⃣6️⃣", "7️⃣8️⃣"]
+original_game_board = game_board.copy()
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
@@ -924,22 +925,21 @@ async def handle_clue(event):
     if not is_game_started:
         is_game_started = True
         correct_answer = random.randint(1, 8)
-        await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
-        
+        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
+
 @l313l.on(events.NewMessage(pattern=r'\طك (\d)'))
 async def handle_strike(event):
     global is_game_started, correct_answer, game_board
     if is_game_started:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
-            game_board = original_game_board
+            game_board = original_game_board.copy()
             await event.respond("❌ لقد خسرت المحبس!")
             is_game_started = False
         else:
-            position_index = (strike_position - 1) * 2
-            game_board = game_board[:position_index] + '🖐️' + game_board[position_index + 2:]
-            await event.respond(f"تلعب وخوش تلعب 👏🏻\n{game_board}")
-     
+            game_board[strike_position - 1] = '🖐️' + game_board[strike_position - 1][1:]
+            await event.respond(f"تلعب وخوش تلعب 👏🏻\n{format_board(game_board, numbers_board)}")
+
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_guess(event):
     global is_game_started, correct_answer
@@ -947,10 +947,17 @@ async def handle_guess(event):
         guess = int(event.raw_text)
         if 1 <= guess <= 8:
             if guess == correct_answer:
-                game_board = original_game_board
+                game_board = original_game_board.copy()
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
                 is_game_started = False
             else:
                 await event.respond("❌ للأسف، خسرت هذا ليس المحبس الصحيح.")
                 is_game_started = False
-                
+
+def format_board(game_board, numbers_board):
+    formatted_board = ""
+    for i in range(len(game_board)):
+        formatted_board += f"{game_board[i]} {numbers_board[i]} "
+        if i != len(game_board) - 1:
+            formatted_board += "\n"
+    return formatted_board
