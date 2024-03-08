@@ -916,6 +916,8 @@ async def Husssein(event):
 
 correct_answer = None
 game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
+original_game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
+
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
@@ -931,6 +933,7 @@ async def handle_strike(event):
     if is_game_started:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
+            game_board = original_game_board
             await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
             is_game_started = False
         else:
@@ -947,10 +950,8 @@ async def handle_guess(event):
         guess = int(event.raw_text)
         if 1 <= guess <= 8:
             if guess == correct_answer:
-                game_board = game_board.replace('👊🏻', '💍', 1)
+                game_board = original_game_board
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
                 is_game_started = False
             else:
                 await event.respond("❌ للأسف، هذا ليس المحبس الصحيح.")
-    else:
-        await event.respond("❌ لا يوجد لعبة قيد التشغيل.")
