@@ -957,5 +957,5 @@ async def handle_guess(event):
 def format_board(game_board, numbers_board):
     formatted_board = ""
     for i in range(len(game_board)):
-        formatted_board += f"{game_board[i][0]} {game_board[i][1]} {numbers_board[i][0]} {numbers_board[i][1]}\n"
+        formatted_board += f"{game_board[i][0]} {numbers_board[i][0]}\n"
     return formatted_board
