@@ -917,7 +917,7 @@ async def Husssein(event):
 trigger_symbol = ".محيبس"
 correct_answer = None
 game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
-
+is_game_started2 = False
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_game_start(event):
     global is_game_started2, correct_answer
