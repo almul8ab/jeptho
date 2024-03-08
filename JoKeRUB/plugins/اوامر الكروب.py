@@ -925,14 +925,6 @@ async def handle_game_start(event):
         is_game_started2 = True
         correct_answer = random.randint(1, 8)
         await event.edit(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
-
-@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
-async def handle_clue(event):
-    global is_game_started2
-    if not is_game_started2:
-        return
-    await event.edit(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
-
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.طك (\d)'))
 async def handle_strike(event):
     global is_game_started2, correct_answer, game_board
