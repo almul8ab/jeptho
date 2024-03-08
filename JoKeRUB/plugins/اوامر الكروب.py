@@ -952,6 +952,6 @@ async def handle_guess(event):
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
                 is_game_started = False
             else:
-                await event.respond("❌ للأسف، هذا ليس المحبس الصحيح.")
+                await event.respond("❌ للأسف، خسرت هذا ليس المحبس الصحيح.")
                 is_game_started = False
                 
