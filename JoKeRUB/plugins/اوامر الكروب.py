@@ -927,7 +927,7 @@ async def handle_clue(event):
         correct_answer = random.randint(1, 8)
         await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
 
-@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.طك (\d)'))
+@l313l.on(events.NewMessage(pattern=r'\طك (\d)'))
 async def handle_strike(event):
     global is_game_started, correct_answer, game_board
     if is_game_started:
