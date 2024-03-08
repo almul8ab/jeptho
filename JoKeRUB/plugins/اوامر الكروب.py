@@ -914,10 +914,12 @@ async def Husssein(event):
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
 
+import random
+
 correct_answer = None
-game_board = ["👊👊", "👊👊", "👊👊", "👊👊"]
-numbers_board = ["1️⃣2️⃣", "3️⃣4️⃣", "5️⃣6️⃣", "7️⃣8️⃣"]
-original_game_board = game_board.copy()
+game_board = [["👊", "👊"], ["👊", "👊"], ["👊", "👊"], ["👊", "👊"]]
+numbers_board = [["1️⃣", "2️⃣"], ["3️⃣", "4️⃣"], ["5️⃣", "6️⃣"], ["7️⃣", "8️⃣"]]
+original_game_board = [["👊", "👊"], ["👊", "👊"], ["👊", "👊"], ["👊", "👊"]]
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
@@ -937,7 +939,7 @@ async def handle_strike(event):
             await event.respond("❌ لقد خسرت المحبس!")
             is_game_started = False
         else:
-            game_board[strike_position - 1] = '🖐️' + game_board[strike_position - 1][1:]
+            game_board[strike_position - 1][0] = '🖐️'
             await event.respond(f"تلعب وخوش تلعب 👏🏻\n{format_board(game_board, numbers_board)}")
 
 @l313l.on(events.NewMessage(incoming=True))
@@ -957,7 +959,5 @@ async def handle_guess(event):
 def format_board(game_board, numbers_board):
     formatted_board = ""
     for i in range(len(game_board)):
-        formatted_board += f"{game_board[i]} {numbers_board[i]} "
-        if i != len(game_board) - 1:
-            formatted_board += "\n"
+        formatted_board += f"{game_board[i][0]} {game_board[i][1]} {numbers_board[i][0]} {numbers_board[i][1]}\n"
     return formatted_board
