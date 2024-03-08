@@ -938,7 +938,7 @@ async def handle_strike(event):
         else:
             position_index = (strike_position - 1) * 2
             game_board = game_board[:position_index] + '🖐️' + game_board[position_index + 2:]
-                await event.respond(f"تلعب وخوش تلعب 👏🏻\n{game_board}")
+            await event.respond(f"تلعب وخوش تلعب 👏🏻\n{game_board}")
      
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_guess(event):
