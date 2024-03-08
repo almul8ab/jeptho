@@ -913,7 +913,7 @@ async def Husssein(event):
     global points
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
-
+correct_answer = None
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started
