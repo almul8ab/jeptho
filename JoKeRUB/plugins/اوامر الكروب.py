@@ -913,42 +913,39 @@ async def Husssein(event):
     global points
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
-trigger_symbol = ".محيبس"  # تعريف الرمز لبدء اللعبة
-correct_answer = None
-game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started, correct_answer
+    global is_game_started
     if not is_game_started:
         is_game_started = True
         correct_answer = random.randint(1, 8)
-        await event.respond(f"اين يوجد المحبس\n{game_board}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
+        await event.respond("اين يوجد المحبس\n👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.طك (\d)'))
 async def handle_strike(event):
-    global is_game_started, correct_answer, game_board
+    global is_game_started, correct_answer
     if is_game_started:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
             await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
+            is_game_started = False
         else:
-            # Replace the corresponding emoji with 🖐🏻
             position_index = (strike_position - 1) * 2
-            game_board = game_board[:position_index] + '🖐🏻' + game_board[position_index + 2:]
-            await event.respond(f"❌ للأسف، هذا ليس المحبس الصحيح.\n{game_board}")
-        is_game_started = False
+            await event.respond(f"❌ للأسف، هذا ليس المحبس الصحيح.\nاعادة المحاولة!")
     else:
         await event.respond("❌ لا يوجد لعبة قيد التشغيل.")
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_guess(event):
-    global is_game_started
+    global is_game_started, correct_answer
     if is_game_started and event.raw_text.isdigit():
         guess = int(event.raw_text)
         if 1 <= guess <= 8:
             if guess == correct_answer:
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
+                is_game_started = False
             else:
                 await event.respond("❌ للأسف، هذا ليس المحبس الصحيح.")
-            is_game_started = False
+    else:
+        await event.respond("❌ لا يوجد لعبة قيد التشغيل.")
