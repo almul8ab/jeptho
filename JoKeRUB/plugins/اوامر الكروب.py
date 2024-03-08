@@ -915,8 +915,8 @@ async def Husssein(event):
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
 
 correct_answer = None
-game_board = "👊👊\n👊👊\n👊👊\n👊👊"
-original_game_board = "👊👊\n👊👊\n👊👊\n👊👊"
+game_board = "👊👊👊👊👊👊👊👊"
+original_game_board = "👊👊👊👊👊👊👊👊"
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
