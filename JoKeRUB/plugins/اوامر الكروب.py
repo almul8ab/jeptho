@@ -915,8 +915,8 @@ async def Husssein(event):
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
 
 correct_answer = None
-game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
-original_game_board = "👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻 👊🏻👊🏻\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
+game_board = "👊👊 👊👊 👊👊 👊👊\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
+original_game_board = "👊👊 👊👊 👊👊 👊👊\n1️⃣2️⃣ 3️⃣4️⃣ 5️⃣6️⃣ 7️⃣8️⃣"
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
@@ -937,8 +937,8 @@ async def handle_strike(event):
             is_game_started = False
         else:
             position_index = (strike_position - 1) * 2
-            if '🖐🏻' not in game_board[position_index:position_index + 2]:
-                game_board = game_board[:position_index] + '🖐🏻' + game_board[position_index + 2:]
+            if '🖐️' not in game_board[position_index:position_index + 2]:
+                game_board = game_board[:position_index] + '🖐️' + game_board[position_index + 2:]
                 await event.respond(f"تلعب وخوش تلعب 👏🏻\n{game_board}")
      
 @l313l.on(events.NewMessage(incoming=True))
