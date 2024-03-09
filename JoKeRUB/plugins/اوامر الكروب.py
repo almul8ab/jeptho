@@ -918,24 +918,18 @@ import random
 
 correct_answer = None
 game_board = [["👊", "👊", "👊", "👊"], 
-              ["👊", "👊", "👊", "👊"], 
-              ["👊", "👊", "👊", "👊"],
-              ["👊", "👊", "👊", "👊"]]
+              ["👊", "👊"]]
 numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣"], 
-                 ["5️⃣", "6️⃣", "7️⃣", "8️⃣"], 
-                 ["9️⃣", "🔟", "1️⃣1️⃣", "1️⃣2️⃣"],
-                 ["1️⃣3️⃣", "1️⃣4️⃣", "1️⃣5️⃣", "1️⃣6️⃣"]]
+                 ["5️⃣", "6️⃣"]]
 original_game_board = [["👊", "👊", "👊", "👊"], 
-                       ["👊", "👊", "👊", "👊"], 
-                       ["👊", "👊", "👊", "👊"],
-                       ["👊", "👊", "👊", "👊"]]
+                       ["👊", "👊"]]
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started, correct_answer
     if not is_game_started:
         is_game_started = True
-        correct_answer = random.randint(1, 16)
+        correct_answer = random.randint(1, 6)
         await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 16.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
@@ -958,7 +952,7 @@ async def handle_guess(event):
     global is_game_started, correct_answer
     if is_game_started and event.raw_text.isdigit():
         guess = int(event.raw_text)
-        if 1 <= guess <= 16:
+        if 1 <= guess <= 6:
             if guess == correct_answer:
                 game_board = original_game_board.copy()
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
