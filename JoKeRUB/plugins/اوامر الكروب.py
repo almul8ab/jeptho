@@ -925,7 +925,7 @@ async def handle_clue(event):
     if not is_game_started:
         is_game_started = True
         correct_answer = random.randint(1, 4)
-        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 8.")
+        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 4.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d)'))
 async def handle_strike(event):
@@ -957,5 +957,5 @@ async def handle_guess(event):
 def format_board(game_board, numbers_board):
     formatted_board = ""
     for i in range(len(game_board)):
-        formatted_board += f"{game_board[i][0]} {game_board[i][2]} {numbers_board[i][0]} {numbers_board[i][2]}\n"
+        formatted_board += f"{game_board[i][0]} {game_board[i][1]} {numbers_board[i][0]} {numbers_board[i][1]}\n"
     return formatted_board
