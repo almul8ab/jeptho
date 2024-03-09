@@ -914,20 +914,31 @@ async def Husssein(event):
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
 
+import random
+
 correct_answer = None
-game_board = [["👊", "👊"], ["👊", "👊"]]
-numbers_board = [["1️⃣", "2️⃣"], ["3️⃣", "4️⃣"]]
-original_game_board = [["👊", "👊"], ["👊", "👊"]]
+game_board = [["👊", "👊", "👊", "👊"], 
+              ["👊", "👊", "👊", "👊"], 
+              ["👊", "👊", "👊", "👊"],
+              ["👊", "👊", "👊", "👊"]]
+numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣"], 
+                 ["5️⃣", "6️⃣", "7️⃣", "8️⃣"], 
+                 ["9️⃣", "🔟", "1️⃣1️⃣", "1️⃣2️⃣"],
+                 ["1️⃣3️⃣", "1️⃣4️⃣", "1️⃣5️⃣", "1️⃣6️⃣"]]
+original_game_board = [["👊", "👊", "👊", "👊"], 
+                       ["👊", "👊", "👊", "👊"], 
+                       ["👊", "👊", "👊", "👊"],
+                       ["👊", "👊", "👊", "👊"]]
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started, correct_answer
     if not is_game_started:
         is_game_started = True
-        correct_answer = random.randint(1, 4)
-        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 4.")
+        correct_answer = random.randint(1, 16)
+        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 16.")
 
-@l313l.on(events.NewMessage(pattern=r'\طك (\d)'))
+@l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
     global is_game_started, correct_answer, game_board
     if is_game_started:
@@ -937,7 +948,9 @@ async def handle_strike(event):
             await event.respond("❌ لقد خسرت المحبس!")
             is_game_started = False
         else:
-            game_board[strike_position - 1][0] = '🖐️'
+            row = (strike_position - 1) // 4
+            col = (strike_position - 1) % 4
+            game_board[row][col] = '🖐️'
             await event.respond(f"تلعب وخوش تلعب 👏🏻\n{format_board(game_board, numbers_board)}")
 
 @l313l.on(events.NewMessage(incoming=True))
@@ -945,7 +958,7 @@ async def handle_guess(event):
     global is_game_started, correct_answer
     if is_game_started and event.raw_text.isdigit():
         guess = int(event.raw_text)
-        if 1 <= guess <= 4:
+        if 1 <= guess <= 16:
             if guess == correct_answer:
                 game_board = original_game_board.copy()
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
@@ -957,5 +970,5 @@ async def handle_guess(event):
 def format_board(game_board, numbers_board):
     formatted_board = ""
     for i in range(len(game_board)):
-        formatted_board += f"{game_board[i][0]} {game_board[i][1]} {numbers_board[i][0]} {numbers_board[i][1]}\n"
+        formatted_board += " ".join(game_board[i]) + " " + " ".join(numbers_board[i]) + "\n"
     return formatted_board
