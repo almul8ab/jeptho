@@ -914,15 +914,10 @@ async def Husssein(event):
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
 
-import random
-
 correct_answer = None
-game_board = [["👊", "👊", "👊", "👊"], 
-              ["👊", "👊"]]
-numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣"], 
-                 ["5️⃣", "6️⃣"]]
-original_game_board = [["👊", "👊", "👊", "👊"], 
-                       ["👊", "👊"]]
+game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
+numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]]
+original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
@@ -930,7 +925,7 @@ async def handle_clue(event):
     if not is_game_started:
         is_game_started = True
         correct_answer = random.randint(1, 6)
-        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 16.")
+        await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 6.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
@@ -942,9 +937,7 @@ async def handle_strike(event):
             await event.respond("❌ لقد خسرت المحبس!")
             is_game_started = False
         else:
-            row = (strike_position - 1) // 4
-            col = (strike_position - 1) % 4
-            game_board[row][col] = '🖐️'
+            game_board[0][strike_position - 1] = '🖐️'
             await event.respond(f"تلعب وخوش تلعب 👏🏻\n{format_board(game_board, numbers_board)}")
 
 @l313l.on(events.NewMessage(incoming=True))
@@ -963,6 +956,6 @@ async def handle_guess(event):
 
 def format_board(game_board, numbers_board):
     formatted_board = ""
-    for i in range(len(game_board)):
-        formatted_board += " ".join(game_board[i]) + " " + " ".join(numbers_board[i]) + "\n"
+    formatted_board += " ".join(numbers_board[0]) + "\n"
+    formatted_board += " ".join(game_board[0]) + "\n"
     return formatted_board
