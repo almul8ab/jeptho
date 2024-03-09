@@ -921,10 +921,11 @@ original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started, correct_answer
+    global is_game_started, correct_answer, game_board
     if not is_game_started:
         is_game_started = True
         correct_answer = random.randint(1, 6)
+        game_board = original_game_board.copy()
         await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 6.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
@@ -933,7 +934,6 @@ async def handle_strike(event):
     if is_game_started:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
-            game_board = original_game_board.copy()
             await event.respond("❌ لقد خسرت المحبس!")
             is_game_started = False
         else:
@@ -947,7 +947,6 @@ async def handle_guess(event):
         guess = int(event.raw_text)
         if 1 <= guess <= 6:
             if guess == correct_answer:
-                game_board = original_game_board.copy()
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
             else:
                 await event.respond("❌ للأسف، خسرت هذا ليس المحبس الصحيح.")
