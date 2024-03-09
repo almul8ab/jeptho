@@ -942,17 +942,16 @@ async def handle_strike(event):
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_guess(event):
-    global is_game_started, correct_answer
+    global is_game_started, correct_answer, game_board
     if is_game_started and event.raw_text.isdigit():
         guess = int(event.raw_text)
         if 1 <= guess <= 6:
             if guess == correct_answer:
                 game_board = original_game_board.copy()
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
-                is_game_started = False
             else:
                 await event.respond("❌ للأسف، خسرت هذا ليس المحبس الصحيح.")
-                is_game_started = False
+            is_game_started = False
 
 def format_board(game_board, numbers_board):
     formatted_board = ""
