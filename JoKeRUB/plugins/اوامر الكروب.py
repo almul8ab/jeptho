@@ -940,11 +940,11 @@ async def handle_strike(event):
             game_board[0][strike_position - 1] = '🖐️'
             await event.respond(f"تلعب وخوش تلعب 👏🏻\n{format_board(game_board, numbers_board)}")
 
-@l313l.on(events.NewMessage(incoming=True))
+@l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
     global is_game_started, correct_answer, game_board
-    if is_game_started and event.raw_text.isdigit():
-        guess = int(event.raw_text)
+    if is_game_started:
+        guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
             if guess == correct_answer:
                 await event.respond("🎉 تهانينا! لقد وجدت المحبس!")
