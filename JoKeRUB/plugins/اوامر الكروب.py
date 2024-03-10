@@ -927,12 +927,12 @@ joker_player = None
 is_game_started2 = False
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started2, correct_answer, game_board, participant
+    global is_game_started2, correct_answer, game_board
     if not is_game_started2:
         is_game_started2 = True
         joker_player = None
         correct_answer = random.randint(1, 6)
-        await event.reply(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\n اول من يرسل ( انا ) سيشارك في اللعبة \n لطك العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة ")
+        await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
