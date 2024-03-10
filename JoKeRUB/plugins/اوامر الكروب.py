@@ -962,6 +962,7 @@ async def handle_guess(event):
                 game_board = original_game_board.copy()
                 await event.reply("🎉 لك عااااااش يابطل 👏🏻! لقد وجدت المحبس!")
             else:
+                game_board = original_game_board.copy()
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
             joker_player = None
