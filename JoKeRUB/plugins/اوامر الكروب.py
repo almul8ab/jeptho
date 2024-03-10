@@ -913,7 +913,12 @@ async def Husssein(event):
     global points
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
-
+joker = [
+    "تلعب وخوش تلعب 👏🏻",
+    "لك عاش يابطل استمر 💪🏻",
+    "على كيفك ركزززز انتَ كدها 🤨",
+    "لك وعلي ذيييب 😍",
+]
 correct_answer = None
 game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]]
@@ -940,7 +945,8 @@ async def handle_strike(event):
             is_game_started2 = False
         else:
             game_board[0][strike_position - 1] = '🖐️'
-            await event.reply(f"تلعب وخوش تلعب 👏🏻\n{format_board(game_board, numbers_board)}")
+            lMl10l = random.choice(joker)
+            await event.reply(f"**{lMl10l}**\n{format_board(game_board, numbers_board)}")
 
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
