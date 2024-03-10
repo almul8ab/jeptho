@@ -918,21 +918,21 @@ correct_answer = None
 game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]]
 original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
-participant = None
+first_player = None
 is_game_started2 = False
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started2, correct_answer, game_board, participant
     if not is_game_started2:
         is_game_started2 = True
-        participant = None
+        first_player = None
         correct_answer = random.randint(1, 6)
         await event.respond(f"اين يوجد المحبس\n{format_board(game_board, numbers_board)}\nيرجى اختيار الرقم الصحيح بين 1 و 6.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
     global is_game_started2, correct_answer, game_board
-    if is_game_started2:
+    if is_game_started2 and event.sender_id == first_player:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
             game_board = original_game_board.copy()
@@ -945,7 +945,7 @@ async def handle_strike(event):
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
     global is_game_started2, correct_answer, game_board
-    if is_game_started2:
+    if is_game_started2 and event.sender_id == first_player:
         guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
             if guess == correct_answer:
@@ -955,9 +955,9 @@ async def handle_guess(event):
             is_game_started2 = False
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
-    global participant, is_game_started2
-    if not is_game_started and event.raw_text.lower() == "انا" and not participant:
-        participant = event.sender_id
+    global first_player, is_game_started2
+    if not is_game_started and event.raw_text.lower() == "انا" and not first_player:
+        first_player = event.sender_id
         await event.respond("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
         
 def format_board(game_board, numbers_board):
