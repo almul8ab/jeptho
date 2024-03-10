@@ -932,7 +932,7 @@ async def handle_clue(event):
         is_game_started2 = True
         joker_player = None
         correct_answer = random.randint(1, 6)
-        await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
+        await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
