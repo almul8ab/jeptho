@@ -955,6 +955,7 @@ async def handle_guess(event):
         guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
             if guess == correct_answer:
+                game_board = original_game_board.copy()
                 await event.reply("🎉 لك عااااااش يابطل 👏🏻! لقد وجدت المحبس!")
             else:
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
@@ -965,6 +966,7 @@ async def handle_incoming_message(event):
     if not is_game_started and event.raw_text.lower() == "انا" and not joker_player:
         joker_player = event.sender_id
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+        
         
 def format_board(game_board, numbers_board):
     formatted_board = ""
