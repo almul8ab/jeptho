@@ -943,6 +943,7 @@ async def handle_strike(event):
             game_board = original_game_board.copy()
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             is_game_started2 = False
+            joker_player = None
         else:
             game_board[0][strike_position - 1] = '🖐️'
             lMl10l = random.choice(joker)
@@ -960,6 +961,7 @@ async def handle_guess(event):
             else:
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
+            joker_player = None
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_player, is_game_started2
