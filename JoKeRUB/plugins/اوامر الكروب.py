@@ -943,8 +943,8 @@ async def handle_strike(event):
     if is_game_started2 and event.sender_id == joker_player:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
-            game_board = original_game_board.copy()
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
+            game_board = original_game_board.copy()
             is_game_started2 = False
             joker_player = None
         else:
