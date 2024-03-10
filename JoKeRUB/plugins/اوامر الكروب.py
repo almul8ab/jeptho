@@ -919,15 +919,18 @@ joker = [
     "على كيفك ركزززز انتَ كدها 🤨",
     "لك وعلي ذيييب 😍",
 ]
+import random
+
 correct_answer = None
 game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]]
 original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
+
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started2, correct_answer, game_board
+    global is_game_started2, correct_answer, game_board, joker_player
     if not is_game_started2:
         is_game_started2 = True
         joker_player = None
@@ -936,7 +939,7 @@ async def handle_clue(event):
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
-    global is_game_started2, correct_answer, game_board
+    global is_game_started2, correct_answer, game_board, joker_player
     if is_game_started2 and event.sender_id == joker_player:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
@@ -951,7 +954,7 @@ async def handle_strike(event):
 
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
-    global is_game_started2, correct_answer, game_board
+    global is_game_started2, correct_answer, game_board, joker_player
     if is_game_started2 and event.sender_id == joker_player:
         guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
@@ -962,14 +965,14 @@ async def handle_guess(event):
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
             joker_player = None
+
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_player, is_game_started2
     if not is_game_started and event.raw_text.lower() == "انا" and not joker_player:
         joker_player = event.sender_id
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-        
-        
+
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
