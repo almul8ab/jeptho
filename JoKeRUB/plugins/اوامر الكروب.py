@@ -937,6 +937,8 @@ async def handle_clue(event):
         correct_answer = random.randint(1, 6)
         await asyncio.sleep(10)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
+        if players_queue:
+            players_queue.append(players_queue.pop(0))
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
     global is_game_started2, correct_answer, game_board, joker_player
@@ -982,7 +984,6 @@ async def handle_incoming_message(event):
         if event.sender_id not in players_queue:
             players_queue.append(event.sender_id)
             await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-players_queue.append(players_queue.pop(0))
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
