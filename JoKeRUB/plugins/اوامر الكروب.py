@@ -927,7 +927,7 @@ numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️�
 original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
-
+players_queue = []
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started2, correct_answer, game_board, joker_player
@@ -935,8 +935,9 @@ async def handle_clue(event):
         is_game_started2 = True
         joker_player = None
         correct_answer = random.randint(1, 6)
+        await asyncio.sleep(10)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
-
+players_queue.append(players_queue.pop(0))
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
     global is_game_started2, correct_answer, game_board, joker_player
@@ -974,12 +975,14 @@ async def handle_guess(event):
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
             joker_player = None
+
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
-    global joker_player, is_game_started2
-    if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player:
-        joker_player = event.sender_id
-        await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+    global first_player, second_player, joker_player, is_game_started2, game_start_delay, players_queue
+    if event.raw_text.lower() == "انا":
+        if event.sender_id not in players_queue:
+            players_queue.append(event.sender_id)
+            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
 
 def format_board(game_board, numbers_board):
     formatted_board = ""
