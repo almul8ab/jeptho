@@ -939,6 +939,28 @@ async def handle_clue(event):
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
         if players_queue:
             players_queue.append(players_queue.pop(0))
+players_queue = []
+
+@l313l.on(events.NewMessage(incoming=True))
+async def handle_incoming_message(event):
+    global players_queue
+    if event.raw_text.lower() == "انا":
+        if event.sender_id not in players_queue:
+            players_queue.append(event.sender_id)
+            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+
+@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
+async def handle_clue(event):
+    global is_game_started2, correct_answer, game_board, joker_player, game_start_delay, players_queue
+    if not is_game_started2:
+        is_game_started2 = True
+        joker_player = None
+        correct_answer = random.randint(1, 6)
+        await asyncio.sleep(10)
+        await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
+        if players_queue:
+            players_queue.append(players_queue.pop(0))  # Move the first player to the end of the queue
+
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\طك (\d+)'))
 async def handle_strike(event):
     global is_game_started2, correct_answer, game_board, joker_player, players_queue
@@ -956,6 +978,7 @@ async def handle_strike(event):
                 await event.reply(f"**{lMl10l}**\n{format_board(game_board, numbers_board)}")
         else:
             await event.reply("لا يمكنك استخدام هذا الأمر لأنك لم تسجل مشاركتك بكتابة 'انا'.")
+
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
     global is_game_started2, correct_answer, game_board, joker_player, players_queue
@@ -984,7 +1007,7 @@ async def handle_guess(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global first_player, second_player, joker_player, is_game_started2, game_start_delay, players_queue
-    if event.raw_text.lower() == "انا":
+    if is_game_started2 and event.raw_text.lower() == "انا":
         if event.sender_id not in players_queue:
             players_queue.append(event.sender_id)
             await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
