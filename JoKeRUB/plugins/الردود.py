@@ -95,7 +95,6 @@ async def filter_incoming_handler(handler):
                         my_mention=f"[{me.first_name}](tg://user?id={me.id})",
                     ),
                 )
-
 @l313l.ar_cmd(
     pattern="رد ([\s\S]*)",
     command=("رد", plugin_category),
