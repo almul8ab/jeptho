@@ -16,7 +16,7 @@ ROZTEXT = "عـذرا لا يمكـنك اضافـة رد هـنا"
 
 
 @l313l.ar_cmd(incoming=True)
-async def filter_incoming_handler(handler):  # sourcery no-metrics
+async def filter_incoming_handler(handler):
     if handler.sender_id == handler.client.uid:
         return
 
@@ -54,6 +54,11 @@ async def filter_incoming_handler(handler):  # sourcery no-metrics
                 msg_o = await handler.client.get_messages(
                     entity=BOTLOG_CHATID, ids=int(trigger.f_mesg_id)
                 )
+                if isinstance(msg_o.entities, list) and any(isinstance(entity, MessageEntityCustomEmoji) for entity in msg_o.entities):
+                    emoji_bytes = await handler.client.download_media(msg_o)
+                    emoji_io = BytesIO(emoji_bytes)
+                    await handler.reply(file=emoji_io)
+                    return
                 await handler.reply(
                     msg_o.message.format(
                         mention=f"[{a_user.first_name}](tg://user?id={a_user.id})",
@@ -90,8 +95,6 @@ async def filter_incoming_handler(handler):  # sourcery no-metrics
                         my_mention=f"[{me.first_name}](tg://user?id={me.id})",
                     ),
                 )
-
-
 @l313l.ar_cmd(
     pattern="رد ([\s\S]*)",
     command=("رد", plugin_category),
