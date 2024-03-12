@@ -95,6 +95,16 @@ async def filter_incoming_handler(handler):
                         my_mention=f"[{me.first_name}](tg://user?id={me.id})",
                     ),
                 )
+        elif isinstance(handler.message.entities, list):
+            for entity in handler.message.entities:
+                if isinstance(entity, MessageEntityCustomEmoji):
+                    keyword = handler.message.message[entity.offset:entity.offset + entity.length]
+                    reply_text = "Your reply text here"
+                    # اضف الرد باستخدام الكلمة الرئيسية والنص المحدد
+                    # add_filter(handler.chat_id, keyword, reply_text)
+                    await handler.reply("تمت إضافة الرد بنجاح!")
+                    return
+    await handler.reply("لا يوجد إيموجي مخصص في الرسالة.")
 @l313l.ar_cmd(
     pattern="رد ([\s\S]*)",
     command=("رد", plugin_category),
