@@ -1,7 +1,7 @@
 import re
 
 from JoKeRUB import l313l
-
+from io import BytesIO
 from ..core.managers import edit_or_reply
 from ..sql_helper.filter_sql import (
     add_filter,
@@ -127,8 +127,9 @@ async def add_new_filter(new_handler):
         if msg.entities:
             for entity in msg.entities:
                 if isinstance(entity, MessageEntityCustomEmoji):
-                    emoji_file = await new_handler.client.download_media(msg)
-                    await new_handler.reply(file=emoji_file)
+                    emoji_bytes = await new_handler.client.download_media(msg)
+                    emoji_io = BytesIO(emoji_bytes)
+                    await new_handler.reply(file=emoji_io)
                     return
         if BOTLOG:
             await new_handler.client.send_message(
@@ -161,7 +162,7 @@ async def add_new_filter(new_handler):
     if add_filter(str(new_handler.chat_id), keyword, string, msg_id) is True:
         return await edit_or_reply(new_handler, success.format(keyword, "Updated"))
     await edit_or_reply(new_handler, f"Error while setting filter for {keyword}")
-
+    
 @l313l.ar_cmd(
     pattern="ردد ([\s\S]*)",
     command=("ردد", plugin_category),
@@ -197,8 +198,9 @@ async def add_private_filter(new_handler):
         if msg.entities:
             for entity in msg.entities:
                 if isinstance(entity, MessageEntityCustomEmoji):
-                    emoji_file = await new_handler.client.download_media(msg)
-                    await new_handler.reply(file=emoji_file)
+                    emoji_bytes = await new_handler.client.download_media(msg)
+                    emoji_io = BytesIO(emoji_bytes)
+                    await new_handler.reply(file=emoji_io)
                     return
         if BOTLOG:
             await new_handler.client.send_message(
