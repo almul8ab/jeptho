@@ -124,6 +124,12 @@ async def add_new_filter(new_handler):
     msg = await new_handler.get_reply_message()
     msg_id = None
     if msg and msg.media and not string:
+        if msg.entities:
+            for entity in msg.entities:
+                if isinstance(entity, MessageEntityCustomEmoji):
+                    emoji_file = await new_handler.client.download_media(msg)
+                    await new_handler.reply(file=emoji_file)
+                    return
         if BOTLOG:
             await new_handler.client.send_message(
                 BOTLOG_CHATID,
@@ -188,6 +194,12 @@ async def add_private_filter(new_handler):
     msg = await new_handler.get_reply_message()
     msg_id = None
     if msg and msg.media and not string:
+        if msg.entities:
+            for entity in msg.entities:
+                if isinstance(entity, MessageEntityCustomEmoji):
+                    emoji_file = await new_handler.client.download_media(msg)
+                    await new_handler.reply(file=emoji_file)
+                    return
         if BOTLOG:
             await new_handler.client.send_message(
                 BOTLOG_CHATID,
