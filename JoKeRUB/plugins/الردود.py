@@ -57,7 +57,7 @@ async def filter_incoming_handler(handler):
                 if isinstance(msg_o.entities, list) and any(isinstance(entity, MessageEntityCustomEmoji) for entity in msg_o.entities):
                     emoji_bytes = await handler.client.download_media(msg_o)
                     emoji_io = BytesIO(emoji_bytes)
-                    await handler.reply(file=emoji_io)
+                    await handler.client.send_file(handler.chat_id, file=emoji_io)
                     return
                 await handler.reply(
                     msg_o.message.format(
@@ -95,6 +95,7 @@ async def filter_incoming_handler(handler):
                         my_mention=f"[{me.first_name}](tg://user?id={me.id})",
                     ),
                 )
+
 @l313l.ar_cmd(
     pattern="رد ([\s\S]*)",
     command=("رد", plugin_category),
