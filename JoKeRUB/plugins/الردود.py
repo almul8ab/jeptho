@@ -124,13 +124,11 @@ async def add_new_filter(new_handler):
     msg = await new_handler.get_reply_message()
     msg_id = None
     if msg and msg.media and not string:
-        if msg.entities:
-            for entity in msg.entities:
-                if isinstance(entity, MessageEntityCustomEmoji):
-                    emoji_bytes = await new_handler.client.download_media(msg)
-                    emoji_io = BytesIO(emoji_bytes)
-                    await new_handler.reply(file=emoji_io)
-                    return
+        if isinstance(msg.entities, list) and any(isinstance(entity, MessageEntityCustomEmoji) for entity in msg.entities):
+            emoji_bytes = await new_handler.client.download_media(msg)
+            emoji_io = BytesIO(emoji_bytes)
+            await new_handler.reply(file=emoji_io)
+            return
         if BOTLOG:
             await new_handler.client.send_message(
                 BOTLOG_CHATID,
@@ -162,7 +160,7 @@ async def add_new_filter(new_handler):
     if add_filter(str(new_handler.chat_id), keyword, string, msg_id) is True:
         return await edit_or_reply(new_handler, success.format(keyword, "Updated"))
     await edit_or_reply(new_handler, f"Error while setting filter for {keyword}")
-    
+
 @l313l.ar_cmd(
     pattern="ردد ([\s\S]*)",
     command=("ردد", plugin_category),
