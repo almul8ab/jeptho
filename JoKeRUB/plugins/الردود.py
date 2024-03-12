@@ -131,7 +131,7 @@ async def add_new_filter(new_handler):
         if isinstance(msg.entities, list) and any(isinstance(entity, MessageEntityCustomEmoji) for entity in msg.entities):
             emoji_bytes = await new_handler.client.download_media(msg)
             emoji_io = BytesIO(emoji_bytes)
-            await new_handler.reply(file=emoji_io)
+            await new_handler.client.send_file(new_handler.chat_id, file=emoji_io)
             return
         if BOTLOG:
             await new_handler.client.send_message(
@@ -165,31 +165,6 @@ async def add_new_filter(new_handler):
         return await edit_or_reply(new_handler, success.format(keyword, "Updated"))
     await edit_or_reply(new_handler, f"Error while setting filter for {keyword}")
 
-@l313l.ar_cmd(
-    pattern="ردد ([\s\S]*)",
-    command=("ردد", plugin_category),
-    info={
-        "header": "To save filter for the given keyword in private chats.",
-        "description": "If any user sends that filter in private chats then your bot will reply.",
-        "option": {
-            "{mention}": "To mention the user",
-            "{title}": "To get chat name in message",
-            "{count}": "To get group members",
-            "{first}": "To use user first name",
-            "{last}": "To use user last name",
-            "{fullname}": "To use user full name",
-            "{userid}": "To use userid",
-            "{username}": "To use user username",
-            "{my_first}": "To use my first name",
-            "{my_fullname}": "To use my full name",
-            "{my_last}": "To use my last name",
-            "{my_mention}": "To mention myself",
-            "{my_username}": "To use my username.",
-        },
-        "note": "For saving media/stickers as filters you need to set PRIVATE_GROUP_BOT_API_ID.",
-        "usage": "{tr}filter private <keyword>",
-    },
-)
 async def add_private_filter(new_handler):
     "To save the private chat filter"
     keyword = new_handler.pattern_match.group(1)
