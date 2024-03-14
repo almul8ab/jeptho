@@ -991,7 +991,6 @@ async def handle_incoming_message(event):
         else:
             await event.reply("أنت بالفعل في قائمة الانتظار.")
 
-@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.انكلع$'))
 async def handle_ban(event):
     global is_game_started2, joker_player, players_queue
     if is_game_started2 and event.reply_to_msg_id:
@@ -1004,8 +1003,6 @@ async def handle_ban(event):
             await event.reply(f"تم طرد اللاعب {messi} من المشاركة في اللعبة.")
             is_game_started2 = False
             players_queue.clear()
-            correct_answer = None
-            game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
             if len(players_queue) > 0:
                 next_player = players_queue.pop(0)
                 joker_player = next_player
