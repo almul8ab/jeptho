@@ -990,23 +990,7 @@ async def handle_incoming_message(event):
             await event.reply("تم تسجيل مشاركتك في قائمة الانتظار للعب.")
         else:
             await event.reply("أنت بالفعل في قائمة الانتظار.")
-
-async def handle_ban(event):
-    global is_game_started2, joker_player, players_queue
-    if is_game_started2 and event.reply_to_msg_id:
-        reply_message = await event.get_reply_message()
-        user_id = reply_message.sender_id
-        if user_id == joker_player:
-            joker_player = None
-            sender = await event.get_sender()
-            messi = sender.first_name if sender else 'مجهول'
-            await event.reply(f"تم طرد اللاعب {messi} من المشاركة في اللعبة.")
-            is_game_started2 = False
-            players_queue.clear()
-            if len(players_queue) > 0:
-                next_player = players_queue.pop(0)
-                joker_player = next_player
-                await event.reply(f"اللاعب {next_player} سيبدأ اللعبة التالية.")
+    
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
