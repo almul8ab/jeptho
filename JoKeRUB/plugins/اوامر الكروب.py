@@ -962,7 +962,6 @@ async def handle_guess(event):
         guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
             if guess == correct_answer:
-                current_player = reserved_players.pop(0)
                 winner_id = event.sender_id
                 if winner_id not in points:
                     points[winner_id] = 0
@@ -984,7 +983,6 @@ async def handle_incoming_message(event):
     global joker_player, is_game_started2
     if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player and not current_player:
         joker_player = event.sender_id
-        reserved_players.append(joker_player)
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
 @l313l.on(events.NewMessage(pattern=r'\.انكلع$'))
 async def handle_ban(event):
@@ -992,8 +990,8 @@ async def handle_ban(event):
     if is_game_started2 and event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
         user_id = reply_message.sender_id
-        if user_id in reserved_players:
-            reserved_players.remove(user_id)
+        if user_id in joker_player:
+            joker_player.remove(user_id)
             await event.reply(f"تم طرد اللاعب {user_id} من المشاركة في اللعبة.")
         
 def format_board(game_board, numbers_board):
