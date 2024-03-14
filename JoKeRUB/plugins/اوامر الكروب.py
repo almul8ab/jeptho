@@ -926,7 +926,7 @@ numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️�
 original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
-
+players_queue = []
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started2, correct_answer, game_board, joker_player
@@ -975,13 +975,23 @@ async def handle_guess(event):
             joker_player = None
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
-    global joker_player, is_game_started2
-    if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player:
-        joker_player = event.sender_id
-        await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+    global joker_player, is_game_started2, players_queue
+    if not is_game_started2:
+        if event.raw_text.lower() == "انا" and not joker_player:
+            joker_player = event.sender_id
+            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+            players_queue.append(joker_player)
+            is_game_started2 = True
+    elif event.raw_text.lower() == "انا":
+        if event.sender_id not in players_queue:
+            players_queue.append(event.sender_id)
+            await event.reply("تم تسجيل مشاركتك في قائمة الانتظار للعب.")
+        else:
+            await event.reply("أنت بالفعل في قائمة الانتظار.")
+
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.انكلع$'))
 async def handle_ban(event):
-    global is_game_started2, joker_player
+    global is_game_started2, joker_player, players_queue
     if is_game_started2 and event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
         user_id = reply_message.sender_id
@@ -990,6 +1000,14 @@ async def handle_ban(event):
             sender = await event.get_sender()
             messi = sender.first_name if sender else 'مجهول'
             await event.reply(f"تم طرد اللاعب {messi} من المشاركة في اللعبة.")
+            is_game_started2 = False
+            players_queue.clear()
+            correct_answer = None
+            game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
+            if len(players_queue) > 0:
+                next_player = players_queue.pop(0)
+                joker_player = next_player
+                await event.reply(f"اللاعب {next_player} سيبدأ اللعبة التالية.")
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
