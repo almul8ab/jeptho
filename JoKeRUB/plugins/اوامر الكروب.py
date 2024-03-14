@@ -982,16 +982,15 @@ async def handle_guess(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_players, is_game_started2, current_player_index
-    if not is_game_started2 and event.raw_text.lower() == "انا" and event.sender_id not in joker_players:
-        is_game_started2 = True
-        joker_players.append(event.sender_id)
-        if len(joker_players) == 1:
+    if not is_game_started2 and event.raw_text.lower() == "انا":
+        if not joker_players:
+            is_game_started2 = True
+            joker_players.append(event.sender_id)
             await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
         else:
-            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس، انتظر دورك.")
-    elif is_game_started2 and event.raw_text.lower() == "انا" and event.sender_id not in joker_players:
-        await event.reply("لقد تم تسجيلك مسبقًا في اللعبة.")
-
+            await event.reply("لقد تم تسجيل لاعب آخر مسبقًا. لا يمكنك المشاركة في اللعبة حاليًا.")
+    elif is_game_started2 and event.raw_text.lower() == "انا":
+        await event.reply("لقد تم تسجيلك مسبقًا في اللعبة. لا يمكنك المشاركة في اللعبة حاليًا.")
 @l313l.on(events.NewMessage(pattern=r'\.انكلع$'))
 async def handle_ban(event):
     global is_game_started2, joker_players, current_player_index
