@@ -983,7 +983,9 @@ async def handle_incoming_message(event):
             players_queue.append(joker_player)
             is_game_started2 = True
     elif event.raw_text.lower() == "انا":
-        if event.sender_id not in players_queue:
+        if joker_player is None:
+            await event.reply("الرجاء الانتظار حتى يتم بدء اللعبة الجديدة.")
+        elif event.sender_id not in players_queue:
             players_queue.append(event.sender_id)
             await event.reply("تم تسجيل مشاركتك في قائمة الانتظار للعب.")
         else:
