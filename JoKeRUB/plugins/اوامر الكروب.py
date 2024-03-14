@@ -929,7 +929,6 @@ original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
 current_player = None
-reserved_players = []
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
@@ -990,8 +989,8 @@ async def handle_ban(event):
     if is_game_started2 and event.reply_to_msg_id:
         reply_message = await event.get_reply_message()
         user_id = reply_message.sender_id
-        if user_id in joker_player:
-            joker_player.remove(user_id)
+        if user_id == joker_player:
+            joker_player = None
             await event.reply(f"تم طرد اللاعب {user_id} من المشاركة في اللعبة.")
         
 def format_board(game_board, numbers_board):
