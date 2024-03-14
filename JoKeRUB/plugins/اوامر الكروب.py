@@ -986,7 +986,16 @@ async def handle_incoming_message(event):
         joker_player = event.sender_id
         reserved_players.append(joker_player)
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-
+@l313l.on(events.NewMessage(pattern=r'\.انكلع$'))
+async def handle_ban(event):
+    global is_game_started2, joker_player
+    if is_game_started2 and event.reply_to_msg_id:
+        reply_message = await event.get_reply_message()
+        user_id = reply_message.sender_id
+        if user_id in reserved_players:
+            reserved_players.remove(user_id)
+            await event.reply(f"تم طرد اللاعب {user_id} من المشاركة في اللعبة.")
+        
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
