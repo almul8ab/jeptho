@@ -989,7 +989,9 @@ async def handle_incoming_message(event):
             await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
         else:
             await event.reply("تم تسجيل مشاركتك في لعبة المحيبس، انتظر دورك.")
-            
+    elif is_game_started2 and event.raw_text.lower() == "انا" and event.sender_id not in joker_players:
+        await event.reply("لقد تم تسجيلك مسبقًا في اللعبة.")
+
 @l313l.on(events.NewMessage(pattern=r'\.انكلع$'))
 async def handle_ban(event):
     global is_game_started2, joker_players, current_player_index
