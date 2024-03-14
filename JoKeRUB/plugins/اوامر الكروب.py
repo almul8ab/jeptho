@@ -913,7 +913,6 @@ async def Husssein(event):
     global points
     points = {}
     await event.respond('**تم تصفير نقاط المشاركين بنجاح!**')
-import random
 
 joker = [
     "تلعب وخوش تلعب 👏🏻",
@@ -948,7 +947,6 @@ async def handle_strike(event):
             game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             is_game_started2 = False
-            joker_players = []
             current_player_index = None
         else:
             game_board[0][strike_position - 1] = '🖐️'
@@ -979,7 +977,6 @@ async def handle_guess(event):
                 game_board = [row[:] for row in original_game_board]
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
-            joker_players = []
             current_player_index = None
 
 @l313l.on(events.NewMessage(incoming=True))
@@ -1002,6 +999,7 @@ async def handle_ban(event):
             joker_players.remove(user_id)
             if current_player_index is not None and current_player_index >= len(joker_players):
                 current_player_index = 0
+            is_game_started2 = False
             await event.reply(f"تم طرد اللاعب {user_id} من المشاركة في اللعبة.")
 
 def format_board(game_board, numbers_board):
