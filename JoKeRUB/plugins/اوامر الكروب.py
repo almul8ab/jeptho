@@ -993,9 +993,10 @@ async def handle_incoming_message(event):
     if not is_game_started2 and event.raw_text.lower() == "انا":
         if not joker_players and not waiting_for_second_player:
             joker_players.append(event.sender_id)
-            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-        elif waiting_for_second_player:
-            await event.reply("الانتظار لاعب آخر يشارك في اللعبة.")
+            if len(joker_players) == 1:
+                await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+            elif len(waiting_for_second_player) == 2:
+                await event.reply("الانتظار لاعب آخر يشارك في اللعبة.")
 
 @l313l.on(events.NewMessage(pattern=r'\.انكلع$'))
 async def handle_ban(event):
