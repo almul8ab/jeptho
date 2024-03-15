@@ -934,9 +934,9 @@ current_player_index = 0  # مؤشر للعب الحالي
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
     global is_game_started2, correct_answer, game_board, joker_players, current_player_index
+    is_game_started2 = True
     await asyncio.sleep(10)  # انتظار 10 ثواني
     if not is_game_started2 and len(joker_players) >= 1:
-        is_game_started2 = True
         correct_answer = random.randint(1, 6)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
     elif len(joker_players) < 1:
