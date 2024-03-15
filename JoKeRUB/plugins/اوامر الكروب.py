@@ -933,8 +933,7 @@ current_player_index = 0  # مؤشر للعب الحالي
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started2, correct_answer, game_board, joker_players
-    is_game_started2 = True
+    global is_game_started2, correct_answer, game_board, joker_players, current_player_index
     await asyncio.sleep(10)  # انتظار 10 ثواني
     if not is_game_started2 and len(joker_players) >= 1:
         is_game_started2 = True
@@ -952,7 +951,7 @@ async def handle_strike(event):
             game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             joker_players.pop(current_player_index)  # إزالة اللاعب الخاسر من القائمة
-            current_player_index %= len(joker_players)  # التبديل إلى اللاعب التالي
+            current_player_index %= len(joker_players)  # التبديل إلى اللاعب التالي بعد خسارة اللاعب الحالي
         else:
             game_board[0][strike_position - 1] = '🖐️'
             lMl10l = random.choice(joker)
@@ -986,11 +985,13 @@ async def handle_guess(event):
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
-    global joker_players, is_game_started2
+    global joker_players, is_game_started2, current_player_index
     if is_game_started2 and "انا" in event.raw_text.lower():
         joker_players.append(event.sender_id)
+        if len(joker_players) == 1:
+            current_player_index = 0  # إذا كان هناك لاعب واحد فليكن هو اللاعب الحالي
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-        
+
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
