@@ -935,11 +935,27 @@ async def handle_clue(event):
         joker_player = None
         correct_answer = random.randint(1, 6)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
-        players_queue.clear()
+        players_queue.clear()  # تأكد من مسح قائمة اللاعبين المنتظرين
+
+@l313l.on(events.NewMessage(pattern=r'\انا'))
+async def handle_start_game(event):
+    global joker_player, is_game_started2, players_queue
+    if is_game_started2:
+        if not players_queue:  # إذا لم يكن هناك أي لاعبين في قائمة الانتظار
+            joker_player = event.sender_id
+            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+            players_queue.append(joker_player)
+        elif event.sender_id not in players_queue:
+            players_queue.append(event.sender_id)
+            await event.reply("تم تسجيل مشاركتك في قائمة الانتظار للعب.")
+        else:
+            await event.reply("أنت بالفعل في قائمة الانتظار.")
+    else:
+        await event.reply("الرجاء الانتظار حتى يتم بدء اللعبة الجديدة.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
-    global is_game_started2, correct_answer, game_board, joker_player
+    global is_game_started2, correct_answer, game_board, joker_player, players_queue
     if is_game_started2 and event.sender_id == joker_player:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
@@ -947,6 +963,10 @@ async def handle_strike(event):
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             is_game_started2 = False
             joker_player = None
+            if players_queue:
+                next_player = players_queue.pop(0)
+                joker_player = next_player
+                await event.reply(f"اللاعب {next_player} سيبدأ اللعبة التالية.")
         else:
             game_board[0][strike_position - 1] = '🖐️'
             lMl10l = random.choice(joker)
@@ -974,22 +994,7 @@ async def handle_guess(event):
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
             joker_player = None
-@l313l.on(events.NewMessage(pattern=r'\انا'))
-async def handle_start_game(event):
-    global joker_player, is_game_started2, players_queue
-    if is_game_started2:
-        if not players_queue:  # إذا لم يكن هناك أي لاعبين في قائمة الانتظار
-            joker_player = event.sender_id
-            await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-            players_queue.append(joker_player)
-        elif event.sender_id not in players_queue:
-            players_queue.append(event.sender_id)
-            await event.reply("تم تسجيل مشاركتك في قائمة الانتظار للعب.")
-        else:
-            await event.reply("أنت بالفعل في قائمة الانتظار.")
-    else:
-        await event.reply("الرجاء الانتظار حتى يتم بدء اللعبة الجديدة.")
-        
+
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
