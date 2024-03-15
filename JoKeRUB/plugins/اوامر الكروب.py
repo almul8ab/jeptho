@@ -976,7 +976,7 @@ async def handle_strike(event):
             await event.reply(f"**{lMl10l}**\n{format_board(game_board, numbers_board)}")
             next_player = players_queue.pop(0)
             joker_player = next_player
-            is_game_started2 = False
+            is_game_started2 = True
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
     global is_game_started2, correct_answer, game_board, joker_player
