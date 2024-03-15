@@ -684,8 +684,9 @@ async def hussein(event):
     await event.edit("**᯽︙ جارِ الجواب على سؤالك انتظر قليلاً ...**")
     text = event.pattern_match.group(1).strip()
     if text:
-        response = Ai(query=text)
-        await event.edit(response.chat())
+        url = f'https://dev-gpts.pantheonsite.io/wp-admin/js/apis/Se7en_Eyes/EvilGPT.php?text={text}'
+        response = requests.get(url).text
+        await event.edit(response)
     else:
         await event.edit("يُرجى كتابة رسالة مع الأمر للحصول على إجابة.")
 is_Reham = False
