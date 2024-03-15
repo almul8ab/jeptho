@@ -961,7 +961,7 @@ async def handle_strike(event):
         if strike_position == correct_answer:
             game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
-            is_game_started2 = False
+            is_game_started2 = True
             joker_player = None
             if players_queue:
                 next_player = players_queue.pop(0)
