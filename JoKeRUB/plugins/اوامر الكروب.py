@@ -967,11 +967,14 @@ async def handle_strike(event):
                 next_player = players_queue.pop(0)
                 joker_player = next_player
                 await event.reply(f"اللاعب {next_player} سيبدأ اللعبة التالية.")
+                correct_answer = random.randint(1, 6)  # اعادة توليد الاجابة الصحيحة
+                game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]  # اعادة تهيئة لوحة اللعب
+                await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
         else:
             game_board[0][strike_position - 1] = '🖐️'
             lMl10l = random.choice(joker)
             await event.reply(f"**{lMl10l}**\n{format_board(game_board, numbers_board)}")
-
+    
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
     global is_game_started2, correct_answer, game_board, joker_player
