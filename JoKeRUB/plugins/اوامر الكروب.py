@@ -920,6 +920,8 @@ joker = [
     "على كيفك ركزززز انتَ كدها 🤨",
     "لك وعلي ذيييب 😍",
 ]
+import random
+
 correct_answer = None
 game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]]
@@ -944,13 +946,11 @@ async def handle_strike(event):
             game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             is_game_started = False
-            players = []  # إعادة تعيين قائمة اللاعبين
+            players.append(players.pop(0))  # تحويل الدور إلى اللاعب الثاني
+            await start_next_game(event.chat_id)
         else:
             game_board[0][strike_position - 1] = '🖐️'
             await event.reply(f"**{random.choice(['شبيك مستعجل وجه الچوب', 'مو عاجبك العضمة 😔', 'وين وصلنا يعني'])}**\n{format_board(game_board, numbers_board)}")
-            # تغيير الدور للاعب الثاني إذا كان هناك لاعب ثانٍ مشترك
-            if len(players) > 1:
-                players = players[1:]
 
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
@@ -965,11 +965,17 @@ async def handle_guess(event):
                 sender_first_name = sender.first_name if sender else 'مجهول'
                 game_board = [row[:] for row in original_game_board]
                 await l313l.send_message(event.chat_id, f'الف مبروووك 🎉 الاعب ( {sender_first_name} ) وجد المحبس 💍!')
+                players.append(players.pop(0))  # تحويل الدور إلى اللاعب الثاني
+                await start_next_game(event.chat_id)
             else:
                 game_board = [row[:] for row in original_game_board]
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
-            is_game_started = False
-            players = []  # إعادة تعيين قائمة اللاعبين
+
+async def start_next_game(chat_id):
+    global is_game_started
+    if len(players) == 2:
+        is_game_started = True
+        await l313l.send_message(chat_id, "الآن يمكن للأول البدء في اللعبة.")
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
@@ -977,8 +983,8 @@ async def handle_incoming_message(event):
     if is_game_started and event.raw_text.lower() == "انا" and len(players) < 2:
         players.append(event.sender_id)
         if len(players) == 2:
-            await event.reply("تم تسجيل مشاركة اللاعبين. الآن يمكن للأول البدء في اللعبة.")
-
+            await start_next_game(event.chat_id)
+        
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
