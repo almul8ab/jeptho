@@ -986,10 +986,10 @@ async def handle_guess(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_players, is_game_started2
-    if is_game_started2 and event.raw_text.lower() == "انا":
+    if is_game_started2 and "انا" in event.raw_text.lower():
         joker_players.append(event.sender_id)
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-
+        
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
