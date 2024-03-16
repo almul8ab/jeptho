@@ -840,14 +840,15 @@ async def handle_messages(event):
     sender_id = event.sender_id
     current_user_id = await l313l.get_me()
     
-    if event.is_private and delete_enabled and sender_id != current_user_id.id and sender_id not in allowed_users:
-        await event.delete()
-        if sender_id not in aljoker_Menu:
-            aljoker_time = aljoker_waqt()
-            aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
-            aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
-            await l313l.send_file(sender_id, aljoker_url, caption=f'**{aljoker_message}**\n**مدة الغياب: {aljoker_time}**')
-            aljoker_Menu.add(sender_id)
+    if event.is_private and delete_enabled and sender_id != current_user_id.id:
+        if sender_id not in allowed_users:
+            await event.delete()
+            if sender_id not in aljoker_Menu:
+                aljoker_time = aljoker_waqt()
+                aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
+                aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
+                await l313l.send_file(sender_id, aljoker_url, caption=f'**{aljoker_message}**\n**مدة الغياب: {aljoker_time}**')
+                aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
     global delete_enabled, afk_start_time
