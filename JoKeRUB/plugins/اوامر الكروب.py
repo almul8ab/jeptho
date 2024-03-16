@@ -836,7 +836,7 @@ async def handle_messages(event):
     if gvarstatus("5a9_dis"):
         sender_id = event.sender_id
         current_user_id = await l313l.get_me()
-        if event.is_private and delete_enabled and sender_id != current_user_id.id:
+        if event.is_private and sender_id != current_user_id.id:
             await event.delete()
             if sender_id not in aljoker_Menu:
                 aljoker_time = aljoker_waqt()
@@ -846,13 +846,11 @@ async def handle_messages(event):
                 aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
-    global delete_enabled, afk_start_time
     addgvar("5a9_dis", True)
     afk_start_time = datetime.now()
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
 @l313l.ar_cmd(pattern="الخاص تفعيل")
 async def joker5a9(event: Message):
-    global delete_enabled, aljoker_Menu, afk_start_time
     delgvar("5a9_dis")
     afk_start_time = None
     aljoker_Menu.clear()
