@@ -856,7 +856,7 @@ async def handle_messages(event):
     current_user_id = await l313l.get_me()
     
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
-        if sender_id not in aljoker_Menu:
+        if sender_id in aljoker_Menu:
             await event.delete()
             aljoker_time = aljoker_waqt()
             aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
