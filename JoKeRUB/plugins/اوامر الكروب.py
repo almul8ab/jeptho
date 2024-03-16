@@ -984,10 +984,9 @@ async def handle_incoming_message(event):
         joker_player = event.sender_id
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
         await asyncio.sleep(15)  # انتظر 10 ثواني
-    elif is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in ["طك", "جيب"]:
-        await event.reply("لم يتم إرسال 'طك' أو 'جيب' في الوقت المناسب. تم طردك من المشاركة في لعبة المحيبس.")
-        is_game_started2 = False
-        joker_player = None
+        if is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in ["طك", "جيب"]:
+            await event.reply("لم يتم إرسال 'طك' أو 'جيب' في الوقت المناسب. تم طردك من المشاركة في لعبة المحيبس.")
+            is_game_started2 = False
 
 def format_board(game_board, numbers_board):
     formatted_board = ""
