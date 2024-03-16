@@ -829,34 +829,31 @@ async def handle_new_message(event):
         except ChatAdminRequiredError:
             explanation_message = "عذرًا، ليس لدينا الصلاحيات الكافية لتنفيذ هذا الأمر. يرجى من مشرفي المجموعة منحنا صلاحيات مشرف المجموعة."
             await event.reply(explanation_message)
-delete_enabled = False
 aljoker_Menu = set()
 afk_start_time = datetime.now()
 @l313l.on(events.NewMessage)
 async def handle_messages(event):
-    global delete_enabled, afk_start_time
-    
-    sender_id = event.sender_id
-    current_user_id = await l313l.get_me()
-    
-    if event.is_private and delete_enabled and sender_id != current_user_id.id:
-        await event.delete()
-        if sender_id not in aljoker_Menu:
-            aljoker_time = aljoker_waqt()
-            aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
-            aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
-            await l313l.send_file(sender_id, aljoker_url, caption=f'**{aljoker_message}**\n**مدة الغياب: {aljoker_time}**')
-            aljoker_Menu.add(sender_id)
+    if gvarstatus("5a9_dis"):
+        sender_id = event.sender_id
+        current_user_id = await l313l.get_me()
+        if event.is_private and delete_enabled and sender_id != current_user_id.id:
+            await event.delete()
+            if sender_id not in aljoker_Menu:
+                aljoker_time = aljoker_waqt()
+                aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
+                aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
+                await l313l.send_file(sender_id, aljoker_url, caption=f'**{aljoker_message}**\n**مدة الغياب: {aljoker_time}**')
+                aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
     global delete_enabled, afk_start_time
-    delete_enabled = True
+    addgvar("5a9_dis", True)
     afk_start_time = datetime.now()
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
 @l313l.ar_cmd(pattern="الخاص تفعيل")
 async def joker5a9(event: Message):
     global delete_enabled, aljoker_Menu, afk_start_time
-    delete_enabled = False
+    delgvar("5a9_dis")
     afk_start_time = None
     aljoker_Menu.clear()
     await event.edit('**᯽︙ تم تفعيل الخاص بنجاح الان يمكنهم مراسلتك**')
@@ -919,8 +916,6 @@ joker = [
     "على كيفك ركزززز انتَ كدها 🤨",
     "لك وعلي ذيييب 😍",
 ]
-import random
-import asyncio
 
 correct_answer = None
 game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
