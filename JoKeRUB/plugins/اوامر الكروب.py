@@ -917,45 +917,47 @@ joker = [
     "لك وعلي ذيييب 😍",
 ]
 
+joker = [
+    "تلعب وخوش تلعب 👏🏻",
+    "لك عاش يابطل استمر 💪🏻",
+    "على كيفك ركزززز انتَ كدها 🤨",
+    "لك وعلي ذيييب 😍",
+]
 correct_answer = None
 game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"]]
 original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
-joker_players = []  # قائمة بأسماء اللاعبين
+joker_player = None
 is_game_started2 = False
-current_player_index = 0  # مؤشر للعب الحالي
 
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def handle_clue(event):
-    global is_game_started2, correct_answer, game_board, joker_players, current_player_index
-    is_game_started2 = True
-    await asyncio.sleep(10)  # انتظار 10 ثواني
-    if not is_game_started2 and len(joker_players) >= 1:
+    global is_game_started2, correct_answer, game_board, joker_player
+    if not is_game_started2:
+        is_game_started2 = True
+        joker_player = None
         correct_answer = random.randint(1, 6)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
-    elif len(joker_players) < 1:
-        await event.reply("يجب أن يكون هناك على الأقل لاعب واحد لبدء اللعبة.")
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
-    global is_game_started2, correct_answer, game_board, joker_players, current_player_index
-    if is_game_started2 and event.sender_id == joker_players[current_player_index]:
+    global is_game_started2, correct_answer, game_board, joker_player
+    if is_game_started2 and event.sender_id == joker_player:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
             game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
-            joker_players.pop(current_player_index)  # إزالة اللاعب الخاسر من القائمة
-            current_player_index %= len(joker_players)  # التبديل إلى اللاعب التالي بعد خسارة اللاعب الحالي
+            is_game_started2 = False
+            joker_player = None
         else:
             game_board[0][strike_position - 1] = '🖐️'
             lMl10l = random.choice(joker)
             await event.reply(f"**{lMl10l}**\n{format_board(game_board, numbers_board)}")
-            current_player_index = (current_player_index + 1) % len(joker_players)  # التبديل إلى اللاعب التالي
 
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
-    global is_game_started2, correct_answer, game_board, joker_players, current_player_index
-    if is_game_started2 and event.sender_id == joker_players[current_player_index]:
+    global is_game_started2, correct_answer, game_board, joker_player
+    if is_game_started2 and event.sender_id == joker_player:
         guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
             if guess == correct_answer:
@@ -969,13 +971,11 @@ async def handle_guess(event):
                 points_text = '\n'.join([f'{i+1}• {(await l313l.get_entity(participant_id)).first_name}: {participant_points}' for i, (participant_id, participant_points) in enumerate(sorted_points)])
                 game_board = [row[:] for row in original_game_board]
                 await l313l.send_message(event.chat_id, f'الف مبرووووك 🎉 الاعب ( {sender_first_name} ) وجد المحبس 💍! \n اصبحت نقاطة: {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
-                joker_players = []  # إعادة تهيئة قائمة اللاعبين
-                current_player_index = 0  # إعادة تهيئة المؤشر للعب الأول
             else:
                 game_board = [row[:] for row in original_game_board]
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
-                joker_players.pop(current_player_index)  # إزالة اللاعب الخاسر من القائمة
-                current_player_index %= len(joker_players)  # التبديل إلى اللاعب التالي
+            is_game_started2 = False
+            joker_player = None
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
@@ -983,11 +983,12 @@ async def handle_incoming_message(event):
     if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player:
         joker_player = event.sender_id
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-        await asyncio.sleep(10)  # انتظر 10 ثواني
+        await asyncio.sleep(15)  # انتظر 10 ثواني
     elif is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in ["طك", "جيب"]:
         await event.reply("لم يتم إرسال 'طك' أو 'جيب' في الوقت المناسب. تم طردك من المشاركة في لعبة المحيبس.")
         is_game_started2 = False
         joker_player = None
+
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
