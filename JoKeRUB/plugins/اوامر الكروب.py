@@ -941,6 +941,7 @@ async def handle_clue(event):
 @l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
 async def restart_game(event):
     global is_game_started2
+    chat_id = event.chat_id
     is_game_started2 = False
     await handle_clue(event)
 
@@ -984,7 +985,7 @@ async def handle_guess(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_player, is_game_started2
-    if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player:
+    if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player and event.chat_id:
         joker_player = event.sender_id
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
 
