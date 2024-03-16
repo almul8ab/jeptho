@@ -6,7 +6,6 @@ import random
 from datetime import datetime
 import time
 from telethon.tl import types
-from OpsAi import Ai
 from telethon.tl.types import Channel, Chat, User, ChannelParticipantsAdmins
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.errors.rpcerrorlist import ChannelPrivateError
@@ -878,6 +877,21 @@ def aljoker_waqt():
         else:
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
+@l313l.ar_cmd(pattern="سم")
+async def allow_user(event: Message):
+    global aljoker_Menu
+    sender_id = event.sender_id
+    if sender_id in aljoker_Menu:
+        aljoker_Menu.remove(sender_id)
+        await event.edit('**᯽︙ تم السماح للشخص بالتحدث معك في الخاص**')
+
+@l313l.ar_cmd(pattern="رف")
+async def block_user(event: Message):
+    global aljoker_Menu
+    sender_id = event.sender_id
+    if sender_id not in aljoker_Menu:
+        aljoker_Menu.add(sender_id)
+        await event.edit('**᯽︙ تم رفض الشخص من التحدث معك في الخاص**')
 points = {}
 is_game_started = False
 is_word_sent = False
