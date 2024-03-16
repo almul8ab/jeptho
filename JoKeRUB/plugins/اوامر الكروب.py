@@ -930,7 +930,7 @@ original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
     
-async def handle_clue():
+async def handle_clue(event):
     global is_game_started2, correct_answer, game_board, joker_player
     if not is_game_started2:
         is_game_started2 = False
@@ -942,7 +942,7 @@ async def handle_clue():
 async def restart_game(event):
     global is_game_started2
     is_game_started2 = False
-    await handle_clue()
+    await handle_clue(event)
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
