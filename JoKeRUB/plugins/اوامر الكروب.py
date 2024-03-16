@@ -980,20 +980,13 @@ async def handle_guess(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_player, is_game_started2
-    if is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in ["طك", "طك"]:
-        await event.reply("لم يتم إرسال 'طك' أو 'جيب' في الوقت المناسب. تم طردك من المشاركة في لعبة المحيبس.")
-        is_game_started2 = False
-        joker_player = None
-        return
     if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player:
         joker_player = event.sender_id
         await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
         await asyncio.sleep(10)  # انتظر 10 ثواني
-        if is_game_started2 and event.sender_id == joker_player:
+        if is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in "طك":
+            await event.reply("لم يتم إرسال 'طك' أو 'جيب' في الوقت المناسب. تم طردك من المشاركة في لعبة المحيبس.")
             is_game_started2 = False
-            joker_player = None
-            await event.reply("تم طردك من المشاركة في لعبة المحيبس بسبب التأخر في الاستجابة.")
-            return
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
