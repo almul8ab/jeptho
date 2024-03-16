@@ -846,11 +846,13 @@ async def handle_messages(event):
                 aljoker_Menu.add(sender_id)
 @l313l.ar_cmd(pattern="الخاص تعطيل")
 async def joker5a9(event: Message):
+    global afk_start_time
     addgvar("5a9_dis", True)
     afk_start_time = datetime.now()
     await event.edit('**᯽︙ تم قفل الخاص بنجاح الان لا احد يمكنهُ مراسلتك**')
 @l313l.ar_cmd(pattern="الخاص تفعيل")
 async def joker5a9(event: Message):
+    global afk_start_time
     delgvar("5a9_dis")
     afk_start_time = None
     aljoker_Menu.clear()
