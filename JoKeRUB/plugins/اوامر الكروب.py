@@ -833,6 +833,21 @@ delete_enabled = False
 aljoker_Menu = set()
 afk_start_time = datetime.now()
 allowed_users = set()
+@l313l.ar_cmd(pattern="السماح$")
+async def allow_user(event: Message):
+    global aljoker_Menu
+    user_id = event.sender_id
+    if user_id in aljoker_Menu:
+        aljoker_Menu.remove(user_id)
+        await event.edit('**᯽︙ تم السماح لك بالتحدث معي بدون حذف رسائلك**')
+
+@l313l.ar_cmd(pattern="الرفض$")
+async def block_user(event: Message):
+    global aljoker_Menu
+    user_id = event.sender_id
+    if user_id not in aljoker_Menu:
+        aljoker_Menu.add(user_id)
+        await event.edit('**᯽︙ تم رفضك وحذف رسائلك بنجاح**')
 @l313l.on(events.NewMessage)
 async def handle_messages(event):
     global delete_enabled, afk_start_time
@@ -841,8 +856,8 @@ async def handle_messages(event):
     current_user_id = await l313l.get_me()
     
     if event.is_private and delete_enabled and sender_id != current_user_id.id:
-        await event.delete()
         if sender_id not in aljoker_Menu:
+            await event.delete()
             aljoker_time = aljoker_waqt()
             aljoker_message = gvarstatus("aljoker_message") or f"صاحب الحساب قافل خاصة قبل يلا دعبل"
             aljoker_url = gvarstatus("aljoker_url") or "https://telegra.ph/file/ee30cda28bd1346e54cb3.jpg"
@@ -877,21 +892,6 @@ def aljoker_waqt():
         else:
             return f"{minutes} دقيقة {seconds} ثانية" if minutes > 0 else f"{seconds} ثانية"
     return "N/A"
-@l313l.ar_cmd(pattern="السماح$")
-async def allow_user(event: Message):
-    global aljoker_Menu
-    user_id = event.sender_id
-    if user_id in aljoker_Menu:
-        aljoker_Menu.remove(user_id)
-        await event.edit('**᯽︙ تم السماح لك بالتحدث معي بدون حذف رسائلك**')
-
-@l313l.ar_cmd(pattern="الرفض$")
-async def block_user(event: Message):
-    global aljoker_Menu
-    user_id = event.sender_id
-    if user_id not in aljoker_Menu:
-        aljoker_Menu.add(user_id)
-        await event.edit('**᯽︙ تم رفضك وحذف رسائلك بنجاح**')
 points = {}
 is_game_started = False
 is_word_sent = False
