@@ -929,9 +929,8 @@ numbers_board = [["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️�
 original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
-
-@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
-async def handle_clue(event):
+    
+async def handle_clue():
     global is_game_started2, correct_answer, game_board, joker_player
     if not is_game_started2:
         is_game_started2 = False
@@ -939,6 +938,11 @@ async def handle_clue(event):
         joker_player = None
         correct_answer = random.randint(1, 6)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
+@l313l.on(events.NewMessage(outgoing=True, pattern=r'\.محيبس'))
+async def restart_game(event):
+    global is_game_started2
+    is_game_started2 = False
+    await handle_clue()
 
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
