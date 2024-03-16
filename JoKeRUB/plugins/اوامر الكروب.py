@@ -980,7 +980,7 @@ async def handle_guess(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_player, is_game_started2
-    if is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in ["طك", "جيب"]:
+    if is_game_started2 and event.sender_id == joker_player and event.raw_text.lower() not in ["طك", "طك"]:
         await event.reply("لم يتم إرسال 'طك' أو 'جيب' في الوقت المناسب. تم طردك من المشاركة في لعبة المحيبس.")
         is_game_started2 = False
         joker_player = None
