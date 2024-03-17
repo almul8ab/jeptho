@@ -980,7 +980,7 @@ async def handle_guess(event):
                 sender_first_name = sender.first_name if sender else 'مجهول'
                 sorted_points = sorted(points.items(), key=lambda x: x[1], reverse=True)
                 points_text = '\n'.join([f'{i+1}• {(await l313l.get_entity(participant_id)).first_name}: {participant_points}' for i, (participant_id, participant_points) in enumerate(sorted_points)])
-                game_board = [["💍" if i == correct_answer - 1 else "👊" for i in range(6)]]
+                game_board = [["💍" if i == correct_answer - 1 else "🖐️" for i in range(6)]]
                 await l313l.send_message(event.chat_id, f'الف مبروووك 🎉 الاعب ( {sender_first_name} ) وجد المحبس 💍! \n اصبحت نقاطة: {points[winner_id]}\nنقاط المشاركين:\n{points_text}\n{format_board(game_board, numbers_board)}')
             else:
                 game_board = [row[:] for row in original_game_board]
