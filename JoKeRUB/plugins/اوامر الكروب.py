@@ -983,7 +983,7 @@ async def handle_guess(event):
                 game_board = [["💍" if i == correct_answer - 1 else "🖐️" for i in range(6)]]
                 await l313l.send_message(event.chat_id, f'الف مبروووك 🎉 الاعب ( {sender_first_name} ) وجد المحبس 💍!\n{format_board(game_board, numbers_board)}')
                 game_board = [row[:] for row in original_game_board]
-                await l313l.send_message(event.chat_id, f"نقاط الاعب: {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
+                await l313l.send_message(event.chat_id, f'نقاط الاعب : {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
             else:
                 game_board = [row[:] for row in original_game_board]
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
