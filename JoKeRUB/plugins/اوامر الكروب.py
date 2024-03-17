@@ -923,6 +923,8 @@ original_game_board = [["👊", "👊", "👊", "👊", "👊", "👊"]]
 joker_player = None
 is_game_started2 = False
     
+group_participants = {}
+
 async def handle_clue(event):
     global is_game_started2, correct_answer, game_board, joker_player
     if not is_game_started2:
@@ -931,6 +933,7 @@ async def handle_clue(event):
         joker_player = None
         correct_answer = random.randint(1, 6)
         await event.reply(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
+
 @l313l.ar_cmd(pattern="محيبس")
 async def restart_game(event):
     global is_game_started2
@@ -941,13 +944,13 @@ async def restart_game(event):
 @l313l.on(events.NewMessage(pattern=r'\طك (\d+)'))
 async def handle_strike(event):
     global is_game_started2, correct_answer, game_board, joker_player
-    if is_game_started2 and event.sender_id == joker_player:
+    if is_game_started2 and event.sender_id == group_participants[event.chat_id]:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
             game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             is_game_started2 = False
-            joker_player = None
+            group_participants[event.chat_id] = None
         else:
             game_board[0][strike_position - 1] = '🖐️'
             lMl10l = random.choice(joker)
@@ -956,7 +959,7 @@ async def handle_strike(event):
 @l313l.on(events.NewMessage(pattern=r'\جيب (\d+)'))
 async def handle_guess(event):
     global is_game_started2, correct_answer, game_board, joker_player
-    if is_game_started2 and event.sender_id == joker_player:
+    if is_game_started2 and event.sender_id == group_participants[event.chat_id]:
         guess = int(event.pattern_match.group(1))
         if 1 <= guess <= 6:
             if guess == correct_answer:
@@ -969,20 +972,22 @@ async def handle_guess(event):
                 sorted_points = sorted(points.items(), key=lambda x: x[1], reverse=True)
                 points_text = '\n'.join([f'{i+1}• {(await l313l.get_entity(participant_id)).first_name}: {participant_points}' for i, (participant_id, participant_points) in enumerate(sorted_points)])
                 game_board = [row[:] for row in original_game_board]
-                await l313l.send_message(event.chat_id, f'الف مبرووووك 🎉 الاعب ( {sender_first_name} ) وجد المحبس 💍! \n اصبحت نقاطة: {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
+                await l313l.send_message(event.chat_id, f'الف مبروووك 🎉 الاعب ( {sender_first_name} ) وجد المحبس 💍! \n اصبحت نقاطة: {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
             else:
                 game_board = [row[:] for row in original_game_board]
                 await event.reply("**ضاع البات ماضن بعد تلگونة ☹️**")
             is_game_started2 = False
-            joker_player = None
+            group_participants[event.chat_id] = None
+
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
-    global joker_player, is_game_started2
+    global group_participants, is_game_started2
     if event.chat_id:
-        if is_game_started2 and event.raw_text.lower() == "انا" and not joker_player:
-            joker_player = event.sender_id
+        if event.chat_id not in group_participants:
+            group_participants[event.chat_id] = None
+        if is_game_started2 and event.raw_text.lower() == "انا" and not group_participants[event.chat_id]:
+            group_participants[event.chat_id] = event.sender_id
             await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
-
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
