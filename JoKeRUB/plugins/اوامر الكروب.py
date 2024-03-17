@@ -938,7 +938,7 @@ async def handle_clue(event):
         group_game_status[chat_id]['is_game_started2'] = True
         group_game_status[chat_id]['joker_player'] = None
         correct_answer = random.randint(1, 6)
-        await event.edit(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس**\n\n{format_board(game_board, numbers_board)}\n**ملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة **")
+        await event.edit(f"**اول من يرسل كلمة (انا) سيشارك في لعبة المحيبس\nملاحظة : لفتح العضمة ارسل طك ورقم العضمة لأخذ المحبس أرسل جيب ورقم العضمة**")
 
 @l313l.ar_cmd(pattern="محيبس")
 async def restart_game(event):
@@ -1001,7 +1001,7 @@ async def handle_incoming_message(event):
         }
     if group_game_status[chat_id]['is_game_started2'] and event.raw_text.lower() == "انا" and not group_game_status[chat_id]['joker_player']:
         group_game_status[chat_id]['joker_player'] = event.sender_id
-        await event.reply("تم تسجيل مشاركتك في لعبة المحيبس توكل على الله.")
+        await event.reply("**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
 
 def format_board(game_board, numbers_board):
     formatted_board = ""
