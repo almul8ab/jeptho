@@ -932,7 +932,7 @@ async def handle_clue(event):
             'is_game_started2': False,
             'joker_player': None
         }
-    if not group_game_status[chat_id]['is_game_started']:
+    if not group_game_status[chat_id]['is_game_started2']:
         group_game_status[chat_id]['is_game_started2'] = True
         group_game_status[chat_id]['joker_player'] = None
         correct_answer = random.randint(1, 6)
