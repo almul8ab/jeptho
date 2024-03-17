@@ -956,7 +956,7 @@ async def handle_strike(event):
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
             game_board = [["💍" if i == correct_answer - 1 else "🖐️" for i in range(6)]]
-            await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒\n{format_board(game_board, numbers_board)}**")
+            await event.reply(f"** خسرت شبيك مستعجل وجه الچوب 😒\n{format_board(game_board, numbers_board)}**")
             game_board = [row[:] for row in original_game_board]
             group_game_status[chat_id]['is_game_started2'] = False
             group_game_status[chat_id]['joker_player'] = None
@@ -987,7 +987,7 @@ async def handle_guess(event):
                 await l313l.send_message(event.chat_id, f'نقاط الاعب : {points[winner_id]}\nنقاط المشاركين:\n{points_text}')
             else:
                 game_board = [["💍" if i == correct_answer - 1 else "🖐️" for i in range(6)]]
-                await event.reply("**ضاع البات ماضن بعد تلگونة ☹️\n{format_board(game_board, numbers_board)}**")
+                await event.reply(f"**ضاع البات ماضن بعد تلگونة ☹️\n{format_board(game_board, numbers_board)}**")
                 game_board = [row[:] for row in original_game_board]
             group_game_status[chat_id]['is_game_started2'] = False
             group_game_status[chat_id]['joker_player'] = None
