@@ -955,6 +955,7 @@ async def handle_strike(event):
     if chat_id in group_game_status and group_game_status[chat_id]['is_game_started2'] and event.sender_id == group_game_status[chat_id]['joker_player']:
         strike_position = int(event.pattern_match.group(1))
         if strike_position == correct_answer:
+            game_board = [row[:] for row in original_game_board]
             await event.reply("** خسرت شبيك مستعجل وجه الچوب 😒**")
             group_game_status[chat_id]['is_game_started2'] = False
             group_game_status[chat_id]['joker_player'] = None
