@@ -992,19 +992,19 @@ async def handle_guess(event):
             group_game_status[chat_id]['is_game_started2'] = False
             group_game_status[chat_id]['joker_player'] = None
 
-@l313l.on(events.NewMessage(incoming=True))
+@l313l.on(events.NewMessage(pattern=r'\انا'))
 async def handle_incoming_message(event):
     global group_game_status
     chat_id = event.chat_id
+    bot_entity = await event.get_input_chat()
     if chat_id not in group_game_status:
         group_game_status[chat_id] = {
             'is_game_started2': False,
             'joker_player': None
         }
-    if group_game_status[chat_id]['is_game_started2'] and not group_game_status[chat_id]['joker_player'] and jokerr.lower() in event.raw_text.lower():
+    if group_game_status[chat_id]['is_game_started2'] and not group_game_status[chat_id]['joker_player']:
         group_game_status[chat_id]['joker_player'] = event.sender_id
-        await event.respond(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
-def format_board(game_board, numbers_board):
+        await event.respond(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
     formatted_board += " ".join(game_board[0]) + "\n"
