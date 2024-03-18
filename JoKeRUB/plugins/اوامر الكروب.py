@@ -925,7 +925,7 @@ joker_player = None
 is_game_started2 = False
 group_game_status = {}
 points = {}
-
+jokerr = 'انا'
 async def handle_clue(event):
     global group_game_status, correct_answer, game_board
     chat_id = event.chat_id
@@ -1001,10 +1001,9 @@ async def handle_incoming_message(event):
             'is_game_started2': False,
             'joker_player': None
         }
-    if group_game_status[chat_id]['is_game_started2'] and not group_game_status[chat_id]['joker_player']:
-        if "انا" in event.raw_text.lower() and event.raw_text.strip() != "انا":
-            group_game_status[chat_id]['joker_player'] = event.sender_id
-            await event.respond(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
+    if group_game_status[chat_id]['is_game_started2'] and not group_game_status[chat_id]['joker_player'] and jokerr.lower() in event.raw_text.lower()::
+        group_game_status[chat_id]['joker_player'] = event.sender_id
+        await event.respond(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
