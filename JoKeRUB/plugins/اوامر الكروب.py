@@ -992,7 +992,7 @@ async def handle_guess(event):
             group_game_status[chat_id]['is_game_started2'] = False
             group_game_status[chat_id]['joker_player'] = None
 
-@events.register(events.NewMessage(incoming=True))
+@l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global group_game_status
     chat_id = event.chat_id
