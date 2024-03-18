@@ -1003,7 +1003,7 @@ async def handle_incoming_message(event):
             'joker_player': None
         }
     if group_game_status[chat_id]['is_game_started2']:
-        if "انا" in event.raw_text.lower():
+        if "انا" in event.raw_text.lower() or "انا" == event.raw_text:
             group_game_status[chat_id]['joker_player'] = event.sender_id
             await event.reply(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
 def format_board(game_board, numbers_board):
