@@ -996,15 +996,15 @@ async def handle_guess(event):
 async def handle_incoming_message(event):
     global group_game_status
     chat_id = event.chat_id
+    bot_entity = await get_bot_entity()
     if chat_id not in group_game_status:
         group_game_status[chat_id] = {
             'is_game_started2': False,
             'joker_player': None
         }
-    if group_game_status[chat_id]['is_game_started2'] and event.raw_text.lower() == "انا" and not group_game_status[chat_id]['joker_player']:
-        if event.sender_id == event.message.to_id.user_id:
-            group_game_status[chat_id]['joker_player'] = event.sender_id
-            await event.reply(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
+    if group_game_status[chat_id]['is_game_started2'] and event.raw_text.lower() == "انا" and not group_game_status[chat_id]['bot_entity'] and group_game_status[chat_id]['joker_player']:
+        group_game_status[chat_id]['joker_player'] = event.sender_id
+        await event.reply(f"**تم تسجيلك في المسابقة روح لحسين بظهرك\n{format_board(game_board, numbers_board)}**")
 def format_board(game_board, numbers_board):
     formatted_board = ""
     formatted_board += " ".join(numbers_board[0]) + "\n"
