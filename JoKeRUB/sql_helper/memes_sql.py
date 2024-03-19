@@ -23,11 +23,13 @@ def get_link(key):
     return link.url if link else None
 
 def add_link(key, url):
-    pattern = r'https://t.me/(?:c/\d+/\d+|[\w_]+)/\d+'  # نمط يستوعب كلا النوعين من الروابط
-    if re.match(pattern, url):
-        link = AljokerLink(str(key), str(url))
-        SESSION.add(link)
-        SESSION.commit()
+    url_match = re.search(r'(https?://\S+)', url)
+    if url_match:
+        extracted_url = url_match.group(1)
+        pattern = r'https://t.me/(?:c/\d+/\d+|[\w_]+)/\d+'
+        if re.match(pattern, extracted_url):
+            SESSION.add(AljokerLink(key=key, url=extracted_url))
+            SESSION.commit()
 
 def delete_link(key):
     link = SESSION.query(AljokerLink).get(str(key))
