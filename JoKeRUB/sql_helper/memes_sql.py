@@ -3,8 +3,6 @@ try:
 except ImportError as e:
     raise Exception("Hello!") from e
 from sqlalchemy import Column, String
-import re
-
 class AljokerLink(BASE):
     __tablename__ = "aljoker_links"
     key = Column(String(255), primary_key=True)
@@ -24,7 +22,7 @@ def get_link(key):
 
 def add_link(key, url):
     link = AljokerLink(str(key), str(url))
-    SESSION.add(link)
+    SESSION.merge(link)
     SESSION.commit()
 
 def delete_link(key):
