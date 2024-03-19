@@ -3,7 +3,7 @@ try:
 except ImportError as e:
     raise Exception("Hello!") from e
 from sqlalchemy import Column, String
-
+import re
 
 class AljokerLink(BASE):
     __tablename__ = "aljoker_links"
@@ -22,12 +22,12 @@ def get_link(key):
     link = SESSION.query(AljokerLink).get(str(key))
     return link.url if link else None
 
-
 def add_link(key, url):
-    link = AljokerLink(str(key), str(url))
-    SESSION.add(link)
-    SESSION.commit()
-
+    pattern = r'https://t.me/(?:c/\d+/\d+|[\w_]+)/\d+'  # نمط يستوعب كلا النوعين من الروابط
+    if re.match(pattern, url):
+        link = AljokerLink(str(key), str(url))
+        SESSION.add(link)
+        SESSION.commit()
 
 def delete_link(key):
     link = SESSION.query(AljokerLink).get(str(key))
