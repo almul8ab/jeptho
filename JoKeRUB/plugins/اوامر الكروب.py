@@ -170,33 +170,36 @@ async def _(event):
 async def _(event):
     "To ban everyone from group."
     await event.delete()
-    result = await event.client(
-        functions.channels.GetParticipantRequest(event.chat_id, event.client.uid)
-    )
-    if not result:
-        return await edit_or_reply(
-            event, "᯽︙ - يبدو انه ليس لديك صلاحيات الحذف في هذه الدردشة ❕"
-        )
-    admins = await event.client.get_participants(
-        event.chat_id, filter=ChannelParticipantsAdmins
-    )
-    admins_id = [i.id for i in admins]
-    total = 0
-    success = 0
-    async for user in event.client.iter_participants(event.chat_id):
-        total += 1
-        try:
-            if user.id not in admins_id:
-                await event.client(
-                    EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS)
-                )
-                success += 1
-                await sleep(0.5) # for avoid any flood waits !!-> do not remove it 
-        except Exception as e:
-            LOGS.info(str(e))
-    await event.reply(
-        f"᯽︙  تم بنجاح حظر من {total} الاعضاء ✅ "
-    )
+
+    try:
+        # Check if it's a channel
+        chat = await event.client.get_entity(event.chat_id)
+        if chat:
+            # For channels
+            participants = await event.client(GetParticipantRequest(event.chat_id, event.client.uid))
+            admins = await event.client.get_participants(event.chat_id, filter=ChannelParticipantsAdmins)
+        else:
+            # For groups
+            full_chat = await event.client(GetFullChatRequest(event.chat_id))
+            participants = full_chat.full_chat.participants
+            admins = [admin for admin in participants if admin.admin_rights]
+
+        admins_id = [i.id for i in admins]
+        total = 0
+        success = 0
+        for user in participants:
+            total += 1
+            try:
+                if user.id not in admins_id:
+                    await event.client(EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS))
+                    success += 1
+                    await asyncio.sleep(0.5) # for avoiding any flood waits
+            except Exception as e:
+                LOGS.info(str(e))
+        await event.reply(f"تم بنجاح حظر {success} من اصل {total} اعضاء.")
+    except Exception as e:
+        LOGS.info(str(e))
+        await event.reply("حدث خطأ أثناء تنفيذ الأمر.")
 
 
 
