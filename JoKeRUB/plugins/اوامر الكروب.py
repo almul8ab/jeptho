@@ -74,7 +74,8 @@ async def handle_marriage_request(event):
 async def handle_reply(event):
     if event.reply_to_msg_id in marriage_requests:
         sender_id = event.sender_id
-        if sender_id == marriage_requests[event.reply_to_msg_id]:
+        replied_to_user_id = await event.get_reply_message().from_id
+        if sender_id == replied_to_user_id:
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
             elif event.text.lower() == 'لا':
