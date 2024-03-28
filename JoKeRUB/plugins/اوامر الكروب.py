@@ -72,6 +72,7 @@ joker_balance = 0  # تخزين رصيد البوت
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
+    global joker_balance  # تعيين المتغير كمتغير عالمي
     sender_id = event.sender_id
     if event.is_reply:
         replied_message = await event.get_reply_message()
@@ -96,7 +97,7 @@ async def handle_marriage_request(event):
                 await event.edit('عذرًا، لقد وصلنا إلى الحد الأقصى للزواجيات')
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-
+        
 @l313l.on(events.NewMessage(outgoing=True))  # تحديث الرسالة الصادرة
 async def handle_outgoing_message(event):
     global joker_balance
