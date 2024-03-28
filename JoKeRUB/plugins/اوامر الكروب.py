@@ -67,14 +67,16 @@ marriage_requests = {}
 
 @l313l.on(events.NewMessage(pattern='.نزوج'))
 async def handle_marriage_request(event):
-    marriage_requests[event.reply_to_msg_id] = event.sender_id
+    replied_user_id = event.reply_to_msg_id
+    marriage_requests[replied_user_id] = event.sender_id
     await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
 
 @l313l.on(events.NewMessage)
 async def handle_reply(event):
     sender_id = event.sender_id
     if event.reply_to_msg_id in marriage_requests:
-        if sender_id == marriage_requests[event.reply_to_msg_id]:
+        replied_user_id = marriage_requests[event.reply_to_msg_id]
+        if sender_id == replied_user_id:
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
             elif event.text.lower() == 'لا':
