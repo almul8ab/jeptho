@@ -74,12 +74,15 @@ async def handle_marriage_request(event):
 @l313l.on(events.NewMessage)
 async def handle_reply(event):
     sender_id = event.sender_id
-    if sender_id in marriage_requests and event.message.id == marriage_requests[sender_id]:
-        if event.text.lower() == 'نعم':
-            await event.reply('الف مبروك لقد تم زواجك')
-        elif event.text.lower() == 'لا':
-            await event.reply('تم رفض طلب الزواج')
-        del marriage_requests[sender_id]
+    if sender_id in marriage_requests and event.is_reply:
+        original_message = await event.get_reply_message()
+        original_sender_id = original_message.sender_id
+        if sender_id == original_sender_id and event.text.lower() in ['نعم', 'لا']:
+            if event.text.lower() == 'نعم':
+                await event.reply('الف مبروك لقد تم زواجك')
+            else:
+                await event.reply('تم رفض طلب الزواج')
+            del marriage_requests[sender_id]
             
             
 async def ban_user(chat_id, i, rights):
