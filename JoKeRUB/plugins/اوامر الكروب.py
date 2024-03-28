@@ -65,7 +65,7 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 marriage_requests = {}
 accepted_marriages = {}
-@l313l.on(events.NewMessage)
+@l313l.on(events.NewMessage(incoming=True))
 async def handle_message(event):
     sender_id = event.sender_id
     message_text = event.message.message
