@@ -97,13 +97,16 @@ async def handle_marriage_request(event):
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     sender_id = event.sender_id
-    if sender_id in user_balances:
-        user_balances[sender_id] += dowry_per_message
-    else:
-        user_balances[sender_id] = dowry_per_message
-
+    global user_balance
+    if sender_id == l313l.get_me().id:
+        user_balance += dowry_per_message
     if event.text.strip().lower() == '.رصيدي':
         await update_balance_display(event)  # تحديث عرض الرصيد
+
+async def update_balance_display(event):
+    user_id = event.sender_id
+    if user_id == l313l.get_me().id:
+        await event.reply(f"رصيدي الحالي: {user_balance}$")
 
 async def update_balance_display(event):
     user_id = event.sender_id
