@@ -75,11 +75,8 @@ async def handle_marriage_request(event):
 @l313l.on(events.NewMessage(func=lambda e: e.sender_id in marriage_requests.keys()))
 async def handle_reply(event):
     sender_id = event.sender_id
-    if event.reply_to_msg_id != marriage_requests.get(sender_id):
-        return  # إذا كانت الرسالة ليست ردًا على طلب الزواج، فلا داعي للمعالجة
-    if event.text.lower() not in ['نعم', 'لا']:
-        return  # إذا كانت الرسالة ليست 'نعم' أو 'لا'، فلا داعي للمعالجة
-    
+    if event.reply_to_msg_id != marriage_requests.get(sender_id) or event.text.lower() not in ['نعم', 'لا']:
+        return
     if event.text.lower() == 'نعم':
         if sender_id in accepted_marriages:
             accepted_marriages[sender_id] += 1
