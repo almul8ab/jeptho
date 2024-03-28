@@ -68,7 +68,7 @@ joker_marriage = []
 marriage_details = {}
 dowry_per_message = 10 
 min_dowry = 1000  
-joker_balance = 10000
+joker_balance = 0
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
