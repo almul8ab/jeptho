@@ -69,7 +69,10 @@ marriage_requests = {}
 async def handle_marriage_request(event):
     replied_user_id = event.reply_to_msg_id
     marriage_requests[replied_user_id] = event.sender_id
-    await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
+    try:
+        await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
+    except Exception as e:
+        print(f"Error editing message: {e}")
 
 @l313l.on(events.NewMessage)
 async def handle_reply(event):
