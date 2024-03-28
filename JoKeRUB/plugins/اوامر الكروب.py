@@ -83,6 +83,7 @@ async def handle_incoming_message(event):
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
                 Mercy_Joker.append(sender_id)
+                marriage.remove(sender_id)
             else:
                 await event.reply('تم رفض طلب الزواج')
                 marriage.remove(sender_id)
