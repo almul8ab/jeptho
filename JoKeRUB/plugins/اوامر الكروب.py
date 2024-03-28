@@ -78,7 +78,7 @@ async def handle_marriage_request(event):
             if len(joker_marriage) < 4:
                 if replied_message.sender_id not in joker_marriage:
                     marriage.append(replied_message.sender_id)
-                    dowry = user_balance
+                    dowry = joker_balance
                     if dowry < min_dowry:
                         await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
                         marriage.remove(sender_id)
