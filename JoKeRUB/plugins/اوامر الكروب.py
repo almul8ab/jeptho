@@ -99,12 +99,11 @@ async def handle_incoming_message(event):
     if sender_id in marriage:
         if event.text.lower() in ['نعم', 'لا']:
             if event.text.lower() == 'نعم':
-                replied_message = event.text.lower() == 'نعم'
-                aljoker_entity = await event.client.get_entity(replied_message.sender_id)
+                aljoker_entity = await event.client.get_entity(sender_id)
+                replied_sender_entity = await event.client.get_entity(event.sender_id)
                 aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
-                replied_sender = await event.client.get_entity(event.sender_id)
-                replied_sender_profile = f"[{replied_sender.first_name}](tg://user?id={replied_sender.id})"
-                await event.reply(f'الف مبرووووك للزوجين {replied_sender_profile} و{aljoker_profile} الذي ارسلت نعم')
+                replied_sender_profile = f"[{replied_sender_entity.first_name}](tg://user?id={replied_sender_entity.id})"
+                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة ')
                 joker_marriage.append(sender_id)
                 marriage.remove(sender_id)
             else:
@@ -113,7 +112,7 @@ async def handle_incoming_message(event):
     elif sender_id in joker_marriage:
         if event.text.strip().lower() == 'زوجي':
             await event.reply('ها يعمري اني موجود لا تخافي ❤️😍')
-            
+
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
