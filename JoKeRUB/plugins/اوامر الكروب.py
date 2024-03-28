@@ -67,7 +67,7 @@ marriage = []
 joker_marriage = []
 dowry_per_message = 10 
 min_dowry = 1000  
-user_balance = 0
+user_balance = {}
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
@@ -99,9 +99,11 @@ async def handle_incoming_message(event):
     global user_balance
     sender = await event.client.get_me()
     sender_id = sender.id
-    if sender_id == event.sender_id:
-        user_balance += dowry_per_message
-    await update_balance_display(event)
+    if sender_id in user_balances:
+        user_balances[sender_id] += dowry_per_message
+    else:
+        user_balances[sender_id] = dowry_per_message
+    await update_balance_display(event)  # تحديث عرض الرصيد
 
 @l313l.ar_cmd(pattern="رصيدي")
 async def check_balance(event):
@@ -109,9 +111,9 @@ async def check_balance(event):
 
 async def update_balance_display(event):
     sender = await event.client.get_me()
-    sender_id = sender.id
-    if sender_id == event.sender_id:
-        await event.edit(f"رصيدي الحالي: {user_balance}$")
+    if sender in user_balances:
+        balance = user_balances[user_id]
+        await event.reply(f"رصيدي الحالي: {balance}$")
         
 @l313l.ar_cmd(pattern="طالق")
 async def handle_divorce(event):
