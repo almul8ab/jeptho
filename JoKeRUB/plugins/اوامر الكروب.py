@@ -65,21 +65,16 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 marriage_requests = {}
 accepted_marriages = {}
-@l313l.on(events.NewMessage(pattern='.نزوج'))
-async def handle_marriage_request(event):
+@l313l.on(events.NewMessage)
+async def handle_message(event):
     sender_id = event.sender_id
-    if sender_id not in accepted_marriages or accepted_marriages[sender_id] < 4:
+    message_text = event.message.message
+    if message_text == '.زواج':
         marriage_requests[sender_id] = event.message.id
         await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
-    else:
-        await event.edit('تم الزواج من ٤ نساء')
-
-@l313l.on(events.NewMessage)
-async def handle_reply(event):
-    sender_id = event.sender_id
-    if sender_id in marriage_requests:
+    elif sender_id in marriage_requests:
         original_message_id = marriage_requests.pop(sender_id)
-        if event.reply_to_msg_id == original_message_id:
+        if event.message.reply_to_msg_id == original_message_id:
             if event.text.lower() == 'نعم':
                 if sender_id in accepted_marriages:
                     accepted_marriages[sender_id] += 1
