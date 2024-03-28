@@ -82,7 +82,17 @@ async def handle_marriage_request(event):
                 marriage.remove(sender_id)
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-    
+@l313l.ar_cmd(pattern="طالق")
+async def handle_divorce(event):
+    if event.is_reply:
+        replied_message = await event.get_reply_message()
+        if replied_message.sender_id in joker_marriage:
+            joker_marriage.remove(replied_message.sender_id)
+            await event.edit('تمت طلاق الزوجة وارجاعها الى اهلها 😂')
+        else:
+            await event.edit('الزوجة ماموجوده وية زوجاتك البقية')
+    else:
+        await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     sender_id = event.sender_id
