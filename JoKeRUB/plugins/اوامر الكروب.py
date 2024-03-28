@@ -64,14 +64,18 @@ BANNED_RIGHTS = ChatBannedRights(
     embed_links=True,
 )
 marriage = []
-Mercy_Joker = []
-@l313l.on(events.NewMessage(pattern='.نزوج'))
+joker_marriage = []
+@l313l.ar_cmd(pattern="نزوج")
 async def handle_marriage_request(event):
     if event.is_reply:
         replied_message = await event.get_reply_message()
         if replied_message.sender_id:
-            marriage.append(replied_message.sender_id)
-            await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
+            if len(joker_marriage) < 4:
+                marriage.append(replied_message.sender_id)
+                await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
+            else:
+                await event.edit('عذرًا، لقد وصلنا إلى الحد الأقصى للزواجيات')
+                marriage.remove(sender_id)
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
 
@@ -82,7 +86,7 @@ async def handle_incoming_message(event):
         if event.text.lower() in ['نعم', 'لا']:
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
-                Mercy_Joker.append(sender_id)
+                joker_marriage.append(sender_id)
                 marriage.remove(sender_id)
             else:
                 await event.reply('تم رفض طلب الزواج')
