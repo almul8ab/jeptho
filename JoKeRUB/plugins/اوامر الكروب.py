@@ -65,14 +65,25 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 marriage = []
 joker_marriage = []
-@l313l.ar_cmd(pattern="نزوج")
+dowry_per_message = 10 
+min_dowry = 1000  
+user_balances = {}
+
+@l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
+    sender_id = event.sender_id
     if event.is_reply:
         replied_message = await event.get_reply_message()
         if replied_message.sender_id:
             if len(joker_marriage) < 4:
                 if replied_message.sender_id not in joker_marriage:
                     marriage.append(replied_message.sender_id)
+                    dowry = user_balances.get(sender_id, 0) 
+                    if dowry < min_dowry:
+                        await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
+                        marriage.remove(sender_id)
+                        return
+                    marriage_details[replied_message.sender_id] = {'dowry': dowry}
                     await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
                 else:
                     await event.edit('عذرًا، أنتم متزوجان بالفعل!')
@@ -82,6 +93,24 @@ async def handle_marriage_request(event):
                 marriage.remove(sender_id)
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
+
+@l313l.on(events.NewMessage(incoming=True))
+async def handle_incoming_message(event):
+    sender_id = event.sender_id
+    if sender_id in user_balances:
+        user_balances[sender_id] += dowry_per_message
+    else:
+        user_balances[sender_id] = dowry_per_message
+
+    if event.text.strip().lower() == '.رصيدي':
+        await update_balance_display(event)  # تحديث عرض الرصيد
+
+async def update_balance_display(event):
+    user_id = event.sender_id
+    if user_id in user_balances:
+        balance = user_balances[user_id]
+        await event.reply(f"رصيدك الحالي: {balance}$")
+
 @l313l.ar_cmd(pattern="طالق")
 async def handle_divorce(event):
     if event.is_reply:
@@ -93,6 +122,7 @@ async def handle_divorce(event):
             await event.edit('الزوجة ماموجوده وية زوجاتك البقية')
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
+
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     sender_id = event.sender_id
@@ -103,7 +133,8 @@ async def handle_incoming_message(event):
                 replied_sender_entity = await event.client.get_entity('me')
                 aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
                 replied_sender_profile = f"[{replied_sender_entity.first_name}](tg://user?id={replied_sender_entity.id})"
-                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة ')
+                dowry = marriage_details[sender_id]['dowry']  # استخدام المهر المجموع كقيمة المهر
+                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {dowry}')
                 joker_marriage.append(sender_id)
                 marriage.remove(sender_id)
             else:
