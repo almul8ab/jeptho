@@ -69,7 +69,7 @@ accepted_marriages = {}
 async def handle_message(event):
     sender_id = event.sender_id
     message_text = event.message.message
-    if message_text == '.زواج':
+    if message_text == '.نزوج':
         marriage_requests[sender_id] = event.message.id
         await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
     elif sender_id in marriage_requests:
