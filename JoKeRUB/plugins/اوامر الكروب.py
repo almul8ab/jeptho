@@ -79,7 +79,8 @@ async def handle_marriage_request(event):
                     marriage.remove(sender_id)
             else:
                 await event.edit('عذرًا، لقد وصلنا إلى الحد الأقصى للزواجيات')
-    else:       marriage.remove(sender_id)
+                marriage.remove(sender_id)
+    else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
     
 @l313l.on(events.NewMessage(incoming=True))
