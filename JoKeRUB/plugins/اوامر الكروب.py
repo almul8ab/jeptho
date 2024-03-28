@@ -67,7 +67,7 @@ marriage = []
 joker_marriage = []
 dowry_per_message = 10 
 min_dowry = 1000  
-user_balances = {}
+user_balance = 0
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
@@ -78,7 +78,7 @@ async def handle_marriage_request(event):
             if len(joker_marriage) < 4:
                 if replied_message.sender_id not in joker_marriage:
                     marriage.append(replied_message.sender_id)
-                    dowry = user_balances.get(sender_id, 0) 
+                    dowry = user_balance
                     if dowry < min_dowry:
                         await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
                         marriage.remove(sender_id)
@@ -93,7 +93,7 @@ async def handle_marriage_request(event):
                 marriage.remove(sender_id)
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-
+        
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     sender_id = event.sender_id
