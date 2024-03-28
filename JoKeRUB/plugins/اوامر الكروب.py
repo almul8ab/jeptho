@@ -68,7 +68,7 @@ joker_marriage = []
 marriage_details = {}
 dowry_per_message = 10 
 min_dowry = 1000  
-joker_balance = 0
+joker_balance = 0  # تخزين رصيد البوت
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
@@ -84,11 +84,10 @@ async def handle_marriage_request(event):
                         return
                     requested_dowry = dowry
                     if requested_dowry > joker_balance:
-                        await event.edit('عذرًا، رصيدك غير كافي لقبول الزواج')
+                        await event.edit('عذرًا، رصيد البوت غير كافي لقبول الزواج')
                         return
                     joker_balance -= requested_dowry
                     marriage_details[replied_message.sender_id] = {'dowry': requested_dowry}
-                    marriage.append(replied_message.sender_id)
                     await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
                 else:
                     await event.edit('عذرًا، أنتم متزوجان بالفعل!')
