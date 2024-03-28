@@ -64,7 +64,7 @@ BANNED_RIGHTS = ChatBannedRights(
     embed_links=True,
 )
 marriage = []
-
+Mercy_Joker = []
 @l313l.on(events.NewMessage(pattern='.نزوج'))
 async def handle_marriage_request(event):
     if event.is_reply:
@@ -82,6 +82,7 @@ async def handle_incoming_message(event):
         if event.text.lower() in ['نعم', 'لا']:
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
+                Mercy_Joker.append(sender_id)
             else:
                 await event.reply('تم رفض طلب الزواج')
                 marriage.remove(sender_id)
