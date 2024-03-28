@@ -72,7 +72,7 @@ async def handle_marriage_request(event):
     marriage_requests[sender_id] = event.message.id
     await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
 
-@l313l.on(events.NewMessage(func=lambda e: e.sender_id in marriage_requests.keys()))
+@l313l.on(events.NewMessage)
 async def handle_reply(event):
     sender_id = event.sender_id
     if event.reply_to_msg_id != marriage_requests.get(sender_id) or event.text.lower() not in ['نعم', 'لا']:
