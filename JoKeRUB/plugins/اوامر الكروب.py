@@ -73,18 +73,24 @@ async def handle_marriage_request(event):
         await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
     except Exception as e:
         print(f"Error editing message: {e}")
+    print(f"Marriage requests: {marriage_requests}")
 
 @l313l.on(events.NewMessage)
 async def handle_reply(event):
     sender_id = event.sender_id
+    print(f"Sender ID: {sender_id}")
+    print(f"Reply to message ID: {event.reply_to_msg_id}")
     if event.reply_to_msg_id in marriage_requests:
         replied_user_id = marriage_requests[event.reply_to_msg_id]
+        print(f"Replied user ID: {replied_user_id}")
         if sender_id == replied_user_id:
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
             elif event.text.lower() == 'لا':
                 await event.reply('تم رفض طلب الزواج')
             del marriage_requests[event.reply_to_msg_id]
+            
+            
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
