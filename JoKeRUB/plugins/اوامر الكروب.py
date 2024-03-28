@@ -78,20 +78,20 @@ async def handle_marriage_request(event):
         if replied_message.sender_id:
             if len(joker_marriage) < 4:
                 if replied_message.sender_id not in joker_marriage:
-                    marriage.append(replied_message.sender_id)
                     dowry = joker_balance
                     if dowry < min_dowry:
                         await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
-                        marriage.remove(sender_id)
                         return
-                    marriage_details[replied_message.sender_id] = {'dowry': dowry}
+                    requested_dowry = dowry
+                    if requested_dowry > joker_balance:
+                        await event.edit('عذرًا، رصيدك غير كافي لقبول الزواج')
+                        return
+                    marriage_details[replied_message.sender_id] = {'dowry': requested_dowry}
                     await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
                 else:
                     await event.edit('عذرًا، أنتم متزوجان بالفعل!')
-                    marriage.remove(sender_id)
             else:
                 await event.edit('عذرًا، لقد وصلنا إلى الحد الأقصى للزواجيات')
-                marriage.remove(sender_id)
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
 
