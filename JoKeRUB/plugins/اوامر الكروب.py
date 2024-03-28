@@ -99,7 +99,11 @@ async def handle_incoming_message(event):
     if sender_id in marriage:
         if event.text.lower() in ['نعم', 'لا']:
             if event.text.lower() == 'نعم':
-                await event.reply('الف مبروك لقد تم زواجك')
+                aljoker_entity = await event.l313l.get_entity(replied_message.sender_id)
+                aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
+                replied_sender = await event.l313l.get_entity(event.sender_id)
+                replied_sender_profile = f"[{replied_sender.first_name}](tg://user?id={replied_sender.id})"
+                await event.reply(f'الف مبرووووك للزوجين {replied_sender_profile} و{aljoker_profile} الذي ارسلت نعم')
                 joker_marriage.append(sender_id)
                 marriage.remove(sender_id)
             else:
