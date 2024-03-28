@@ -65,21 +65,30 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 marriage_requests = {}
 accepted_marriages = {}
-@l313l.on(events.NewMessage)
-async def handle_message(event):
+
+@l313l.on(events.NewMessage(pattern='.زواج'))
+async def handle_marriage_request(event):
     sender_id = event.sender_id
-    message_text = event.message.message
-    if message_text == '.نزوج':
-        marriage_requests[sender_id] = event.message.id
-        await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
-    elif sender_id in marriage_requests.values():
-        original_sender_id = list(marriage_requests.keys())[list(marriage_requests.values()).index(sender_id)]
-        original_message_id = marriage_requests.pop(original_sender_id)
-        if event.message.reply_to_msg_id == original_message_id:
-            if event.text.lower() == 'نعم':
-                await event.reply('الف مبروك لقد تم زواجك')
-            elif event.text.lower() == 'لا':
-                await event.reply('تم رفض طلب الزواج')
+    marriage_requests[sender_id] = event.message.id
+    await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
+
+@l313l.on(events.NewMessage(func=lambda e: e.sender_id in marriage_requests.keys()))
+async def handle_reply(event):
+    sender_id = event.sender_id
+    if event.reply_to_msg_id != marriage_requests.get(sender_id):
+        return  # إذا كانت الرسالة ليست ردًا على طلب الزواج، فلا داعي للمعالجة
+    if event.text.lower() not in ['نعم', 'لا']:
+        return  # إذا كانت الرسالة ليست 'نعم' أو 'لا'، فلا داعي للمعالجة
+    
+    if event.text.lower() == 'نعم':
+        if sender_id in accepted_marriages:
+            accepted_marriages[sender_id] += 1
+        else:
+            accepted_marriages[sender_id] = 1
+        await event.reply('الف مبروك لقد تم زواجك')
+    elif event.text.lower() == 'لا':
+        await event.reply('تم رفض طلب الزواج')
+    del marriage_requests[sender_id]
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
