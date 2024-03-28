@@ -65,21 +65,21 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 marriage_requests = {}
 accepted_marriages = {}
-@client.on(events.NewMessage)
+@l313l.on(events.NewMessage)
 async def handle_message(event):
     sender_id = event.sender_id
     message_text = event.message.message
-    if message_text == '.زواج':
+    if message_text == '.نزوج':
         marriage_requests[sender_id] = event.message.id
-        await event.respond('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
+        await event.edit('هل تريد الزواج مني على سنة الله ورسوله؟ (نعم/لا)')
     elif sender_id in marriage_requests.values():
         original_sender_id = list(marriage_requests.keys())[list(marriage_requests.values()).index(sender_id)]
         original_message_id = marriage_requests.pop(original_sender_id)
         if event.message.reply_to_msg_id == original_message_id:
             if event.text.lower() == 'نعم':
-                await event.respond('الف مبروك لقد تم زواجك')
+                await event.reply('الف مبروك لقد تم زواجك')
             elif event.text.lower() == 'لا':
-                await event.respond('تم رفض طلب الزواج')
+                await event.reply('تم رفض طلب الزواج')
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
