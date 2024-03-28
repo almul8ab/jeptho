@@ -71,14 +71,17 @@ async def handle_marriage_request(event):
         replied_message = await event.get_reply_message()
         if replied_message.sender_id:
             if len(joker_marriage) < 4:
-                marriage.append(replied_message.sender_id)
-                await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
+                if replied_message.sender_id not in joker_marriage:
+                    marriage.append(replied_message.sender_id)
+                    await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
+                else:
+                    await event.edit('عذرًا، أنتم متزوجان بالفعل!')
+                    marriage.remove(sender_id)
             else:
                 await event.edit('عذرًا، لقد وصلنا إلى الحد الأقصى للزواجيات')
-                marriage.remove(sender_id)
-    else:
+    else:       marriage.remove(sender_id)
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-
+    
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     sender_id = event.sender_id
@@ -91,7 +94,9 @@ async def handle_incoming_message(event):
             else:
                 await event.reply('تم رفض طلب الزواج')
                 marriage.remove(sender_id)
-            
+    elif sender_id in joker_marriage:
+        if event.text.strip().lower() == 'زوجي':
+            await event.reply('ها يعمري اني موجود لا تخافي ❤️😍')
             
 async def ban_user(chat_id, i, rights):
     try:
