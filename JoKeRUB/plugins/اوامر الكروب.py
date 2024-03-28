@@ -63,32 +63,23 @@ BANNED_RIGHTS = ChatBannedRights(
     send_inline=True,
     embed_links=True,
 )
-marriage_requests = {}
+marriage = []
 
 @l313l.on(events.NewMessage(pattern='.نزوج'))
 async def handle_marriage_request(event):
-    # Store the user ID and the original message ID
-    user_id = event.sender_id
-    original_message_id = event.message.reply_to_msg_id
-    marriage_requests[user_id] = original_message_id
+    marriage.append(event.sender_id)
     await event.respond('هل تريد الزواج مني؟ (نعم/لا)')
 
-@l313l.on(events.NewMessage)
-async def handle_reply(event):
+@l313l.on(events.NewMessage(incoming=True))
+async def handle_incoming_message(event):
     sender_id = event.sender_id
-    if sender_id in marriage_requests:
-        # Get the original message ID for the marriage request
-        original_message_id = marriage_requests[sender_id]
-        # Check if the reply is to the original message
-        if event.reply_to_msg_id == original_message_id and event.text.lower() in ['نعم', 'لا']:
-            # Check if the reply is from the correct user
-            if sender_id == event.sender_id:
-                if event.text.lower() == 'نعم':
-                    await event.reply('الف مبروك لقد تم زواجك')
-                else:
-                    await event.reply('تم رفض طلب الزواج')
-                # Remove the user from the marriage requests dictionary
-                del marriage_requests[sender_id]
+    if sender_id in marriage:
+        if event.text.lower() in ['نعم', 'لا']:
+            if event.text.lower() == 'نعم':
+                await event.reply('الف مبروك لقد تم زواجك')
+            else:
+                await event.reply('تم رفض طلب الزواج')
+                marriage.remove(sender_id)
             
             
 async def ban_user(chat_id, i, rights):
