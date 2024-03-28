@@ -86,6 +86,7 @@ async def handle_marriage_request(event):
                     if requested_dowry > joker_balance:
                         await event.edit('عذرًا، رصيدك غير كافي لقبول الزواج')
                         return
+                    joker_balance -= requested_dowry
                     marriage_details[replied_message.sender_id] = {'dowry': requested_dowry}
                     marriage.append(replied_message.sender_id)
                     await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
