@@ -100,7 +100,7 @@ async def handle_incoming_message(event):
         if event.text.lower() in ['نعم', 'لا']:
             if event.text.lower() == 'نعم':
                 aljoker_entity = await event.client.get_entity(sender_id)
-                replied_sender_entity = await event.client.get_entity(event.sender_id)
+                replied_sender_entity = await event.client.get_entity(replied_message.sender_id)
                 aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
                 replied_sender_profile = f"[{replied_sender_entity.first_name}](tg://user?id={replied_sender_entity.id})"
                 await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة ')
