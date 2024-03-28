@@ -68,20 +68,23 @@ marriage_requests = {}
 @l313l.on(events.NewMessage(pattern='.نزوج'))
 async def handle_marriage_request(event):
     sender_id = event.sender_id
-    marriage_requests[sender_id] = event.message.id
+    # Store the original message ID when the marriage request is made
+    marriage_requests[sender_id] = event.reply_to_msg_id
     await event.respond('هل تريد الزواج مني؟ (نعم/لا)')
 
 @l313l.on(events.NewMessage)
 async def handle_reply(event):
     sender_id = event.sender_id
-    if sender_id in marriage_requests and event.is_reply:
-        original_message = await event.get_reply_message()
-        original_sender_id = original_message.sender_id
-        if sender_id == original_sender_id and event.text.lower() in ['نعم', 'لا']:
+    if sender_id in marriage_requests:
+        # Get the original message ID for the marriage request
+        original_message_id = marriage_requests[sender_id]
+        # Check if the reply is to the original message
+        if event.reply_to_msg_id == original_message_id and event.text.lower() in ['نعم', 'لا']:
             if event.text.lower() == 'نعم':
                 await event.reply('الف مبروك لقد تم زواجك')
             else:
                 await event.reply('تم رفض طلب الزواج')
+            # Remove the user from the marriage requests dictionary
             del marriage_requests[sender_id]
             
             
