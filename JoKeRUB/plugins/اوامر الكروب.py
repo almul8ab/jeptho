@@ -85,8 +85,6 @@ async def handle_reply(event):
                 await event.reply('الف مبروك لقد تم زواجك')
             elif event.text.lower() == 'لا':
                 await event.reply('تم رفض طلب الزواج')
-            else:
-                await event.reply('يرجى الرد بنعم أو لا فقط')
             del marriage_requests[event.reply_to_msg_id]
             
             
