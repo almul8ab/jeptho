@@ -65,7 +65,7 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 marriage_requests = {}
 accepted_marriages = {}
-@l313l.on(events.NewMessage(pattern='.زواج'))
+@l313l.on(events.NewMessage(pattern='.نزوج'))
 async def handle_marriage_request(event):
     sender_id = event.sender_id
     if sender_id not in accepted_marriages or accepted_marriages[sender_id] < 4:
