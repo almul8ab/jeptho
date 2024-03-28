@@ -67,8 +67,13 @@ marriage = []
 
 @l313l.on(events.NewMessage(pattern='.نزوج'))
 async def handle_marriage_request(event):
-    marriage.append(event.sender_id)
-    await event.respond('هل تريد الزواج مني؟ (نعم/لا)')
+    if event.is_reply:
+        replied_user_id = event.message.reply_to_msg_id.user_id
+        if replied_user_id:
+            marriage.append(replied_user_id)
+            await event.respond('هل تريد الزواج مني؟ (نعم/لا)')
+    else:
+        await event.respond('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
