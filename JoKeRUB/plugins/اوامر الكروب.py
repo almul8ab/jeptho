@@ -1093,8 +1093,8 @@ def format_board(game_board, numbers_board):
 
 @l313l.on(events.NewMessage(pattern=r'.ستوري'))
 async def aljoker(joker):
+	A=0
     await joker.edit('**᯽︙ يتم الان تنزيل ستوريات المستخدم الاخيرة وإرسالها الى الرسائل المحفوظة**')
-	A=0	
 	if match(".ستوري (.*?)$",joker.text) :
 		Mes = str(joker.text).split('.ستوري ')[1].strip()
 		Number = any(char in set('1234567890') for char in str(Mes))
@@ -1113,8 +1113,8 @@ async def aljoker(joker):
 
 @l313l.on(events.NewMessage(pattern=r'.س'))
 async def Aljoker(joker):
-    await joker.edit('**᯽︙ يتم الان تنزيل جميع ستوريات المستخدم وإرسالها الى الرسائل المحفوظة**')
 	A=0
+    await joker.edit('**᯽︙ يتم الان تنزيل جميع ستوريات المستخدم وإرسالها الى الرسائل المحفوظة**')
 	if match(".س (.*?)$",joker.text) :
 		Mes = str(joker.text).split('.س ')[1].strip()
 		Number = any(char in set('1234567890') for char in str(Mes))
