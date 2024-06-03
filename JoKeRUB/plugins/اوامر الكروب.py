@@ -1103,7 +1103,7 @@ async def aljoker(joker):
 			Mesg = Mes
 		story = await l313l(functions.stories.GetPeerStoriesRequest(Mesg))
 		if story.stories.stories == []:
-			await joker.edit('لم ينشر ستوري حديث بعد !')
+			await joker.edit('**᯽︙ المستخدم لم ينشر ستوري بعد** ')
 		else:
 			for StoRy in story.stories.stories:
 				A+=1
