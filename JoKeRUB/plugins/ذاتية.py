@@ -8,7 +8,7 @@ from JoKeRUB import *
 #ها يالفاشل شعدك داخل هنا 🫣 اعتمد ع نفسك لتخلي سورس الجوكر مصدر طشت سورسك
 Aljoker_Asbo3 = {
     'Monday': 'الاثنين',
-    'Tuesday': 'الثلاثاء',
+    'Tuesday': 'الأربعاء',
     'Wednesday': 'الأربعاء',
     'Thursday': 'الخميس',
     'Friday': 'الجمعة',
@@ -26,7 +26,7 @@ async def dato(event):
     if not lMl10l.media:
         return await event.edit("لا يمكن العثور على ملف قابل للتنزيل.")
     
-    if not isinstance(lMl10l.media, (types.MessageMediaPhoto, types.MessageMediaDocument)):
+    if not isinstance(lMl10l.media, (types.MessageMediaPhoto, types.MessageMediaDocument, types.MessageMediaVoice)):
         return await event.edit("يجب أن تكون الرسالة التي ترد عليها صورة أو صوت.")
     
     file = await lMl10l.download_media()
@@ -60,7 +60,8 @@ async def Reda_Is_Here(event):
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الذاتيات لتعطيلها!**")
 
 def joker_unread_media(message):
-    return message.media_unread and (message.photo or message.video)
+    return message.media_unread and (message.photo or message.video or
+        (message.voice and getattr(message.media.document.attributes[0], 'ttl_seconds', 0) == 2**31-1))
 
 async def Hussein(event, caption):
     media = await event.download_media()
