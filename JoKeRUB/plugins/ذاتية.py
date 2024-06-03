@@ -8,7 +8,7 @@ from JoKeRUB import *
 #ها يالفاشل شعدك داخل هنا 🫣 اعتمد ع نفسك لتخلي سورس الجوكر مصدر طشت سورسك
 Aljoker_Asbo3 = {
     'Monday': 'الاثنين',
-    'Tuesday': 'الأربعاء',
+    'Tuesday': 'الثلاثاء',
     'Wednesday': 'الأربعاء',
     'Thursday': 'الخميس',
     'Friday': 'الجمعة',
@@ -55,13 +55,13 @@ async def reda(event):
 async def Reda_Is_Here(event):
     if gvarstatus ("savepicforme"):
         delgvar("savepicforme")
-        return await edit_delete(event, "**᯽︙تم تعطيل حفظت الذاتيات بنجاح ✓**")
+        return await edit_delete(event, "**᯽︙تم تعطيل حفظ الذاتيات بنجاح ✓**")
     else:
         await edit_delete(event, "**᯽︙انت لم تفعل حفظ الذاتيات لتعطيلها!**")
 
 def joker_unread_media(message):
-    return message.media_unread and (message.photo or message.video or
-        (message.voice and getattr(message.media.document.attributes[0], 'ttl_seconds', 0) == 2**31-1))
+    return message.media_unread and (message.photo or message.video or 
+        (message.voice and getattr(message.media.document.attributes[0], 'ttl_seconds', 0) > 0))
 
 async def Hussein(event, caption):
     media = await event.download_media()
