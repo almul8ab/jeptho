@@ -22,16 +22,9 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
         await bot.get_me()
         if query.startswith("اوامري") and event.query.user_id == bot.uid:
             buttons = [
-                [Button.inline("( اوامر الادمن )", data="l313l0")],
-                [
-                    Button.inline("( اوامر البوت )", data="rozbot"),
-                    Button.inline("( حسابك )", data="Jmrz"),
-                    Button.inline("( المجموعات )", data="gro"),
-                ],
-                [
-                    Button.inline("( الصيغ والجهات )", data="sejrz"),
-                    Button.inline("( الحمايه وتليكراف )", data="grrz"),
-                ],
+                [Button.inline("( اوامر الادمن  ) ① ", data="Admin")],
+                    [Button.inline("( المجموعات ) ②", data="Groups"),Button.inline("( الترحيب والردود ) ③", data="Tarh"),Button.inline("( الحمايه وتليكراف ) ④", data="grrz")],
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")], 
                 [
                     Button.inline("( اوامر التسليه )︎", data="tslrzj"),
                     Button.inline("( الترحيب والردود )", data="r7brz"),
@@ -47,9 +40,9 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 [Button.inline("( الملصقات والصور )", data="jrzst"),
                 ],
                 [
-                    Button.inline("( الاكسترا )", data="iiers"),
-                    Button.inline("( الانتحال والتقليد )", data="uscuxrz"),
-                ],
+                    Button.inline("( الاكسترا )", data="iiers")
+                    
+                ],[Button.inline("( اوامر البوت )", data="rozbot")]
             ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
