@@ -23,27 +23,25 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
         if query.startswith("اوامري") and event.query.user_id == bot.uid:
             buttons = [
                 [Button.inline("( اوامر الادمن  ) ① ", data="Admin")],
-                    [Button.inline("( المجموعات ) ②", data="Groups"),Button.inline("( الترحيب والردود ) ③", data="Tarh"),Button.inline("( الحمايه وتليكراف ) ④", data="grrz")],
+                    [Button.inline("( المجموعات ) ②", data="Groups"),Button.inline("( الترحيب .. ) ③", data="Tarh"),Button.inline("( الحمايه .. ) ④", data="Securty")],
                     [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")], 
                 [
-                    Button.inline("( اوامر التسليه )︎", data="tslrzj"),
-                    Button.inline("( الترحيب والردود )", data="r7brz"),
+                    Button.inline("( المنع .. ) ⑦", data="NOT"),
+                    Button.inline("( التنظيف .. ) ⑧", data="Clear")],[Button.inline("( الفارات ) ⑨", data="Var")],
+                [
+                    Button.inline("( الوقتي ..) ⓪①", data="Timer"),
+                    Button.inline("( الكشف و ..) ①① )", data="Open")
+                ],[Button.inline("( المساعده ) ②① ", data="Helper")],
+                [
+                    Button.inline("( أذكار .. ) ③①", data="Think"),
+                    Button.inline("( الملصقات ) ④①", data="Sticker")
+                ],
+                [Button.inline("( التسليه ميمز ) ⑤①", data="Funy")
                 ],
                 [
-                    Button.inline("( اوامر المساعده )", data="krrznd"),
-                    Button.inline("( الملصقات والصور )", data="jrzst"),
-                ],
-                [
-                    Button.inline("( التكرار والتنظيف )", data="krrznd"),
-                    Button.inline("( الترفيه )", data="rfhrz"),
-                ],
-                [Button.inline("( الملصقات والصور )", data="jrzst"),
-                ],
-                [
-                    Button.inline("( الاكسترا )", data="iiers")
-                    
-                ],[Button.inline("( اوامر البوت )", data="rozbot")]
-            ]
+                    Button.inline("( الصيغ ..) ⑥①", data="Contect"),Button.inline(" ( التمبلر ..) ⑦①", data="Tumbler")],[Button.inline("(  الحساب ) ⑧①", data="Account")]
+                    ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],Button.inline("( التجميع ) ②①", data="r7brz")
+                    ,[Button.inline("( اوامر البوت )", data="rozbot")]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
                     JEP_IC, text=ROE, buttons=buttons
