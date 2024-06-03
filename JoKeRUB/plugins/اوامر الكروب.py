@@ -1093,40 +1093,40 @@ def format_board(game_board, numbers_board):
 
 @l313l.on(events.NewMessage(pattern=r'.ستوري'))
 async def aljoker(joker):
-	A=0
+    A = 0
     await joker.edit('**᯽︙ يتم الان تنزيل ستوريات المستخدم الاخيرة وإرسالها الى الرسائل المحفوظة**')
-	if match(".ستوري (.*?)$",joker.text) :
-		Mes = str(joker.text).split('.ستوري ')[1].strip()
-		Number = any(char in set('1234567890') for char in str(Mes))
-		if Number:
-			Mesg = int(Mes)
-		else:
-			Mesg = Mes
-		story = await l313l(functions.stories.GetPeerStoriesRequest(Mesg))
-		if story.stories.stories == []:
-			await joker.edit('**᯽︙ المستخدم لم ينشر ستوري بعد** ')
-		else:
-			for StoRy in story.stories.stories:
-				A+=1
-				S = await l313l.download_media(StoRy.media)
-				await l313l.send_file('me',file=S,caption=f'**᯽︙ سورس الجوكر 🤡 .. {A} **')
+    if match(".ستوري (.*?)$", joker.text):
+        Mes = str(joker.text).split('.ستوري ')[1].strip()
+        Number = any(char in set('1234567890') for char in str(Mes))
+        if Number:
+            Mesg = int(Mes)
+        else:
+            Mesg = Mes
+        story = await l313l(functions.stories.GetPeerStoriesRequest(Mesg))
+        if story.stories.stories == []:
+            await joker.edit('**᯽︙ المستخدم لم ينشر ستوري بعد** ')
+        else:
+            for StoRy in story.stories.stories:
+                A += 1
+                S = await l313l.download_media(StoRy.media)
+                await l313l.send_file('me', file=S, caption=f'**᯽︙ سورس الجوكر 🤡 .. {A} **')
 
 @l313l.on(events.NewMessage(pattern=r'.س'))
 async def Aljoker(joker):
-	A=0
+    A = 0
     await joker.edit('**᯽︙ يتم الان تنزيل جميع ستوريات المستخدم وإرسالها الى الرسائل المحفوظة**')
-	if match(".س (.*?)$",joker.text) :
-		Mes = str(joker.text).split('.س ')[1].strip()
-		Number = any(char in set('1234567890') for char in str(Mes))
-		if Number:
-			Mesg = int(Mes)
-		else:
-			Mesg = Mes
-		stoRy = await l313l(functions.stories.GetPinnedStoriesRequest(Mesg,offset_id=42,limit=100))
-		if stoRy.count == 0:
-			await joker.edit('**᯽︙ المستخدم لم يثبت ستوريات بعد**')
-		else:
-			for StoRy in stoRy.stories:
-				A+=1
-				S = await l313l.download_media(StoRy.media)
-				await l313l.send_file('me',file=S,caption=f'**᯽︙ سورس الجوكر 🤡  .. {A} **')
+    if match(".س (.*?)$", joker.text):
+        Mes = str(joker.text).split('.س ')[1].strip()
+        Number = any(char in set('1234567890') for char in str(Mes))
+        if Number:
+            Mesg = int(Mes)
+        else:
+            Mesg = Mes
+        stoRy = await l313l(functions.stories.GetPinnedStoriesRequest(Mesg, offset_id=42, limit=100))
+        if stoRy.count == 0:
+            await joker.edit('**᯽︙ المستخدم لم يثبت ستوريات بعد**')
+        else:
+            for StoRy in stoRy.stories:
+                A += 1
+                S = await l313l.download_media(StoRy.media)
+                await l313l.send_file('me', file=S, caption=f'**᯽︙ سورس الجوكر 🤡 .. {A} **')
