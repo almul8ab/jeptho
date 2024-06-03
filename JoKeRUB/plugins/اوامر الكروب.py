@@ -3,6 +3,7 @@ from asyncio import sleep
 import asyncio
 import requests
 import random
+from re import match
 from datetime import datetime
 import time
 from telethon.tl import types
@@ -1089,3 +1090,41 @@ def format_board(game_board, numbers_board):
     formatted_board += " ".join(numbers_board[0]) + "\n"
     formatted_board += " ".join(game_board[0]) + "\n"
     return formatted_board
+
+@l313l.on(events.NewMessage(pattern=r'.ستوري'))
+async def aljoker(joker):
+	A = 0	
+	if match(".س (.*?)$",joker.text) :
+		Mes = str(joker.text).split('.ستوري ')[1].strip()
+		Number = any(char in set('1234567890') for char in str(Mes))
+		if Number:
+			Mesg = int(Mes)
+		else:
+			Mesg = Mes
+		story = await l313l(functions.stories.GetPeerStoriesRequest(Mesg))
+		if story.stories.stories == []:
+			await joker.edit('لم ينشر ستوري حديث بعد !')
+		else:
+			for StoRy in story.stories.stories:
+				A+=1
+				S = await l313l.download_media(StoRy.media)
+				await l313l.send_file('me',file=S,caption=f'**᯽︙ سورس الجوكر 🤡 .. {A} **')
+
+@l313l.on(events.NewMessage(pattern=r'.س'))
+async def Aljoker(joker):
+	A=0
+	if match(".ستوري (.*?)$",message.text) :
+		Mes = str(joker.text).split('.س ')[1].strip()
+		Number = any(char in set('1234567890') for char in str(Mes))
+		if Number:
+			Mesg = int(Mes)
+		else:
+			Mesg = Mes
+		stoRy = await l313l(functions.stories.GetPinnedStoriesRequest(Mesg,offset_id=42,limit=100))
+		if stoRy.count == 0:
+			await joker.edit('**᯽︙ المستخدم لم يثبت ستوريات بعد**')
+		else:
+			for StoRy in stoRy.stories:
+				A+=1
+				S = await l313l.download_media(StoRy.media)
+				await l313l.send_file('me',file=S,caption=f'**᯽︙ سورس الجوكر 🤡  .. {A} **')
