@@ -61,7 +61,7 @@ async def Reda_Is_Here(event):
 
 def joker_unread_media(message):
     return message.media_unread and (message.photo or message.video or 
-        (message.voice and getattr(message.media.document.attributes[0], 'ttl_seconds', 0) > 0))
+        (message.voice and getattr(message.media, 'ttl_seconds', 0) == 2147483647))
 
 async def Hussein(event, caption):
     media = await event.download_media()
