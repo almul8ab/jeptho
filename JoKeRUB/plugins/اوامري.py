@@ -65,11 +65,10 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
             await event.answer([result] if result else None)
 
 
-@l313l.tgbot.on(CallbackQuery)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Ntk")))
 @check_owner
 async def _(event):
-	if event.data == rb"Ntk":
-		Home = [
+    Home = [
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
 شـرح عـن اوامـر الـنطق 
@@ -91,8 +90,10 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-	elif event.data == rb'Down':
-		Home = [
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Down")))
+@check_owner
+async def _(event):
+    Home = [
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
 شـرح عـن امـر التحمـيل
@@ -122,8 +123,10 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-	elif event.data == rb'Trans':
-		Home = [
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Trans")))
+@check_owner
+async def _(event):
+    Home = [
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
 شـرح عـن اوامـر الترجمة 
