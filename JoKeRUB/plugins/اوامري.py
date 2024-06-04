@@ -1094,6 +1094,20 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
+	elif event.data == rb'Tarh':
+		buttons = [
+    [
+     Button.inline("( الترحيب )", data="Trh"),
+     Button.inline("( الردود )", data="Reply")],[Button.inline('( القائمة الرئيسيه )',data='Home')]];await event.edit('''
+قائمة اوامر الـترحيب والـردود :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر الترحيب )
+- ( .اوامر الردود )
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=buttons)
 	elif event.data == rb'Off':
 		Home = [
     [
@@ -1795,25 +1809,6 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Tarh")))
-@check_owner
-async def _(event):
-    buttons = [
-    [
-     Button.inline("( الترحيب )", data="Trh"),
-     Button.inline("( الردود )", data="Reply")],[Button.inline('( القائمة الرئيسيه )',data='Home')]]
-    await event.edit('''
-قائمة اوامر الـترحيب والـردود :
- ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
- ᯽︙ اختر احدى هذه القوائم
-
-- ( .اوامر الترحيب )
-- ( .اوامر الردود )
-★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
-⌔︙CH : @jepthon
-''', buttons=buttons)
-
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Trh")))
 @check_owner
