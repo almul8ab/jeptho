@@ -399,7 +399,7 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"DOO")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'DOO')))
 @check_owner
 async def _(event):
 	Home = [
