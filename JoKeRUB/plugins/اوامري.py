@@ -176,6 +176,22 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Download1")))
+@check_owner
+async def _(event):
+	Home = [
+    [
+     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Do2')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
+قائمة اوامر التحميل والترجمه :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر النطق )
+- ( .اوامر التحميل )
+- ( .اوامر الترجمة ) 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Do2")))
 @check_owner
 async def _(event):
@@ -229,22 +245,8 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Download1")))
-@check_owner
-async def _(event):
-	Home = [
-    [
-     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Do2')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
-قائمة اوامر التحميل والترجمه :
- ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
- ᯽︙ اختر احدى هذه القوائم
 
-- ( .اوامر النطق )
-- ( .اوامر التحميل )
-- ( .اوامر الترجمة ) 
-★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
-⌔︙CH : @jepthon
-''', buttons=Home)
+
 
 @bot.on(admin_cmd(outgoing=True, pattern="اوامري"))
 async def repo(event):
@@ -460,13 +462,39 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Group')))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Group")))
+@check_owner
+async def _(event):
+	Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الكروب 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .الاحداث ) 
+ كتابة  الامـر في الكروب لعرض احداث الكروب
+
+- ( .الاعضاء ) 
+ فقـط ارسل الامر في المجموعة لعرض اعضاء المجموعة
+
+- ( .المشرفين ) 
+ ارسل الامر في المجموعه لعرض حسابات المشرفين
+
+- ( .البوتات )
+ ارسل الامر في المجموعه لعرض البوتات
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Groups')))
 @check_owner
 async def _(event):
     Gr = [
     [
      Button.inline("( التفليش )", data="Bom"),
-     Button.inline("( المحذوفين )", data="Deleted")],[Button.inline("( المجموعه )",data='Group')],[Button.inline("( القائمة الرئيسيه )",data='Home')]]
+     Button.inline("( المحذوفين )", data="Deleted")],[Button.inline("( الكروب )",data='Group')],[Button.inline("( القائمة الرئيسيه )",data='Home')]]
     await event.edit('''
 قائمة اوامر المجـموعه لسورس الجوكر :
  ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
