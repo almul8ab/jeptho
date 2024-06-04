@@ -65,6 +65,98 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
             await event.answer([result] if result else None)
 
 
+@l313l.tgbot.on(CallbackQuery(data=re.compile))
+@check_owner
+async def _(event):
+	if event.data == rb"Ntk":
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الـنطق 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .تكلم ar ) 
+ بالرد على النص لتحويله الى مقطع صوتي للغة  يه 
+
+- ( .تكلم en ) 
+ بالرد على النص لتحوليه الى مقطع صوتي للغه الانكليزية
+
+- ( .احجي ar ) 
+ بالرد على مقطع صوتي او بصمة لتحوليه الى نص للغه  ية
+
+- ( .احجي en ) 
+ بالرد على مقطع صوتي او بصمة لتحوليه الى نص للغه الانكليزية
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'Down':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن امـر التحمـيل
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر
+
+- (.بحث + اسم الاغنية)
+بكتابة اسم الاغنية مع الامر لارسال الاغنيه مباشرا واذا ما اشتغل جرب اوامر التحميل الاخرى
+- مثـال : .بحث ماهر زين
+
+- (.يوت + اسم الفيديو او الاغنية)
+كتابة الامر مع اسم الفيديو او الاغنية ليعطيك نتائج البحث وروابط من يوتيوب تستخدم مع اوامر التحميل
+- مثـال : .يوت ماهر زين
+
+- (.تحميل ص + رابط الاغنية)
+لتحميل اغنيه من خلال وضع الرابط مع الامر
+- مثـال : .تحميل ص https://youtube.com/...
+
+- (.فيديو + اسم الاغنية)
+كتابة الامر مع اسم المقطع لتحميله وارساله
+- مثـال : .فيديو باسم الكربلائي
+
+- (.انستا + الرابط )
+يستخدم هذا الامر لتحميل من الانستا فقط اكتب الامر مع رابط الفيديو ليحمله
+- مثـال : .انستا https://instagram.com/jdisjejjd...
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'Trans':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الترجمة 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .ترجمة ar ) 
+
+ بالرد على النص لترجمته للغه  ية
+
+- ( .ترجمة en ) 
+ بالرد على النص لترجمته للغه الانكليزية
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Download")))
+@check_owner
+async def _(event):
+	Home = [
+    [
+     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Down')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
+قائمة اوامر التحميل والترجمه :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر النطق )
+- ( .اوامر التحميل )
+- ( .اوامر الترجمة ) 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
+
 @bot.on(admin_cmd(outgoing=True, pattern="اوامري"))
 async def repo(event):
     if event.fwd_from:
@@ -104,6 +196,68 @@ async def _(event):
                     ,[Button.inline("( اوامر البوت )", data="rozbot")]
             ]
 	await event.edit(ROE, buttons=Home)
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Telegraph')))
+@check_owner
+async def _(event):
+	Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر التلكراف 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .تلكراف ميديا ) 
+
+ لاستخراج رابط من الصورة على شكل رابط تلكراف  
+
+- ( .تلكراف نص ) 
+ بالرد على النص او المقالة لصنع رابط تلكراف للنص
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Sec")))
+@check_owner
+async def _(event):
+	Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الـخاص 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .الحماية تشغيل/تعطيل ) 
+ لتشغيل امر الحمايه او تعطيله في الـخاص 
+
+- ( .سماح ) 
+ بالرد على الشخص للسماح له بالتكلم في الخاص
+
+- ( .رفض ) 
+ بالرد على الشخص لرفضه من الخاص 
+
+- ( .المسموح لهم )
+ فقط ارسل الامر لاظهار الاشخاص المسموح لهم والمرفوضين
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Securty")))
+@check_owner
+async def _(event):
+	Home = [[Button.inline('( الحماية )',data='Sec'),Button.inline('( التلكراف )',data='Telegraph')],
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+قائمة اوامر حـماية الخاص والتلكراف :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر الحماية )
+- ( .اوامر التلكراف ) 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
+
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Admin")))
 @check_owner
 async def _(event):
@@ -217,8 +371,7 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 
-
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Groups')))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Group')))
 @check_owner
 async def _(event):
     Gr = [
@@ -236,30 +389,6 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ⌔︙CH : @jepthon
 ''', buttons=Gr)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Deleted')))
-async def _(event):
-	Home = [
-    [
-     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
-شـرح عـن اوامـر الكروب 
-★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
- ᯽︙ اختر احدى هذه الاوامر 
-
-- ( .الاحداث ) 
- كتابة  الامـر في الكروب لعرض احداث الكروب
-
-- ( .الاعضاء ) 
- فقـط ارسل الامر في المجموعة لعرض اعضاء المجموعة
-
-- ( .المشرفين ) 
- ارسل الامر في المجموعه لعرض حسابات المشرفين
-
-- ( .البوتات )
- ارسل الامر في المجموعه لعرض البوتات
-
-★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
-᯽︙ CH : @jepthon
-''', buttons=Home)
      
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Deleted')))
 async def _(event):
@@ -388,38 +517,92 @@ async def _(event):
 ''',buttons=Home)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"grrz")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Target")))
 @check_owner
 async def _(event):
     buttons = [
     [
-     Button.inline("( التالي )", data="iiers"),
-     Button.inline("( رجوع )", data="gro")]]
-    await event.edit(ROZPRV, buttons=buttons)
+     Button.inline("( الانتحال )", data="Tar"),
+     Button.inline("( التقليد )", data="LikU")],[Button.inline('( المنشن )',data='mention')],[Button.inline('( القائمة الرئيسة )',data='Home')]]
+    
+    await event.edit('''
+قائمة اوامر الـمنشن والانتحال :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر الانتحال )
+- ( .اوامر التقليد )
+- ( .اوامر المنشن ) 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=buttons)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"iiers")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Tar")))
 @check_owner
 async def _(event):
-    buttons = [
+    Home = [
     [
-     Button.inline("( التالي )", data="rfhrz"),
-     Button.inline("( رجوع )", data="grrz")]]
-    await event.edit(HERP, buttons=buttons)
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الانتحال 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
 
+- ( .انتحال ) 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"rfhrz")))
+ بالرد على الشخص لنسخ حسابه بالكامل من صورة واسم وبايو  
+
+- ( .اعادة ) 
+ لارجاع الحساب الى وضعه الطبيعي لما كان سابقا
+
+- ( .انتحال_الدردشه ) 
+ قم بكتابة الامر مع معرف المجموعة او القناة بدون @
+
+- ( .اعادة_الدردشه ) 
+ لارجاع الدردشه الى وضعه الطبيعي لما كان سابقا
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"LikU")))
 @check_owner
 async def _(event):
-    buttons = [
+    Home = [
     [
-     Button.inline("( التالي )", data="uscuxrz"),
-     Button.inline("( رجوع )", data="iiers")]]
-    await event.edit(T7SHIZ, buttons=buttons)
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الـتقليـد 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
 
+- ( .تقليد ) 
+ بالرد على الشخص لتقليد جميع رسائله في الدردشه 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"uscuxrz")))
+- ( .الغاء التقليد ) 
+ بالرد على الشخص لايقاف التقليد
+
+- ( .المقلدهم ) 
+لاظهـار قائمه الاشخاص الذي فعـلت عليهم امر التقليد ولمسحهم ارسل  (.مسح المقلدهم) 
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'mention')))
 @check_owner
 async def _(event):
-    buttons = [[Button.inline("( رجوع )", data="l313l0"),]]
-    await event.edit(CLORN, buttons=buttons)
+    Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الـمنشن 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- (.منشن + المسج)
+قم بكتابة الامر في المجموعة لعمل تاك مفرد للاعظاء الموجودين
+- (.الغاء منشن)
+لألغاء التاك 
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
