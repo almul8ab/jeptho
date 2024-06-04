@@ -124,84 +124,268 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=buttons)
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"jrzst")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Block')))
 @check_owner
 async def _(event):
     butze = [
     [
-     Button.inline("( التالي )", data="tslrzj"),
-     Button.inline("( رجوع )", data="l313l0")]]
-    await event.edit(GRTSTI, buttons=butze)
+     Button.inline("( القائمة الرئيسية )", data="Home")]]
+    await event.edit('''
+ شـرح عـن اوامـر الحـظر 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+( .حظر ) 
+-  تقوم بالرد على شخص او وضع معرفه مع الامر وسيحظره من المجموعة
+
+( .الغاء حظر )
+ - بالرد على الشخص او كتابة معرفه مع الامر لالغاء حظره
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+ ''', buttons=butze)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"tslrzj")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Mute')))
+@check_owner
+async def _(event):
+    Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]]
+    await event.edit('''
+شـرح عـن اوامـر الكـتم 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+( .كتم ) 
+-  تقوم بالرد على شخص او وضع معرفه مع الامر وسيكتمه من المجموعة
+
+( .الغاء كتم )
+ - بالرد على الشخص او كتابة معرفه مع الامر لالغاء كتمه
+
+( .كتم_مؤقت+عدد الساعات او الدقائق+السبب )
+ - بالرد على الشخص او كتابة معرفه مع الامر لتقيدة من المجموعة مؤقتا
+مثال : كتم_مؤقت 1h مخالف القوانين
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
+
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Admins')))
+@check_owner
+async def _(event):
+    Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]]
+    await event.edit('''
+شـرح عـن اوامـر الاشراف 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+( .رفع مشرف ) 
+-  تقوم بالرد على الشخص مع الامر و سيرفع مشرفا في المجموعة
+
+( .تك )
+ - بالرد على الشخص مع الامر لإنزاله من الاشراف في المجموعة
+
+( .ارفع ) 
+- لرفع المستخدم في جميع المجموعات مع كافة الصلاحيات مع لقب مخفي
+
+( .نزل ) 
+-لتنزيل الشخص من رتبة الاشراف في جميع المجموعات
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★➖
+⌔︙CH : @jepthon
+    ''', buttons=Home)
+
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Pin')))
+@check_owner
+async def _(event):
+    Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]]
+    await event.edit('''
+شـرح عـن اوامـر التثبيت 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+( .تثبيت ) 
+-  تقوم بالرد على الرسالة مع الامر وستثبت في المجموعة
+
+( .الغاء التثبيت )
+ - بالرد على الرسالة مع الامر لإلغاء تثبيتها
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
+
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Groups')))
+@check_owner
+async def _(event):
+    Gr = [
+    [
+     Button.inline("( التفليش )", data="Bom"),
+     Button.inline("( المحذوفين )", data="Deleted")],[Button.inline("( المجموعه )",data='Group')],[Button.inline("( القائمة الرئيسيه )",data='Home')]]
+    await event.edit('''
+قائمة اوامر المجـموعه لسورس الجوكر :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر التفليش )
+- ( .اوامر المحذوفين )
+- ( .اوامر الكروب )
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Gr)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Deleted')))
+async def _(event):
+	Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الكروب 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .الاحداث ) 
+ كتابة  الامـر في الكروب لعرض احداث الكروب
+
+- ( .الاعضاء ) 
+ فقـط ارسل الامر في المجموعة لعرض اعضاء المجموعة
+
+- ( .المشرفين ) 
+ ارسل الامر في المجموعه لعرض حسابات المشرفين
+
+- ( .البوتات )
+ ارسل الامر في المجموعه لعرض البوتات
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+     
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Deleted')))
+async def _(event):
+	Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر المـحذوفين 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .حذف المحظورين ) 
+ كتابة  الامـر في الكروب لالغاء حظر جميع الاعضاء 
+
+- ( .اطردني ) 
+ فقـط ارسل الامر في المجموعة لمغادرة المجموعه التي تم ارسال الامر فيها
+
+- ( .المحذوفين ) 
+ لعرض الحسابات المحذوفة في مجمـوعة معيـنة ولحذفهم ارسل .المحذوفين اطردهم
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Bom')))
+async def _(event):
+	Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر التفليـش 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .تفليش بالطرد ) 
+ ارسل  الامـر لطرد جميع الاعضاء من المجموعه 
+
+- ( .تفليش ) 
+ كتابة  الامـر فقط في المجموعه لحظر جميع الاعضاء
+
+- ( .حظر_الكل ) 
+ كتابة  الامـر فقط في المجموعه لحظر جميع الاعضاء بدون صلاحيات عن طريق بوت الحماية 
+
+- ( .طرد_الكل ) 
+ كتابة  الامـر فقط في المجموعه ليقوم بطرد جميع الاعضا بدون صلاحيات عن طريق بوت الحماية 
+
+- ( .كتم_الكل ) 
+ كتابة  الامـر فقط في المجموعه ليقوم بكتم جميع الاعضاء بدون صلاحيات اشراف عن طريق بوت الحماية
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Tarh")))
 @check_owner
 async def _(event):
     buttons = [
     [
-     Button.inline("( التالي )", data="krrznd"),
-     Button.inline("( رجوع )", data="jrzst")]]
-    await event.edit(JMAN, buttons=buttons)
+     Button.inline("( الترحيب )", data="Trh"),
+     Button.inline("( الردود )", data="Reply")],[Button.inline('( القائمة الرئيسيه )',data='Home')]]
+    await event.edit('''
+قائمة اوامر الـترحيب والـردود :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( .اوامر الترحيب )
+- ( .اوامر الردود )
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=buttons)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"krrznd")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Trh")))
 @check_owner
 async def _(event):
-    buttons = [
+    Home = [
     [
-      Button.inline("( التالي )", data="rozbot"),
-      Button.inline("( رجوع )", data="tslrzj")]]
-    await event.edit(TKPRZ, buttons=buttons)
+     Button.inline("( القائمة الرئيسية )", data="Home")]]
+    await event.edit('''
+شـرح عـن اوامـر الترحيب 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+--( .ترحيب + ترحيبك )
+ اكتب الامر مع ترحيب في المجموعه ليرحب بالاعضاء الجدد
+
+- ( .حذف الترحيب ) 
+ فقـط ارسل الامر في المجموعة لحذف الترحيبات
+
+- ( .الترحيب )
+ ارسل الامر في المجموعه لعرض ترحيبات المجموعة
+
+- ( .الترحيب السابق ايقاف/تشغيل )
+ لتعطيل اخر ترحيب وضعته في المجموعة او تشغيل
+
+- ( .رحب + ترحيبك )
+ لوضع ترحيب في عند دخول الاعضاء للمجموعة سوف يرحب بهم في الخاص
+
+- ( .حذف رحب )
+ لحذف الترحيب في الخاص
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"rozbot")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Reply")))
 @check_owner
 async def _(event):
-    buttons = [
+    Home = [
     [
-     Button.inline("( التالي )", data="Jmrz"),
-     Button.inline("( رجوع )", data="krrznd")]]
-    await event.edit(ROZBOT, buttons=buttons)
+     Button.inline("( القائمة الرئيسية )", data="Home")]]
+    await event.edit('''
+شـرح عـن اوامـر الـردود 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
 
+- ( .رد + ردك ) 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Jmrz")))
-@check_owner
-async def _(event):
-    buttons = [
-    [
-     Button.inline("( التالي )", data="r7brz"),
-     Button.inline("( رجوع )", data="rozbot")]]
-    await event.edit(JROZT, buttons=buttons)
+ لوضع رد معين في المجموعة اكتب الامر وردك
 
+- ( .حذف الردود ) 
+ فقـط ارسل الامر في المجموعة لحذف الردود المضافة
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"r7brz")))
-@check_owner
-async def _(event):
-    buttons = [
-    [
-     Button.inline("( التالي )", data="sejrz"),
-     Button.inline("( رجوع )", data="Jmrz")]]
-    await event.edit(JMTRD, buttons=buttons)
+- ( .الردود ) 
+ ارسل الامر في المجموعه لعرض ردود المجموعة
 
-
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"sejrz")))
-@check_owner
-async def _(event):
-    buttons = [
-    [
-     Button.inline("( التالي )", data="gro"),
-     Button.inline("( رجوع )", data="r7brz")]]
-    await event.edit(ROZSEG, buttons=buttons)
-
-
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"gro")))
-@check_owner
-async def _(event):
-    buttons = [
-    [
-     Button.inline("( التالي )", data="grrz"),
-     Button.inline("( رجوع )", data="sejrz")]]
-    await event.edit(JMGR1,buttons=buttons)
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''',buttons=Home)
 
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"grrz")))
