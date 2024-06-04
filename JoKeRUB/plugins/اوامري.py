@@ -65,7 +65,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
             await event.answer([result] if result else None)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile))
+@l313l.tgbot.on(CallbackQuery)
 @check_owner
 async def _(event):
 	if event.data == rb"Ntk":
