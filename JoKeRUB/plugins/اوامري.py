@@ -34,7 +34,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
                     [Button.inline("( الفارات ) ⑨", data="Var")],
                 [Button.inline("( الوقتي ..) ⓪①", data="Timer"),
-                    Button.inline("( الكشف و ..) ①① )", data="Open")],
+                    Button.inline("( الكشف و ..) ①① )", data="OPN")],
                 [Button.inline("( المساعده ) ②① ", data="Helper")],
               [Button.inline("( أذكار .. ) ③①", data='Think'),
                     Button.inline("( الملصقات ) ④①", data="Sticker")],
@@ -43,7 +43,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline("( الصيغ ..) ⑥①", data="Contect"),
                     Button.inline(" ( التمبلر ..) ⑦①", data="Tumbler")],[Button.inline("(  الحساب ) ⑧①", data="Account")]
                     ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ①②", data="Colect")]
-                    ,[Button.url("( قناة السورس )", url="JEPTHON.t.me")]
+                    ,[Button.url("( اوامر البوت )", url="JEPTHON.t.me")]
             ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
                 result = builder.photo(
@@ -972,7 +972,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ⌔︙CH : @jepthon
 ''', buttons=Home)
-	elif event.data == rb'Open':
+	elif event.data == rb'OPN':
 		Home = [[Button.inline('( الكشف )',data='KshF'),Button.inline('( الروابط )',data='Link')],
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
@@ -1456,7 +1456,7 @@ async def _(event):
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
                     [Button.inline("( الفارات ) ⑨", data="Var")],
                 [Button.inline("( الوقتي ..) ⓪①", data="Timer"),
-                    Button.inline("( الكشف و ..) ①① )", data="Open")],
+                    Button.inline("( الكشف و ..) ①① )", data="OPN")],
                 [Button.inline("( المساعده ) ②① ", data="Helper")],
               [Button.inline("( أذكار .. ) ③①", data="Think"),
                     Button.inline("( الملصقات ) ④①", data="Sticker")],
@@ -1465,7 +1465,7 @@ async def _(event):
                     Button.inline("( الصيغ ..) ⑥①", data="Contect"),
                     Button.inline(" ( التمبلر ..) ⑦①", data="Tumbler")],[Button.inline("(  الحساب ) ⑧①", data="Account")]
                     ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ②①", data="Colect")]
-                    ,[Button.url("( قناة السورس )", url="JEPTHON.t.me")]
+                    ,[Button.url("( اوامر البوت )", url="JEPTHON.t.me")]
             ]
 	await event.edit(ROE, buttons=Home)
 
