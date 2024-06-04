@@ -176,7 +176,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Down")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Do2")))
 @check_owner
 async def _(event):
     Home = [
@@ -234,7 +234,7 @@ async def _(event):
 async def _(event):
 	Home = [
     [
-     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Down')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
+     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Do2')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
 قائمة اوامر التحميل والترجمه :
  ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
  ᯽︙ اختر احدى هذه القوائم
