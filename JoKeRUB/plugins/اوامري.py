@@ -1309,7 +1309,7 @@ async def _(event):
 	elif event.data == rb'NOT':
 		Home = [
     [
-     Button.inline("( القفل )", data="Lock"),Button.inline('( الفتح )',data='OpeNed0')],[Button.inline('( المنع )',data='Not0')],Button.inline('( القائمة الرئيسيه )',data='Home')];await event.edit('''
+     Button.inline("( القفل )", data="Lock"),Button.inline('( الفتح )',data='OpeNed0')],[Button.inline('( المنع )',data='Not0')],[Button.inline('( القائمة الرئيسيه )',data='Home')]];await event.edit('''
 قائمة اوامر القفل والمنع :
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
  ᯽︙ اختر احدى هذه القوائم
