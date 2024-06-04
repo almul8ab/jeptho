@@ -576,7 +576,8 @@ async def _(event):
 async def _(event):
 	Home = [
     [
-     Button.inline("( النطق )", data="Ntk"),Button.nline('( التحميل )',data='Do2')],[Button.inline('( الترجمة )',data='Trans')],[Button.inline('( القائمة الرئيسيه )',data='Home')]];await event.edit('''
+     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Do2')]
+     ,[Button.inline('( الترجمة )',data='Trans')],[Button.inline('( القائمة الرئيسيه )',data='Home')]];await event.edit('''
 قائمة اوامر التحميل والترجمه :
  ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
  ᯽︙ اختر احدى هذه القوائم
