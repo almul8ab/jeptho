@@ -718,7 +718,7 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 	elif event.data == rb'Sticker':
-		Home = [[Button.inline('( الملصقات )',data='Stkr'),Button.inline('( Gogle',data='Gogle')],
+		Home = [[Button.inline('( الملصقات )',data='Stkr'),Button.inline('( كوكل )',data='Gogle')],
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
 قائمة اوامر الملصقات وكوكل :
@@ -970,6 +970,49 @@ async def _(event):
 - ( .اوامر مساعدة )
 - ( .اوامر الاذاعه ) 
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'KshF':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شرح اوامر الكشف :
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★➖
+᯽︙ اختر احدى هذه الاوامر
+
+- ( .الايدي )
+بالرد على الشخص او كتابة معرفه مع الامر لعرض معلوماته.
+
+- ( .ايدي )
+بالرد على الشخص لعرض معلوماته
+
+- ( .كشف )
+بالرد على الشخص لعرض معلوماته بشكل مبسط
+
+- ( .رابط الحساب )
+يالرد على الشخص للحصول على رابط حساب الشخص
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★➖
+⌔︙CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'Link':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شرح اوامر الروابط :
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★➖
+᯽︙ اختر احدى هذه الاوامر
+
+- ( .دنس + الرابط )
+لكشف نظام دومين موقع معين اكتب الامر مع الرابط
+
+- ( .مصغر )
+بالرد على الرابط او وضع الرابط مع الامر ليقوم بتصغيره
+
+- ( .رابط_مخفي )
+بالرد على الرابط لاخفاء الرابط و جعله في مسافه معينة جرب الامر بنفسك
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★➖
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 	elif event.data == rb'OPN':
