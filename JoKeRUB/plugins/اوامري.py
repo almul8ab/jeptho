@@ -42,7 +42,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 [
                     Button.inline("( الصيغ ..) ⑥①", data="Contect"),
                     Button.inline(" ( التمبلر ..) ⑦①", data="Tumbler")],[Button.inline("(  الحساب ) ⑧①", data="Account")]
-                    ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ①②", data="r7brz")]
+                    ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ②①", data="r7brz")]
                     ,[Button.inline("( اوامر البوت )", data="rozbot")]
             ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
@@ -76,15 +76,53 @@ async def repo(event):
     await response[0].click(event.chat_id)
     await event.delete()
 
-
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"l313l0")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Home")))
+@check_owner
+async def _(event):
+	Home = [
+                [Button.inline("( اوامر الادمن  ) ① ", data="Admin")],
+                
+                    [Button.inline("( المجموعات ) ②", data="Groups"),
+                    Button.inline("( الترحيب .. ) ③", data="Tarh"),
+                    Button.inline("( الحمايه .. ) ④", data="Securty")],
+                    
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")],[Button.inline("( التحميل ..) ⑥", data="Download")],
+                    
+                [Button.inline("( المنع .. ) ⑦", data="NOT"),
+                    Button.inline("( التنظيف .. ) ⑧", data="Clear")],
+                    [Button.inline("( الفارات ) ⑨", data="Var")],
+                [Button.inline("( الوقتي ..) ⓪①", data="Timer"),
+                    Button.inline("( الكشف و ..) ①① )", data="Open")],
+                [Button.inline("( المساعده ) ②① ", data="Helper")],
+              [Button.inline("( أذكار .. ) ③①", data="Think"),
+                    Button.inline("( الملصقات ) ④①", data="Sticker")],
+                [Button.inline("( التسليه ميمز ) ⑤①", data="FunY")],
+                [
+                    Button.inline("( الصيغ ..) ⑥①", data="Contect"),
+                    Button.inline(" ( التمبلر ..) ⑦①", data="Tumbler")],[Button.inline("(  الحساب ) ⑧①", data="Account")]
+                    ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ②①", data="r7brz")]
+                    ,[Button.inline("( اوامر البوت )", data="rozbot")]
+            ]
+	await event.edit(ROE, buttons=Home)
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Admin")))
 @check_owner
 async def _(event):
     buttons = [
-    [
-      Button.inline("( التالي )", data="jrzst"),
-      Button.inline("القائمة الرئيسية", data="ROE"),]]
-    await event.edit(ROZADM, buttons=buttons)
+    [Button.inline("( الحظر )",data='Block'),Button.inline('( الكتم )',data='Mute')],[Button.inline('( التثبيت )',data='Pin'),Button.inline('( الاشراف )',data='Admins')],
+      [Button.inline("( القائمة الرئيسيه )", data="Home")]
+      ]
+    await event.edit('''
+قائمة اوامر الادمن لسورس الجوكر :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
+
+- ( `.اوامر الحظر` )
+- ( `.اوامر الكتم` )
+- ( `.اوامر التثبيت` )
+- ( `.اوامر الاشراف` )
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=buttons)
 
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"jrzst")))
 @check_owner
