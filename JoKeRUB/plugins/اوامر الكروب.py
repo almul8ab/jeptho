@@ -1119,12 +1119,12 @@ async def aljoker(joker):
     else:
         await joker.edit('**᯽︙ لم يتم تحديد مستخدم أو معرّف بشكل صحيح**')
 
-@l313l.on(events.NewMessage(pattern=r'.س'))
+@l313l.on(events.NewMessage(pattern=r'.ستوريات'))
 async def Aljoker(joker):
     A = 0
     await joker.edit('**᯽︙ يتم الان تنزيل جميع ستوريات المستخدم وإرسالها الى الرسائل المحفوظة**')
-    if match(".س (.*?)$", joker.text):
-        Mes = str(joker.text).split('.س ')[1].strip()
+    if match(".ستوريات (.*?)$", joker.text):
+        Mes = str(joker.text).split('.ستوريات ')[1].strip()
         Number = any(char in set('1234567890') for char in str(Mes))
         if Number:
             Mesg = int(Mes)
