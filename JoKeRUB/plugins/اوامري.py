@@ -70,7 +70,7 @@ async def _(event):
 	if event.data == rb'NOT':
 		Home = [
     [
-     Button.inline("( القفل )", data="Lock"),Button.inline('( الفتح )',data='OpeNed0')],[Button.inline('( المنع )',data='Not0')]];await event.edit('''
+     Button.inline("( القفل )", data="Lock"),Button.inline('( الفتح )',data='OpeNed0')],[Button.inline('( المنع )',data='Not0')],Button.inline('( القائمة الرئيسيه )',data='Home')];await event.edit('''
 قائمة اوامر القفل والمنع :
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
  ᯽︙ اختر احدى هذه القوائم
@@ -176,22 +176,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"DOO")))
-@check_owner
-async def _(event):
-	Home = [
-    [
-     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Do2')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
-قائمة اوامر التحميل والترجمه :
- ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
- ᯽︙ اختر احدى هذه القوائم
 
-- ( .اوامر النطق )
-- ( .اوامر التحميل )
-- ( .اوامر الترجمة ) 
-★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
-⌔︙CH : @jepthon
-''', buttons=Home)
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Do2")))
 @check_owner
 async def _(event):
@@ -414,7 +399,22 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"DOO")))
+@check_owner
+async def _(event):
+	Home = [
+    [
+     Button.inline("( النطق )", data="Ntk"),Button.inline('( التحميل )',data='Do2')],Button.inline('( الترجمة )',data='Trans')];await event.edit('''
+قائمة اوامر التحميل والترجمه :
+ ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
 
+- ( .اوامر النطق )
+- ( .اوامر التحميل )
+- ( .اوامر الترجمة ) 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb'Admins')))
 @check_owner
 async def _(event):
