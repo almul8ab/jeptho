@@ -28,7 +28,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline("( الترحيب .. ) ③", data="Tarh"),
                     Button.inline("( الحمايه .. ) ④", data="Securty")],
                     
-                    [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")],[Button.inline("( التحميل ..) ⑥", data="Download")],
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="TargetU")],[Button.inline("( التحميل ..) ⑥", data="Download1")],
                     
                 [Button.inline("( المنع .. ) ⑦", data="NOT"),
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
@@ -64,7 +64,93 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 )
             await event.answer([result] if result else None)
 
+@l313l.tgbot.on(CallbackQuery)
+@check_owner
+async def _(event):
+	if event.data == rb'NOT':
+		Home = [
+    [
+     Button.inline("( القفل )", data="Lock"),Button.inline('( الفتح )',data='OpeNed0')],[Button.inline('( المنع )',data='Not0')]];await event.edit('''
+قائمة اوامر القفل والمنع :
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه القوائم
 
+- ( .اوامر القفل )
+- ( .اوامر الفتح )
+- ( .اوامر المنع ) 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+⌔︙CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'Lock':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر القـفـل 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .قفل + الاضافة ) 
+ تكتب الامر مع الاضافة لقفل شي معين في المجموعة 
+
+الاضافات  : 
+ - الدردشه  : لقفل ارسال الرسائل 
+- الوسائط   : لقفل ارسال الوسائط
+ - الملصقات  : لقفل ارسال الملصقات
+- الروابط  : لقفل ارسال الروابط
+- المتحركه  : لقفل ارسال المتحركه
+- الالعاب  : لقفل ارسال الالعاب الانلاين
+- الانلاين  : لقفل ارسال البوتات الانلاين
+- التصويت  : لقفل ارسال التوصيتات 
+- الكل :  لقفل ارسال كل شي
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'OpeNed0':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الفـتـح 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .فتح + الاضافة ) 
+ تكتب الامر مع الاضافة لفتـح شي معين في المجموعة 
+
+الاضافات  : 
+ - الدردشه  : لفتح ارسال الرسائل 
+- الوسائط   : لفتح ارسال الوسائط
+ - الملصقات  : لفتح ارسال الملصقات
+- الروابط  : لفتح ارسال الروابط
+- المتحركه  : لفتح ارسال المتحركه
+- الالعاب  : لفتح ارسال الالعاب الانلاين
+- الانلاين  : لفتح ارسال البوتات الانلاين
+- التصويت  : لفتح ارسال التوصيتات 
+- الكل :  لفتح ارسال كل شي
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
+	elif event.data == rb'Not0':
+		Home = [
+    [
+     Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
+شـرح عـن اوامـر الـمنـع 
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+ ᯽︙ اختر احدى هذه الاوامر 
+
+- ( .منع + الكلمة ) 
+ لمـنع الـكلمة في الـدردشة وسيتم حذفها عند ارسالها من اي شخص 
+
+- ( .الغاء منع + الكلمة ) 
+ لالغاء منع الكلمة والسماح للجميع بأرسالها في الدردشة
+
+- ( .قائمة المنع ) 
+لاظهـار قائمه الكـلمات الـتي منعـتها في الـدردشـه 
+
+★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
+᯽︙ CH : @jepthon
+''', buttons=Home)
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Ntk")))
 @check_owner
 async def _(event):
@@ -143,7 +229,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Download")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Download1")))
 @check_owner
 async def _(event):
 	Home = [
@@ -181,7 +267,7 @@ async def _(event):
                     Button.inline("( الترحيب .. ) ③", data="Tarh"),
                     Button.inline("( الحمايه .. ) ④", data="Securty")],
                     
-                    [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")],[Button.inline("( التحميل ..) ⑥", data="Download")],
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="TargetU")],[Button.inline("( التحميل ..) ⑥", data="Download1")],
                     
                 [Button.inline("( المنع .. ) ⑦", data="NOT"),
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
