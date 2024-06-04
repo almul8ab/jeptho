@@ -28,7 +28,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline("( الترحيب .. ) ③", data="Tarh"),
                     Button.inline("( الحمايه .. ) ④", data="Securty")],
                     
-                    [Button.inline("( الانتحال والتقليد ) ⑤", data="TargetU")],[Button.inline("( التحميل ..) ⑥", data="Download1")],
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="TargetU")],[Button.inline("( التحميل ..) ⑥", data="DOO")],
                     
                 [Button.inline("( المنع .. ) ⑦", data="NOT"),
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
@@ -176,7 +176,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Download1")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"DOO")))
 @check_owner
 async def _(event):
 	Home = [
@@ -269,7 +269,7 @@ async def _(event):
                     Button.inline("( الترحيب .. ) ③", data="Tarh"),
                     Button.inline("( الحمايه .. ) ④", data="Securty")],
                     
-                    [Button.inline("( الانتحال والتقليد ) ⑤", data="TargetU")],[Button.inline("( التحميل ..) ⑥", data="Download1")],
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="TargetU")],[Button.inline("( التحميل ..) ⑥", data="DOO")],
                     
                 [Button.inline("( المنع .. ) ⑦", data="NOT"),
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
@@ -462,7 +462,7 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Group")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Group2")))
 @check_owner
 async def _(event):
 	Home = [
@@ -494,7 +494,7 @@ async def _(event):
     Gr = [
     [
      Button.inline("( التفليش )", data="Bom"),
-     Button.inline("( المحذوفين )", data="Deleted")],[Button.inline("( الكروب )",data='Group')],[Button.inline("( القائمة الرئيسيه )",data='Home')]]
+     Button.inline("( المحذوفين )", data="Deleted")],[Button.inline("( الكروب )",data='Group2')],[Button.inline("( القائمة الرئيسيه )",data='Home')]]
     await event.edit('''
 قائمة اوامر المجـموعه لسورس الجوكر :
  ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
