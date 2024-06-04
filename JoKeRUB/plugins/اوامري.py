@@ -220,7 +220,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Sec")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Sec1")))
 @check_owner
 async def _(event):
 	Home = [
@@ -248,7 +248,7 @@ async def _(event):
 @l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Securty")))
 @check_owner
 async def _(event):
-	Home = [[Button.inline('( الحماية )',data='Sec'),Button.inline('( التلكراف )',data='Telegraph')],
+	Home = [[Button.inline('( الحماية )',data='Sec1'),Button.inline('( التلكراف )',data='Telegraph')],
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
 قائمة اوامر حـماية الخاص والتلكراف :
@@ -520,12 +520,12 @@ async def _(event):
 ''',buttons=Home)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Target")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"TargetU")))
 @check_owner
 async def _(event):
     buttons = [
     [
-     Button.inline("( الانتحال )", data="Tar"),
+     Button.inline("( الانتحال )", data="TarU"),
      Button.inline("( التقليد )", data="LikU")],[Button.inline('( المنشن )',data='mention')],[Button.inline('( القائمة الرئيسة )',data='Home')]]
     
     await event.edit('''
@@ -541,7 +541,7 @@ async def _(event):
 ''', buttons=buttons)
 
 
-@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"Tar")))
+@l313l.tgbot.on(CallbackQuery(data=re.compile(rb"TarU")))
 @check_owner
 async def _(event):
     Home = [
