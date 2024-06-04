@@ -280,7 +280,7 @@ async def _(event):
 ★•┉ ┉ ┉ ┉ ┉ ┉  ┉ ┉ ┉ ┉•★
 ᯽︙ CH : @jepthon
 ''', buttons=Home)
-	elif event.data == rb 'Voice':
+	elif event.data == rb'Voice':
 		Home = [[Button.inline('( ميمز )',data='Mems1'),Button.inline('( ميمز 2 )',data='Mems2')],[Button.inline('( ميمز 3 )',data = 'Mems3'),Button.inline('( ميمز 4 )',data = 'Mems4')],[Button.inline('( ميمز 5 )',data = 'Mems5'),Button.inline('( انمي )',data='Anmi')],
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
