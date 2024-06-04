@@ -123,7 +123,7 @@ async def _(event):
 ⌔︙CH : @jepthon
 ''', buttons=Home)
 	elif event.data == rb'Colect':
-		Home = [[Button.inline('( اوامر التجميع )',data = 'Control'),Button.inline('( اوامر وعد )',data ='Waad')]
+		Home = [[Button.inline('( اوامر التجميع )',data = 'Control'),Button.inline('( اوامر وعد )',data ='Waad')],
     [
      Button.inline("( القائمة الرئيسية )", data="Home")]];await event.edit('''
 قائمة اوامر تجميع النقاط و بوت وعد :
