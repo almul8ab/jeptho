@@ -28,7 +28,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     Button.inline("( الترحيب .. ) ③", data="Tarh"),
                     Button.inline("( الحمايه .. ) ④", data="Securty")],
                     
-                    [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")], 
+                    [Button.inline("( الانتحال والتقليد ) ⑤", data="Target")],[Button.inline("( التحميل ..) ⑥", data="Download")],
                     
                 [Button.inline("( المنع .. ) ⑦", data="NOT"),
                     Button.inline("( التنظيف .. ) ⑧", data="Clear")],
@@ -42,7 +42,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                 [
                     Button.inline("( الصيغ ..) ⑥①", data="Contect"),
                     Button.inline(" ( التمبلر ..) ⑦①", data="Tumbler")],[Button.inline("(  الحساب ) ⑧①", data="Account")]
-                    ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ②①", data="r7brz")]
+                    ,[Button.inline("( ميوزك ) ⑨①", data="Music"),Button.inline("( بصمات ) ⓪②", data="Voice")],[Button.inline("( التجميع ) ①②", data="r7brz")]
                     ,[Button.inline("( اوامر البوت )", data="rozbot")]
             ]
             if JEP_IC and JEP_IC.endswith((".jpg", ".png", "gif", "mp4")):
