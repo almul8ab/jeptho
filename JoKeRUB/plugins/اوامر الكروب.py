@@ -65,9 +65,11 @@ BANNED_RIGHTS = ChatBannedRights(
     send_inline=True,
     embed_links=True,
 )
+
 marriage = []
 joker_marriage = []
 marriage_details = {}
+marriage_contracts = {}
 dowry_per_message = 10 
 min_dowry = 1000  
 joker_balance = 20000  # تخزين رصيد البوت
@@ -130,7 +132,7 @@ async def handle_divorce(event):
 
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
-    global joker_balance
+    global joker_balance, marriage_contracts
     sender_id = event.sender_id
     if sender_id in marriage:
         if event.text.lower() in ['نعم', 'لا']:
@@ -142,6 +144,13 @@ async def handle_incoming_message(event):
                 dowry = marriage_details[sender_id]['dowry']  # استخدام المهر المحدد كقيمة المهر
                 if dowry <= joker_balance:
                     joker_balance -= dowry  # خصم المهر من الرصيد الكلي
+                    marriage_date = datetime.now()
+                    marriage_contracts[sender_id] = {
+                        'husband': replied_sender_entity.id,
+                        'wife': aljoker_entity.id,
+                        'dowry': dowry,
+                        'date': marriage_date
+                    }
                     await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {dowry}$\nالرصيد المتبقي: {joker_balance}$')
                     joker_marriage.append(sender_id)
                 else:
@@ -153,7 +162,26 @@ async def handle_incoming_message(event):
     elif sender_id in joker_marriage:
         if event.text.strip().lower() == 'زوجي':
             await event.reply('ها يعمري اني موجود لا تخافي ❤️😍')
-        
+
+@l313l.ar_cmd(pattern="عقد زواجي(?: |$)(.*)")
+async def show_marriage_contract(event):
+    user_id = event.sender_id
+    user_contracts = [contract for contract in marriage_contracts.values() if contract['husband'] == user_id or contract['wife'] == user_id]
+    if user_contracts:
+        reply_message = "عقود الزواج:\n\n"
+        for contract in user_contracts:
+            husband = await event.client.get_entity(contract['husband'])
+            wife = await event.client.get_entity(contract['wife'])
+            dowry = contract['dowry']
+            date = contract['date'].strftime('%Y-%m-%d %H:%M:%S')
+            reply_message += f"الزوج: [{husband.first_name}](tg://user?id={husband.id})\n"
+            reply_message += f"الزوجة: [{wife.first_name}](tg://user?id={wife.id})\n"
+            reply_message += f"المهر: {dowry}$\n"
+            reply_message += f"تاريخ الزواج: {date}\n\n"
+        await event.reply(reply_message)
+    else:
+        await event.reply("لا يوجد عقود زواج مسجلة لك.")
+
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
