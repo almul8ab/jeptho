@@ -74,14 +74,15 @@ joker_balance = 20000  # تخزين رصيد البوت
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
-    global joker_balance  # تعيين المتغير كمتغير عالمي
     sender_id = event.sender_id
-    jokker = event.pattern_match.group(1).strip()
+    message = event.pattern_match.group(1).strip()
+    
     try:
-        requested_dowry = int(jokker) if jokker else min_dowry
+        requested_dowry = int(message)
     except ValueError:
         await event.edit('الرجاء إدخال مبلغ صالح للمهر')
         return
+    
     if requested_dowry < min_dowry:
         await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
         return
@@ -139,9 +140,12 @@ async def handle_incoming_message(event):
                 aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
                 replied_sender_profile = f"[{replied_sender_entity.first_name}](tg://user?id={replied_sender_entity.id})"
                 dowry = marriage_details[sender_id]['dowry']  # استخدام المهر المحدد كقيمة المهر
-                joker_balance -= jokker  # خصم المهر من الرصيد الكلي
-                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {jokker}$\nالرصيد المتبقي: {joker_balance}$')
-                joker_marriage.append(sender_id)
+                if dowry <= joker_balance:
+                    joker_balance -= dowry  # خصم المهر من الرصيد الكلي
+                    await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {dowry}$\nالرصيد المتبقي: {joker_balance}$')
+                    joker_marriage.append(sender_id)
+                else:
+                    await event.reply('عذرًا، رصيد البوت غير كافي لإتمام الزواج')
                 marriage.remove(sender_id)
             else:
                 await event.reply('تم رفض طلب الزواج')
