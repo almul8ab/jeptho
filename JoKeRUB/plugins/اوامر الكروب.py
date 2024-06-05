@@ -120,9 +120,9 @@ async def handle_divorce(event):
             await event.edit('الزوجة ماموجوده وية زوجاتك البقية')
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
+    global joker_balance
     sender_id = event.sender_id
     if sender_id in marriage:
         if event.text.lower() in ['نعم', 'لا']:
@@ -131,8 +131,9 @@ async def handle_incoming_message(event):
                 replied_sender_entity = await event.client.get_entity('me')
                 aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
                 replied_sender_profile = f"[{replied_sender_entity.first_name}](tg://user?id={replied_sender_entity.id})"
-                dowry = marriage_details[sender_id]['dowry']  # استخدام المهر المجموع كقيمة المهر
-                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {dowry}')
+                dowry = marriage_details[sender_id]['dowry']  # استخدام المهر المحدد كقيمة المهر
+                joker_balance -= dowry  # خصم المهر من الرصيد الكلي
+                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {dowry}$\nالرصيد المتبقي: {joker_balance}$')
                 joker_marriage.append(sender_id)
                 marriage.remove(sender_id)
             else:
