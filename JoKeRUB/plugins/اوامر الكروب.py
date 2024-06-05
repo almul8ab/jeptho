@@ -66,6 +66,8 @@ BANNED_RIGHTS = ChatBannedRights(
     embed_links=True,
 )
 
+from datetime import datetime
+
 marriage = []
 joker_marriage = []
 marriage_details = {}
@@ -124,6 +126,9 @@ async def handle_divorce(event):
         replied_message = await event.get_reply_message()
         if replied_message.sender_id in joker_marriage:
             joker_marriage.remove(replied_message.sender_id)
+            for contract_id, contract in marriage_contracts.items():
+                if contract['husband'] == replied_message.sender_id or contract['wife'] == replied_message.sender_id:
+                    del marriage_contracts[contract_id]
             await event.edit('تمت طلاق الزوجة وارجاعها الى اهلها 😂')
         else:
             await event.edit('الزوجة ماموجوده وية زوجاتك البقية')
@@ -167,6 +172,7 @@ async def handle_incoming_message(event):
 async def show_marriage_contracts(event):
     user_id = event.sender_id
     user_contracts = [contract for contract in marriage_contracts.values() if contract['husband'] == user_id or contract['wife'] == user_id]
+    
     if user_contracts:
         reply_message = "عقود الزواج:\n\n"
         for contract in user_contracts:
