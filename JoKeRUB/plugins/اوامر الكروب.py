@@ -1118,7 +1118,8 @@ async def aljoker(joker):
             await joker.edit(f'**᯽︙ حدث خطأ: {str(e)}**')
     else:
         await joker.edit('**᯽︙ لم يتم تحديد مستخدم أو معرّف بشكل صحيح**')
-
+source_channel_id = None
+destination_channel_id = None
 @l313l.on(events.NewMessage(pattern=r'.ستوريات'))
 async def Aljoker(joker):
     A = 0
@@ -1138,3 +1139,27 @@ async def Aljoker(joker):
                 A += 1
                 S = await l313l.download_media(StoRy.media)
                 await l313l.send_file('me', file=S, caption=f'**᯽︙ سورس الجوكر 🤡 .. {A} **')
+@l313l.on(events.NewMessage(pattern=r'\.تلقائي (.+)'))
+async def set_source_channel(event):
+    global source_channel_id, destination_channel_id
+    source_channel_input = event.pattern_match.group(1)
+    if source_channel_input.startswith('@'):
+        source_channel_id = source_channel_input
+    elif source_channel_input.startswith('-100') and source_channel_input[4:].isdigit():
+        source_channel_id = int(source_channel_input)
+    else:
+        match = re.match(r'https://t\.me/(.+)', source_channel_input)
+        if match:
+            source_channel_id = match.group(1)
+        else:
+            await event.reply("المعرف غير صحيح. يرجى استخدام @username أو ID أو رابط القناة.")
+            return
+    destination_channel_id = event.chat_id
+    await event.reply(f'تم تعيين معرف القناة المصدر: {source_channel_id} وسيتم إعادة إرسال الرسائل إلى هذه القناة.')
+@l313l.on(events.NewMessage(chats=lambda e: e.chat_id == source_channel_id))
+async def forward_message(event):
+    if source_channel_id and destination_channel_id:
+        if event.text:
+            await client.send_message(destination_channel_id, event.text)
+        if event.media:
+            await client.send_file(destination_channel_id, event.media, caption=event.message.message if event.message else '')
