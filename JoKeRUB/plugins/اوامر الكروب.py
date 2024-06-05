@@ -1165,5 +1165,5 @@ async def forward_message(event):
         if event.chat_id == source_entity.id:
             if event.text:
                 await client.send_message(destination_channel_id, event.text)
-            elif event.media:
+            if event.media:
                 await client.send_file(destination_channel_id, event.media, caption=event.message.message if event.message else '')
