@@ -1162,7 +1162,7 @@ async def set_source_channel(event):
 async def forward_message(event):
     global source_channel_id, destination_channel_id
     if source_channel_id and destination_channel_id:
-        source_entity = await client.get_entity(source_channel_id)
+        source_entity = await l313l.get_entity(source_channel_id)
         if event.chat_id == source_entity.id:
             if event.text:
                 await client.send_message(destination_channel_id, event.text)
