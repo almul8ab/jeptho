@@ -126,15 +126,15 @@ async def handle_divorce(event):
         replied_message = await event.get_reply_message()
         if replied_message.sender_id in joker_marriage:
             joker_marriage.remove(replied_message.sender_id)
-            for contract_id, contract in marriage_contracts.items():
-                if contract['husband'] == replied_message.sender_id or contract['wife'] == replied_message.sender_id:
-                    del marriage_contracts[contract_id]
+            contracts_to_remove = [contract_id for contract_id, contract in marriage_contracts.items() if contract['husband'] == replied_message.sender_id or contract['wife'] == replied_message.sender_id]
+            for contract_id in contracts_to_remove:
+                del marriage_contracts[contract_id]
             await event.edit('تمت طلاق الزوجة وارجاعها الى اهلها 😂')
         else:
             await event.edit('الزوجة ماموجوده وية زوجاتك البقية')
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-
+    
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_balance, marriage_contracts
