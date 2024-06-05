@@ -163,8 +163,8 @@ async def handle_incoming_message(event):
         if event.text.strip().lower() == 'زوجي':
             await event.reply('ها يعمري اني موجود لا تخافي ❤️😍')
 
-@l313l.ar_cmd(pattern="عقد زواجي(?: |$)(.*)")
-async def show_marriage_contract(event):
+@l313l.ar_cmd(pattern="عقد الزواج")
+async def show_marriage_contracts(event):
     user_id = event.sender_id
     user_contracts = [contract for contract in marriage_contracts.values() if contract['husband'] == user_id or contract['wife'] == user_id]
     if user_contracts:
@@ -173,15 +173,17 @@ async def show_marriage_contract(event):
             husband = await event.client.get_entity(contract['husband'])
             wife = await event.client.get_entity(contract['wife'])
             dowry = contract['dowry']
-            date = contract['date'].strftime('%Y-%m-%d %H:%M:%S')
+            date = contract['date'].strftime('%Y-%m-%d')
+            time = contract['date'].strftime('%I:%M %p')
+            meridiem = "صباحًا" if int(contract['date'].strftime('%H')) < 12 else "مساءًا"  # تحديد الفترة (صباحًا / مساءًا)
             reply_message += f"الزوج: [{husband.first_name}](tg://user?id={husband.id})\n"
             reply_message += f"الزوجة: [{wife.first_name}](tg://user?id={wife.id})\n"
             reply_message += f"المهر: {dowry}$\n"
-            reply_message += f"تاريخ الزواج: {date}\n\n"
+            reply_message += f"تاريخ الزواج: {date}\n"
+            reply_message += f"الساعة: {time} {meridiem}\n\n"
         await event.reply(reply_message)
     else:
         await event.reply("لا يوجد عقود زواج مسجلة لك.")
-
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
