@@ -190,6 +190,19 @@ async def show_marriage_contracts(event):
         await event.reply(reply_message)
     else:
         await event.reply("لا يوجد عقود زواج مسجلة لك.")
+@l313l.ar_cmd(pattern="نسواني")
+async def handle_call_wife(event):
+    mentions = []
+    for wife_id in joker_marriage:
+        wife_entity = await event.client.get_entity(wife_id)
+        mentions.append(f"[{wife_entity.first_name}](tg://user?id={wife_id})")
+    if mentions:
+        if len(mentions) == 1:
+            await event.edit(f'تعالي حبيبتي زوجج يريدج ❤️: {mentions[0]}')
+        else:
+            await event.edit(f'تعالن حبيباتي رجلچن يريدچن ❤️: {" ,".join(mentions)}')
+    else:
+        await event.reply('لا يوجد زوجات متزوجات حالياً.')
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
