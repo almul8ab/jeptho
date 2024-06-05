@@ -74,17 +74,28 @@ joker_balance = 20000  # تخزين رصيد البوت
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
+    global joker_balance  # تعيين المتغير كمتغير عالمي
     sender_id = event.sender_id
+    jokker = event.pattern_match.group(1).strip()
+    try:
+        requested_dowry = int(message) if message else min_dowry
+    except ValueError:
+        await event.edit('الرجاء إدخال مبلغ صالح للمهر')
+        return
+    if requested_dowry < min_dowry:
+        await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
+        return
+    
+    if requested_dowry > joker_balance:
+        await event.edit('عذرًا، رصيد البوت غير كافي لقبول الزواج')
+        return
+
     if event.is_reply:
         replied_message = await event.get_reply_message()
         if replied_message.sender_id:
             if len(joker_marriage) < 4:
                 if replied_message.sender_id not in joker_marriage:
-                    dowry = min_dowry  # تحديد المهر ليكون 1000
-                    if dowry > joker_balance:
-                        await event.edit('عذرًا، رصيد البوت غير كافي لقبول الزواج')
-                        return
-                    marriage_details[replied_message.sender_id] = {'dowry': dowry}
+                    marriage_details[replied_message.sender_id] = {'dowry': requested_dowry}
                     marriage.append(replied_message.sender_id)
                     await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
                 else:
@@ -128,8 +139,8 @@ async def handle_incoming_message(event):
                 aljoker_profile = f"[{aljoker_entity.first_name}](tg://user?id={aljoker_entity.id})"
                 replied_sender_profile = f"[{replied_sender_entity.first_name}](tg://user?id={replied_sender_entity.id})"
                 dowry = marriage_details[sender_id]['dowry']  # استخدام المهر المحدد كقيمة المهر
-                joker_balance -= dowry  # خصم المهر من الرصيد الكلي
-                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {dowry}$\nالرصيد المتبقي: {joker_balance}$')
+                joker_balance -= jokker  # خصم المهر من الرصيد الكلي
+                await event.reply(f'الف مبروووك الى {replied_sender_profile} و {aljoker_profile} اصبحا زوجاً وزوجة\nالمهر: {jokker}$\nالرصيد المتبقي: {joker_balance}$')
                 joker_marriage.append(sender_id)
                 marriage.remove(sender_id)
             else:
@@ -138,7 +149,7 @@ async def handle_incoming_message(event):
     elif sender_id in joker_marriage:
         if event.text.strip().lower() == 'زوجي':
             await event.reply('ها يعمري اني موجود لا تخافي ❤️😍')
-    
+        
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
