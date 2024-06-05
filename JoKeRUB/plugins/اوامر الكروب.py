@@ -1154,12 +1154,17 @@ async def set_source_channel(event):
         else:
             await event.reply("المعرف غير صحيح. يرجى استخدام @username أو ID أو رابط القناة.")
             return
+
     destination_channel_id = event.chat_id
     await event.reply(f'تم تعيين معرف القناة المصدر: {source_channel_id} وسيتم إعادة إرسال الرسائل إلى هذه القناة.')
-@l313l.on(events.NewMessage(chats=lambda e: e.chat_id == source_channel_id))
+
+@l313l.on(events.NewMessage)
 async def forward_message(event):
+    global source_channel_id, destination_channel_id
     if source_channel_id and destination_channel_id:
-        if event.text:
-            await client.send_message(destination_channel_id, event.text)
-        if event.media:
-            await client.send_file(destination_channel_id, event.media, caption=event.message.message if event.message else '')
+        source_entity = await client.get_entity(source_channel_id)
+        if event.chat_id == source_entity.id:
+            if event.text:
+                await client.send_message(destination_channel_id, event.text)
+            if event.media:
+                await client.send_file(destination_channel_id, event.media, caption=event.message.message if event.message else '')
