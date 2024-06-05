@@ -78,7 +78,7 @@ async def handle_marriage_request(event):
     sender_id = event.sender_id
     jokker = event.pattern_match.group(1).strip()
     try:
-        requested_dowry = int(message) if message else min_dowry
+        requested_dowry = int(jokker) if jokker else min_dowry
     except ValueError:
         await event.edit('الرجاء إدخال مبلغ صالح للمهر')
         return
