@@ -70,27 +70,21 @@ joker_marriage = []
 marriage_details = {}
 dowry_per_message = 10 
 min_dowry = 1000  
-joker_balance = 900  # تخزين رصيد البوت
+joker_balance = 20000  # تخزين رصيد البوت
 
 @l313l.ar_cmd(pattern="نزوج(?: |$)(.*)")
 async def handle_marriage_request(event):
-    global joker_balance  # تعيين المتغير كمتغير عالمي
     sender_id = event.sender_id
     if event.is_reply:
         replied_message = await event.get_reply_message()
         if replied_message.sender_id:
             if len(joker_marriage) < 4:
                 if replied_message.sender_id not in joker_marriage:
-                    dowry = joker_balance
-                    if dowry < min_dowry:
-                        await event.edit(f'عذرًا، المهر يجب أن يكون على الأقل {min_dowry}$')
-                        return
-                    requested_dowry = dowry
-                    if requested_dowry > joker_balance:
+                    dowry = min_dowry  # تحديد المهر ليكون 1000
+                    if dowry > joker_balance:
                         await event.edit('عذرًا، رصيد البوت غير كافي لقبول الزواج')
                         return
-                    joker_balance -= requested_dowry
-                    marriage_details[replied_message.sender_id] = {'dowry': requested_dowry}
+                    marriage_details[replied_message.sender_id] = {'dowry': dowry}
                     marriage.append(replied_message.sender_id)
                     await event.edit('هل تريد الزواج مني؟ (نعم/لا)')
                 else:
@@ -99,7 +93,7 @@ async def handle_marriage_request(event):
                 await event.edit('عذرًا، لقد وصلنا إلى الحد الأقصى للزواجيات')
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
-        
+
 @l313l.on(events.NewMessage(outgoing=True))  # تحديث الرسالة الصادرة
 async def handle_outgoing_message(event):
     global joker_balance
@@ -109,6 +103,7 @@ async def handle_outgoing_message(event):
 async def check_bot_balance(event):
     global joker_balance
     await event.reply(f"رصيد البوت الحالي: {joker_balance}$")
+
 @l313l.ar_cmd(pattern="طالق")
 async def handle_divorce(event):
     if event.is_reply:
@@ -120,6 +115,7 @@ async def handle_divorce(event):
             await event.edit('الزوجة ماموجوده وية زوجاتك البقية')
     else:
         await event.edit('يجب الرد على رسالة المستخدم لتنفيذ الأمر')
+
 @l313l.on(events.NewMessage(incoming=True))
 async def handle_incoming_message(event):
     global joker_balance
@@ -142,7 +138,7 @@ async def handle_incoming_message(event):
     elif sender_id in joker_marriage:
         if event.text.strip().lower() == 'زوجي':
             await event.reply('ها يعمري اني موجود لا تخافي ❤️😍')
-
+    
 async def ban_user(chat_id, i, rights):
     try:
         await l313l(functions.channels.EditBannedRequest(chat_id, i, rights))
